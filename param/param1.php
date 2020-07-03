@@ -38,7 +38,7 @@
 			Cette partie permet à partir d'un fichier CSV d'étudier les données statistiques et, à partir d'une loi choisie préalablement, d'estimer ses paramètres par maximum de vraisemblance et sous les contraintes ci-dessus.
 		</p>
 		<p>
-			Le fichier CSV doit contenir une seule sorte de données, écrites sur une seule ligne et séparées par un espace.
+			Le fichier TXT ou CSV doit contenir une seule sorte de données, écrites sur une seule ligne et séparées par un espace.
 			<form method="POST" action="stats_csv.php" enctype="multipart/form-data">
 				<table class="alternate">
 					<tr>
