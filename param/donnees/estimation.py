@@ -2,13 +2,14 @@ import numpy as np
 import math
 import scipy.stats
 import argparse
+import random
 
-parser = argparse.ArgumentParser()
-parser.add_argument("loi", type=int, help="loi")
-parser.add_argument("param1",type=float,help="param1")
-parser.add_argument("param2",type=float,help="param2")
-parser.add_argument("taille",type=int,help="taille")
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("loi", type=int, help="loi")
+# parser.add_argument("param1",type=float,help="param1")
+# parser.add_argument("param2",type=float,help="param2")
+# parser.add_argument("taille",type=int,help="taille")
+# args = parser.parse_args()
 
 def logvs_hyperexpo(x,M): # x est un vecteur de R2 représentant les paramètres et M est un échantillon (x1,...,xn)
     res=0
@@ -75,30 +76,31 @@ def norme_gradient(vect):
 ### scipy minimize
 #contraintes
 def contrainteE(x,M):
-    return (-(x[1]/(x[0]*(x[0]+x[1])) + x[0]/(x[1]*(x[0]+x[1])))+np.mean(M)+1e-5)
+    return (-(x[1]/(x[0]*(x[0]+x[1])) + x[0]/(x[1]*(x[0]+x[1])))+np.mean(M)+1e-6)
 
 def contrainteE2(x,M):
-    return (-(2*x[1]/(x[0]*x[0]*(x[0]+x[1])) + 2*x[0]/(x[1]*x[1]*(x[0]+x[1])))+mom_emp2(M)+1e-5)
+    return (-(2*x[1]/(x[0]*x[0]*(x[0]+x[1])) + 2*x[0]/(x[1]*x[1]*(x[0]+x[1])))+mom_emp2(M)+1e-6)
 
-m=generate_hyperexpo(0.7,0.9,1000)
+m=generate_hyperexpo(12,7,1000)
 cons = [{'type':'ineq', 'fun': (lambda x: contrainteE(x,m))}, {'type':'ineq', 'fun': (lambda x: contrainteE2(x,m))}]
 
 def max_vs_minimize1(M,logvs):
     while True:
-        valeur_initiale=np.array([np.random.rand(),np.random.rand()])
-        R=scipy.optimize.minimize((lambda y: -logvs(y,M)),valeur_initiale,constraints=cons,options={'maxiter': 500}).x
-        if norme_gradient(gradient((lambda y: logvs_hyperexpo(y,M)),R))<1e-3:
-            break
+        valeur_initiale=np.array([random.random(),random.random()])
+        print(valeur_initiale)
+        R=scipy.optimize.minimize((lambda y: -logvs(y,M)),valeur_initiale,constraints=cons,method='COBYLA').x
+        if norme_gradient(gradient((lambda y: logvs_hyperexpo(y,M)),R))<1e-6:
+            return R
     return R
 
-# def logvs_norm(x,M):
-#     n=np.size(M)
-#     c=(1/2*np.pi*x[1])**(n/2)
-#     m=np.mean(M)
-#     res=0
-#     for i in M:
-#         res=res+((i-m)**2)
-#     return c*np.exp(-(res+n*(m-x[0])*(m-x[0]))/(2*x[1]))
+def logvs_norm(x,M):
+    n=np.size(M)
+    c=(1/2*np.pi*x[1])**(n/2)
+    m=np.mean(M)
+    res=0
+    for i in M:
+        res=res+((i-m)**2)
+    return -n*np.log(x[1])/2-n*np.log(2*np.pi)/2-(1/(2*x[1]))*res
 #
 # def contrainteF(x,M):
 #     return -x[0]+np.mean(M)+1e-6
@@ -106,7 +108,7 @@ def max_vs_minimize1(M,logvs):
 # def contrainteF2(x,M):
 #     return -x[1]-x[0]*x[0]+mom_emp2(M)+1e-6
 #
-# m2=np.random.normal(1,2,500)
+m2=np.random.normal(1,2,500)
 #
 # cons2 = [{'type':'ineq', 'fun': (lambda x: contrainteF(x,m2))}, {'type':'ineq', 'fun': (lambda x: contrainteF2(x,m2))}]
 #
