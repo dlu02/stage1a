@@ -27,18 +27,14 @@ def max_vs(M):
     return R
 
 def generate_hyperexpo(l1,l2,N):
+    def fdr_hyperexpo2(x,u,l1,l2):
+        return ((1-math.exp(-l1*x))/l1 + (1-math.exp(-l2*x))/l2 - (u*(l1+l2))/(l1*l2))
     valeur_initiale=np.random.rand()
     res=[]
     for i in range(N-1):
         u=np.random.rand()
         res.append((scipy.optimize.fsolve(lambda x: fdr_hyperexpo2(x,u,l1,l2),valeur_initiale))[0])
     return res
-
-def contrainteE(x,M):
-    return ((x[1]/(x[0]*(x[0]+x[1])) + x[0]/(x[1]*(x[0]+x[1])))-np.mean(M))
-
-def contrainteE2(x,M):
-    return ((2*x[1]/(x[0]*x[0]*(x[0]+x[1])) + 2*x[0]/(x[1]*x[1]*(x[0]+x[1])))-mom_emp2(M))
 
 def mom_emp2(M):
     n=np.size(M)
@@ -48,7 +44,7 @@ def mom_emp2(M):
     return res/n
 
 def eq1(x,M):
-    return [gradient((lambda y: logvs_hyperexpo(y,M)),x)[0],gradient((lambda y: logvs_hyperexpo(y,M)),x)[1],contrainteE(x,M),contrainteE2(x,M)]
+    return [gradient((lambda y: logvs_hyperexpo(y,M)),x),contrainteE(x,M),contrainteE2(x,M)]
 
 def max_vs_m1(M):
     valeur_initiale=np.array([np.random.rand()*3,np.random.rand()*3,0,0])
@@ -71,6 +67,56 @@ def gradient(fonction,point):
         a=derivee_num(fonction,point,k,1e-06)
         res=np.append(res,a)
     return res
+
+## fonction de calcul de la norme du gradient
+def norme_gradient(vect):
+    return np.dot(vect,vect)
+
+### scipy minimize
+#contraintes
+def contrainteE(x,M):
+    return (-(x[1]/(x[0]*(x[0]+x[1])) + x[0]/(x[1]*(x[0]+x[1])))+np.mean(M)+1e-5)
+
+def contrainteE2(x,M):
+    return (-(2*x[1]/(x[0]*x[0]*(x[0]+x[1])) + 2*x[0]/(x[1]*x[1]*(x[0]+x[1])))+mom_emp2(M)+1e-5)
+
+m=generate_hyperexpo(0.7,0.9,1000)
+cons = [{'type':'ineq', 'fun': (lambda x: contrainteE(x,m))}, {'type':'ineq', 'fun': (lambda x: contrainteE2(x,m))}]
+
+def max_vs_minimize1(M,logvs):
+    while True:
+        valeur_initiale=np.array([np.random.rand(),np.random.rand()])
+        R=scipy.optimize.minimize((lambda y: -logvs(y,M)),valeur_initiale,constraints=cons,options={'maxiter': 500}).x
+        if norme_gradient(gradient((lambda y: logvs_hyperexpo(y,M)),R))<1e-3:
+            break
+    return R
+
+# def logvs_norm(x,M):
+#     n=np.size(M)
+#     c=(1/2*np.pi*x[1])**(n/2)
+#     m=np.mean(M)
+#     res=0
+#     for i in M:
+#         res=res+((i-m)**2)
+#     return c*np.exp(-(res+n*(m-x[0])*(m-x[0]))/(2*x[1]))
+#
+# def contrainteF(x,M):
+#     return -x[0]+np.mean(M)+1e-6
+#
+# def contrainteF2(x,M):
+#     return -x[1]-x[0]*x[0]+mom_emp2(M)+1e-6
+#
+# m2=np.random.normal(1,2,500)
+#
+# cons2 = [{'type':'ineq', 'fun': (lambda x: contrainteF(x,m2))}, {'type':'ineq', 'fun': (lambda x: contrainteF2(x,m2))}]
+#
+# def max_vs_minimize1n(M,logvs):
+#     while True:
+#         valeur_initiale=np.array([np.random.rand()*5,np.random.rand()*5])
+#         R=scipy.optimize.minimize((lambda y: -logvs(y,M)),valeur_initiale,constraints=cons,method='L-BFGS-B').x
+#         if norme_gradient(gradient((lambda y: logvs(y,M)),R))<1e-10:
+#             break
+#     return R
 
 ### Matrice hessienne
 def derivee_seconde_differentes(fonction,x0,i,j,h=1e-06): # cas de dérivées partielles secondes sur deux variables différentes
