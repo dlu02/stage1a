@@ -6,7 +6,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("nom_fichier", type=str, help="nom du fichier")
-parser.add_argument("b", type=int, help="b")
+parser.add_argument("b", type=float, help="b")
 args = parser.parse_args()
 
 m=numpy.loadtxt(args.nom_fichier)
@@ -60,9 +60,9 @@ def fact(n):
 
 def cab(a,b):  # coefficient C(a,b)
     res=0
-    for k in range(1,numpy.size(a)):
+    for k in range(1,numpy.size(a)+1):
         res=res+((a[k-1]*fact(k))/(b**(k+1)))
-    return res
+    return 1/res
 
 def expo_poly(x,a,b):
     res=0
@@ -76,4 +76,17 @@ def fdr_expopoly(x,a,b):
         res=res+a[k]*fact(k)/(b**(k+1))
     return cab(a,b)*res*(1-numpy.exp(-b*x))
 
-trace_densite(expo_poly,fdr_expopoly,m,args.b)
+## cas où a est un unique réel
+def cab2(a,b):
+    return (b*b)/a
+
+def expo_poly2(x,a,b):
+    return cab2(a,b)*a*x*numpy.exp(-b*x)
+
+def fdr_expopoly2(x,a,b):
+    return cab2(a,b)*a*(1-numpy.exp(-b*x))/(b*b)
+
+if (numpy.size(m)==1):
+    trace_densite(expo_poly2,fdr_expopoly2,m,args.b)
+else:
+    trace_densite(expo_poly,fdr_expopoly,m,args.b)
