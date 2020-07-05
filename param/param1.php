@@ -37,8 +37,8 @@
 			$$\max\limits_{\theta} \ell (x_1,...,x_n;\theta) \quad \text{s.c.} \quad \begin{cases} \displaystyle E(X)=\dfrac{1}{n}\sum_{i=1}^n x_i \\ \displaystyle E(X^2) = \dfrac{1}{n}\sum_{i=1}^n x_i^2 \end{cases}$$
 			Cette partie permet à partir d'un fichier CSV d'étudier les données statistiques et, à partir d'une loi choisie préalablement, d'estimer ses paramètres par maximum de vraisemblance et sous les contraintes ci-dessus.
 		</p>
-		<p>
-			Le fichier TXT ou CSV doit contenir une seule sorte de données, écrites sur une seule ligne et séparées par un espace.
+
+		Le fichier TXT ou CSV doit contenir une seule sorte de données, écrites sur une seule ligne et séparées par un espace.
 			<form method="POST" action="stats_csv.php" enctype="multipart/form-data">
 				<table class="alternate">
 					<tr>
@@ -60,9 +60,8 @@
 					<tr> <th colspan="2"><input type="submit" name="submit4" id="submit4" value="Envoyer"></th> </tr>
 				</table>
 			</form>
-		</p>
-		<p>NB 1 : pour l'instant, seule la loi hyperexponentielle est implémentée à des fins de tests.</p>
-		<p>NB 2 : l'optimisation est effectuée en résolvant le système d'équations $\nabla \mathcal{L} = \mathbf{0}$ suivi des contraintes, via la fonction scipy.optimize.fsolve. Pour l'instant, les résultats semblent aberrants. Voici le script python : <a href="donnees/stats_csv.py">stats_csv.py</a></p>
+		<p>NB 1 : pour l'instant, les lois hyperexponentielle, de Weibull, de Burr et Lomax sont implémentées.</p>
+		<p>NB 2 : l'optimisation est effectuée en résolvant le système d'équations $\nabla \mathcal{L} = \mathbf{0}$ suivi des contraintes, via la fonction scipy.optimize.fsolve, avec vérification de la norme du gradient qui doit être inférieure à 0.01 (j'ai choisi la rapidité au détriment de la précision). Pour l'instant, le temps de calcul est d'environ 25s. L'optimisation est en cours.</p>
 	</div>
 </body>
 </html>

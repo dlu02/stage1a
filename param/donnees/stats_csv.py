@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import math
 import scipy.stats
 import warnings
+from scipy.special import gamma
 
 parser = argparse.ArgumentParser()
 parser.add_argument("nom_fichier", type=str, help="nom du fichier")
@@ -201,7 +202,7 @@ def histo_Continue(data,k,nom=None):
 		plt.close()
 
 
-def do_operation(array,n,log_vs):
+def do_operation(array,n,loi):
 	if (n==0):
 		return round(np.amin(array),5)
 	elif (n==1):
@@ -228,7 +229,7 @@ def do_operation(array,n,log_vs):
 			return "Saisie invalide"
 	elif (n==8):
 		global temp
-		temp=max_vs_m1(array,log_vs)
+		temp=max_vs_m1(array,loi)
 		return temp[0]
 	elif (n==9):
 		return temp[1]
@@ -259,46 +260,130 @@ def convert(n): # pour convertir les entiers numpy en flottants usuels pour que 
 
 #################Estimation des paramètres
 
-#liste des logvs des lois
-def logvs_hyperexpo(x,M): # x est un vecteur de R2 représentant les paramètres et M est un échantillon (x1,...,xn)
-    res=0
-    c=(x[0]*x[1])/(x[0]+x[1])
-    for i in range(0,np.size(M)):
-        res=res+np.log(c*(np.exp(-x[0]*M[i])+np.exp(-x[1]*M[i])))
-    return res
-#
+### Gradient
+def derivee_num(fonction,x0,i,h=1e-06):
+	a=np.zeros(np.size(x0))
+	a[i]=1
+	return (fonction(x0+0.5*h*a)-fonction(x0-0.5*h*a))/h
 
-##Liste des moments 1 et 2 des lois
-def mom1_hyperexpo(x):
-	return ((x[1]/(x[0]*(x[0]+x[1])) + x[0]/(x[1]*(x[0]+x[1]))))
+#fonction test : test(x,y,z)=x+2yz+4z
+def test(a): # attention : a est un np.array (autrement dit un vecteur)
+	return a[0]+2*a[1]*a[2]+4*a[2]
 
-def mom2_hyperexpo(x):
-	return ((2*x[1]/(x[0]*x[0]*(x[0]+x[1])) + 2*x[0]/(x[1]*x[1]*(x[0]+x[1]))))
-##
+def gradient(fonction,point):
+	res=np.array([])
+	for k in range(0,np.size(point)):
+		a=derivee_num(fonction,point,k,1e-06)
+		res=np.append(res,a)
+	return res
 
-#fonctions usuelles pour le modèle 1
-# def grad_logvs(x,M,log_vs):
-#     return gradient(lambda y: logvs(y,M),x)
+## fonction de calcul de la norme du gradient
+def norme(vect):
+	return np.dot(vect,vect)
 
-# def max_vs(M):
-#     valeur_initiale=np.array([np.random.rand(),np.random.rand()])
-#     print(valeur_initiale)
-#     R=scipy.optimize.root(lambda x: grad_logvs_hyperexpo(x,M),valeur_initiale)
-#     return R
+### scipy fsolve
+#contraintes
+def contrainte1(x,M,ep):
+	return -ep(x)+np.mean(M)
 
-def contrainteE(x,M,mom1):
-    return (mom1(x)-np.mean(M))
+def contrainte2(x,M,mom):
+	return -mom(x)+mom_emp2(M)
 
-def contrainteE2(x,M,mom2):
-    return (mom2(x)-mom_emp2(M))
+#système d'équation à résoudre
+def eq1_bis(x,M,logvs,esp,mom2):
+	return [gradient((lambda y: logvs(y,M)),x)[0],gradient((lambda y: logvs(y,M)),x)[1],contrainte1(x,M,esp),contrainte2(x,M,mom2)]
+
+def max_vs_m1(M,loi):
+	ls=log_vs(loi)
+	moy=esp(loi)
+	mom2_f=mom2(loi)
+	res=[]
+	Rlist=[]
+	for k in range(0,5):
+		valeur_initiale=np.array([np.random.rand(),np.random.rand(),0,0])
+		R=scipy.optimize.fsolve(lambda x: eq1_bis(x,M,ls,moy,mom2_f),valeur_initiale,xtol=1e-2,maxfev=20)
+		R=np.array([R[0],R[1]])
+		res.append(norme(gradient((lambda y: ls(y,M)),R)))
+		Rlist.append(R)
+		if norme(gradient((lambda y: ls(y,M)),R))<1e-2:
+			return R
+	ind=res.index(min(res))
+	return Rlist[ind]
+
 
 def mom_emp2(M):
-    n=np.size(M)
-    res=0
-    for i in M:
-        res=res+i*i
-    return res/n
-#
+	n=np.size(M)
+	res=0
+	for i in range(n):
+		res=res+M[i]*M[i]
+	return res/n
+
+### Log-vraisemblances
+def logvs_hyperexpo(x,M): # x est un vecteur de R2 représentant les paramètres et M est un échantillon (x1,...,xn)
+	res=0
+	c=(x[0]*x[1])/(x[0]+x[1])
+	for i in range(0,np.size(M)):
+		res=res+np.log(c)+np.log(np.exp(-x[0]*M[i])+np.exp(-x[1]*M[i]))
+	return res
+
+def logvs_norm(x,M):
+	n=np.size(M)
+	c=(1/2*np.pi*x[1])**(n/2)
+	m=np.mean(M)
+	res=0
+	for i in M:
+		res=res+((i-m)**2)
+	return -n*np.log(x[1])/2-n*np.log(2*np.pi)/2-(1/(2*x[1]))*res
+
+def logvs_burr(x,M):
+	n=np.size(M)
+	y=n*np.log(x[0]*x[1])
+	res=0
+	for k in range(0,n):
+		res=res+((x[0]-1)*np.log(M[k])-(x[1]+1)*np.log(1+M[k]**(x[0])))
+	return -y-res
+
+def logvs_lomax(x,M):
+	n=np.size(M)
+	c=n*np.log(x[0]*(x[1]**(x[0])))
+	res=0
+	for k in range(n):
+		res=res+(x[0]+1)*np.log(x[1]+M[k])
+	return -c+res
+
+def logvs_weibull(x,M):
+	n=np.size(M)
+	c=n*np.log(x[1]/(x[0]**(x[1])))
+	res=0
+	for k in range(n):
+		res=res+((x[1]-1)*np.log(M[k])-(M[k]**(x[1]))/(x[0]**(x[1])))
+	return -c-res
+
+### Espérances et moments d'ordre 2
+
+def esp_burr(x):
+	return gamma(x[1]-(1/x[0]))*gamma(1+(1/x[0]))*(1/gamma(x[1]))
+
+def mom2_burr(x):
+	return gamma(x[1]-(2/x[0]))*gamma(1+(2/x[0]))*(1/gamma(x[1]))
+
+def esp_hyperexpo(x):
+	return x[1]/(x[0]*(x[0]+x[1])) + x[0]/(x[1]*(x[0]+x[1]))
+
+def mom2_hyperexpo(x):
+	return (2*x[1]/(x[0]*x[0]*(x[0]+x[1])) + 2*x[0]/(x[1]*x[1]*(x[0]+x[1])))
+
+def esp_lomax(x):
+	return (x[1]/(x[0]-1))
+
+def mom2_lomax(x):
+	return (x[1]**x[1]*gamma(x[0]-2)*gamma(3))/(gamma(x[0]))
+
+def esp_weibull(x):
+	return x[0]*gamma(1+1/x[1])
+
+def mom2_weibull(x):
+	return x[0]*x[0]*gamma(1+2/x[1])
 
 #choisir la fonction logvs suivant la loi
 def log_vs(loi):
@@ -316,45 +401,33 @@ def log_vs(loi):
 		return logvs_expoconvo
 
 #choisir le moment 1 et 2 suivant la loi
-def mom(loi):
+def esp(loi):
 	if loi=="hyperexpo":
-		return (mom1_hyperexpo,mom2_hyperexpo)
+		return esp_hyperexpo
 	elif loi=="lomax":
-		return (mom1_lomax,mom2_lomax)
+		return esp_lomax
 	elif loi=="weibull":
-		return (mom1_weibull,mom2_weibull)
+		return esp_weibull
 	elif loi=="expo_poly":
-		return (mom1_expopoly,mom2_expopoly)
+		return esp_expopoly
 	elif loi=="burr":
-		return (mom1_burr,mom2_burr)
+		return esp_burr
 	elif loi=="expo_convo":
-		return (mom1_expoconvo,mom2_expoconvo)
+		return esp_expoconvo
 
-#système d'équation à résoudre
-def eq1(x,M,loi):
-	logvs=log_vs(loi)
-	moment=mom(loi)
-	return [gradient((lambda y: logvs(y,M)),x)[0],gradient((lambda y: logvs(y,M)),x)[1],contrainteE(x,M,moment[0]),contrainteE2(x,M,moment[1])]
-
-def max_vs_m1(M,loi):
-    valeur_initiale=np.array([np.random.rand()*3,np.random.rand()*3,0,0])
-    R=scipy.optimize.fsolve(lambda x: eq1(x,M,loi),valeur_initiale)
-    return R
-
-### Gradient
-def derivee_num(fonction,x0,i,h=1e-06):
-    a=np.zeros(np.size(x0))
-    a[i]=1
-    return (fonction(x0+0.5*h*a)-fonction(x0-0.5*h*a))/h
-
-
-def gradient(fonction,point):
-    res=np.array([])
-    for k in range(0,np.size(point)):
-        a=derivee_num(fonction,point,k,1e-06)
-        res=np.append(res,a)
-    return res
-##############
+def mom2(loi):
+	if loi=="hyperexpo":
+		return mom2_hyperexpo
+	elif loi=="lomax":
+		return mom2_lomax
+	elif loi=="weibull":
+		return mom2_weibull
+	elif loi=="expo_poly":
+		return mom2_expopoly
+	elif loi=="burr":
+		return mom2_burr
+	elif loi=="expo_convo":
+		return mom2_expoconvo
 
 warnings.filterwarnings("ignore")  # ignorer les warnings
 
