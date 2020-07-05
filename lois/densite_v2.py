@@ -19,6 +19,8 @@ def do_operation():
         trace_densite(weibull,fdr_weibull,args.a,args.b)
     elif (args.loi==3):
         trace_densite(burr,fdr_burr,args.a,args.b)
+	elif (args.loi==4):
+		trace_densite(expo_convo,fdr_expoconvo,args.a,args.b)
 
 
 # def densite_1param(a,f,x_max):
@@ -129,6 +131,19 @@ def burr(x,a,b):
 
 def fdr_burr(x,a,b):
     return 1-((1+(x**a))**(-b))
+
+def expo_convo(x,a,b):
+	if a==b:
+		return a*a*x*numpy.exp(-a*x)
+	else:
+		c=(a*b)/(b-a)
+		return c*(numpy.exp(-a*x)+numpy.exp(-b*x))
+
+def fdr_expoconvo(x,a,b):
+	if a==b:
+		return 1-numpy.exp(-a*x)*(a*x+1)
+	else:
+		return 1+ (a/(b-a))*numpy.exp(-b*x)- (b/(b-a))*numpy.exp(-a*x)
 
 
 ### exécution du script
