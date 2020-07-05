@@ -361,6 +361,14 @@ def logvs_weibull(x,M):
 		res=res+((x[1]-1)*np.log(M[k])-(M[k]**(x[1]))/(x[0]**(x[1])))
 	return -c-res
 
+def logvs_expoconvo(x,M):
+	n=np.size(M)
+	c=n*np.log(x[0]*x[1])-n*np.log(x[1]-x[0])
+	res=0
+	for k in range(n):
+		res=res+np.log(np.exp(-x[0]*M[k])-np.exp(-x[1]*M[k]))
+	return -c-res
+
 ### Espérances, fonctions de répartition et moments d'ordre 2
 
 def esp_burr(x):
@@ -399,6 +407,24 @@ def mom2_weibull(x):
 
 def fdr_weibull(x,a,b):
 	return 1-np.exp(-(x/a)**b)
+
+def esp_expoconvo(x):
+	if x[0]==x[1]:
+		return 2/x[0]
+	else:
+		return 1/x[0]+1/x[1]
+
+def mom2_expoconvo(x):
+	if x[0]==x[1]:
+		return  6/(x[0]*x[0])
+	else:
+		return 2*(1/(x[1]**2) + 1/(x[0]*x[1]) + 1/(x[0]**2))
+
+def fdr_expoconvo(x,a,b):
+	if a==b:
+		return 1-np.exp(-a*x)*(a*x+1)
+	else:
+		return 1+(a/(b-a))*np.exp(-b*x)-(b/(b-a))*np.exp(-a*x)
 
 #choisir la fonction logvs suivant la loi
 def log_vs(loi):

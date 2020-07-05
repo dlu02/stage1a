@@ -61,8 +61,8 @@
 		<tr><td>Densité</td><td>$ \displaystyle  f(x,a)= \dfrac{a^2x}{\Gamma(2)} \mathrm{e}^{-ax} \mathbb{1}_{]0,+\infty[}(x)=a^2x \mathrm{e}^{-ax}\mathbb{1}_{]0,+\infty[}(x)$ (car $\Gamma(2)=(2-1)!=1$)</td></tr>
 		<tr><td>Domaines des paramètres</td><td>$a=b>0$</td></tr>
 		<tr><td>Fonction de répartition</td>
-		<td>Pour $x>0$, $\displaystyle F(x,a,b)=1-\mathrm{e}^{-ax}(ax+1)$</td></tr>
-		<tr><td>Moments d'ordre $k$</td><td>$\displaystyle \mathbb{E}[X^k]=k! \sum_{i=0}^k \dfrac{1}{a^i} \dfrac{1}{b^{k-i}}$</td></tr>
+		<td>Pour $x>0$, $\displaystyle F(x,a)=1-\mathrm{e}^{-ax}(ax+1)$</td></tr>
+		<tr><td>Moments d'ordre $k$</td><td>$\displaystyle \mathbb{E}[X^k]=\dfrac{(2+k-1)!}{a^k}$</td></tr>
 		<tr><td>$\displaystyle E(X)$</td><td>$\dfrac{2}{a}$</td></tr>
 		<tr><td>$\displaystyle V(X)$</td><td>$\dfrac{2}{a^2}$</td></tr>
 		<tr><td>Skewness</td><td>$\displaystyle \gamma_{1}=\dfrac{2}{\sqrt{2}}$</td></tr>

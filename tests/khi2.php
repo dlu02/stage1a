@@ -55,7 +55,7 @@
 					<tr> <th colspan="2"><input type="submit" name="submit4" id="submit4" value="Envoyer"></th> </tr>
 				</table>
 			</form>
-		<p>NB 1 : pour l'instant, les lois hyperexponentielle, de Weibull, de Burr et Lomax sont implémentées.</p>
+		<p>NB 1 : pour l'instant, toutes les lois sauf la loi exponentielle polynomiale sont implémentées.</p>
 		<p>NB 2 : pour l'instant, l'estimation des paramètres est effectuée suivant le modèle 1 décrit dans la page <a href="../param/param1.php">Estimation des paramètres</a></p>
 	</div>
 </body>
