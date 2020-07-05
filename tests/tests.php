@@ -41,6 +41,8 @@
 				$$\begin{cases} (H_0) : X_1,...,X_n \text{ suivent la loi } L \\ (H_1) : X_1,...,X_n \text{ ne suivent pas la loi } L \end{cases}$$
 				et nous fixons $\alpha=0.05$ la règle de décision : si la $p$-value retournée par le test dépasse $\alpha$, alors nous ne pouvons pas rejeter l'hypothèse $(H_0)$ et dans le cas contraire, nous pouvons rejeter l'hypothèse $(H_0)$.
 				</p>
+			<h3><a href="khi2.php">Test du Khi-2</a></h3>
+			<h3><a href="kolgomorov.php">Test de Kolgomorov-Smirnov</a></h3>
 	</div>
 </body>
 </html>
