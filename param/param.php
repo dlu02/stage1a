@@ -38,7 +38,7 @@
 			<h3><a href="param1.php">Maximum de vraisemblance sous contraintes sur l'espérance et le moment d'ordre 2 empiriques</a></h3>
 			$$\max\limits_{\theta} \ell (x_1,...,x_n;\theta) \quad \text{s.c.} \quad \begin{cases} \displaystyle E(X)=\dfrac{1}{n}\sum_{i=1}^n x_i \\ \displaystyle E(X^2) = \dfrac{1}{n}\sum_{i=1}^n x_i^2 \end{cases}$$
 
-			<h3>Maximum de vraisemblance sous contrainte de signe du skewness $(\gamma_1)$</h3>
+			<h3><a href="param2.php">Maximum de vraisemblance sous contrainte de signe du skewness $(\gamma_1)$</a></h3>
 			$$\max\limits_{\theta} \ell (x_1,...,x_n;\theta) \qquad \text{s.c.} \quad E\left( \left( X-E(X) \right)^3 \right) \gamma_1 \geqslant 0$$
 	</div>
 </body>

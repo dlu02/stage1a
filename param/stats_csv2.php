@@ -12,7 +12,7 @@
 
 	<div class="page">
 		<h2 class="titre">Statistiques descriptives</h2>
-		<h3>Résultats de l'analyse <a href=param1.php class=button_link>Nouvelle analyse</a></h3>
+		<h3>Résultats de l'analyse <a href=param2.php class=button_link>Nouvelle analyse</a></h3>
 
 		<?php
 			if(isset($_FILES['fichier'])){
@@ -37,7 +37,7 @@
 				echo "Pas de fichier sélectionné. </div></body></html>";
 				exit();
 			}
-			$result = json_decode(exec("python donnees/stats_csv.py donnees/$nom_fichier $loi 1"), true);
+			$result = json_decode(exec("python donnees/stats_csv.py donnees/$nom_fichier $loi 2"), true);
 		?>
 			<table class="alternate">
 				<tr>

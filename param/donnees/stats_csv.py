@@ -11,6 +11,7 @@ from scipy.special import gamma
 parser = argparse.ArgumentParser()
 parser.add_argument("nom_fichier", type=str, help="nom du fichier")
 parser.add_argument("loi", type=str, help="loi")
+parser.add_argument("modele",type=int,help="modele")
 args = parser.parse_args()
 
 m=np.loadtxt(args.nom_fichier)
@@ -233,6 +234,12 @@ def do_operation(array,n,loi):
 		return temp[0]
 	elif (n==9):
 		return temp[1]
+	elif (n==10):
+		global temp2
+		temp2=max_vs_m2(array,loi)
+		return temp2[0]
+	elif (n==11):
+		return temp2[1]
 	else:
 		return "Saisie invalide."
 
@@ -257,6 +264,13 @@ def kurtosis(array):
 def convert(n): # pour convertir les entiers numpy en flottants usuels pour que le parse JSON fonctionne et envoie bien le tableau à PHP
 	if isinstance(n,np.int64):
 		return float(n)
+
+### factorielle
+def fact(n):
+	if n<=1:
+		return 1
+	else:
+		return n*fact(n-1)
 
 #################Estimation des paramètres
 
@@ -289,6 +303,12 @@ def contrainte1(x,M,ep):
 def contrainte2(x,M,mom):
 	return -mom(x)+mom_emp2(M)
 
+def contrainte3(x,loi,M):
+	mom3_c=mom3(loi)
+	mom2_c=mom2(loi)
+	esp_c=esp(loi)
+	return (mom3_c(x)-3*esp_c(x)*mom2_c(x)-2*(esp_c(x)**3))*skewnessE(x,M)
+
 #système d'équation à résoudre
 def eq1_bis(x,M,logvs,esp,mom2):
 	return [gradient((lambda y: logvs(y,M)),x)[0],gradient((lambda y: logvs(y,M)),x)[1],contrainte1(x,M,esp),contrainte2(x,M,mom2)]
@@ -310,6 +330,20 @@ def max_vs_m1(M,loi):
 	ind=res.index(min(res))
 	return Rlist[ind]
 
+def max_vs_m2(M,loi):
+	cons=[{'type':'ineq','fun':(lambda x: contrainte3(x,loi,M))}]
+	ls=log_vs(loi)
+	res=[]
+	Rlist=[]
+	for k in range(0,20):
+		valeur_initiale=np.array([np.random.rand(),np.random.rand()])
+		R=scipy.optimize.minimize(lambda x: ls(x,M),valeur_initiale,tol=1e-6,options={'maxiter':300},constraints=cons).x
+		res.append(norme(gradient((lambda y: ls(y,M)),R)))
+		Rlist.append(R)
+		if norme(gradient((lambda y: ls(y,M)),R))<1e-6:
+			return R
+	ind=res.index(min(res))
+	return Rlist[ind]
 
 def mom_emp2(M):
 	n=np.size(M)
@@ -367,7 +401,7 @@ def logvs_expoconvo(x,M):
 		res=res+np.log(np.exp(-x[0]*M[k])-np.exp(-x[1]*M[k]))
 	return -c-res
 
-### Espérances et moments d'ordre 2
+### Espérances ; moments d'ordre 2,3 ; moments centrés des lois
 
 def esp_burr(x):
 	return gamma(x[1]-(1/x[0]))*gamma(1+(1/x[0]))*(1/gamma(x[1]))
@@ -375,11 +409,32 @@ def esp_burr(x):
 def mom2_burr(x):
 	return gamma(x[1]-(2/x[0]))*gamma(1+(2/x[0]))*(1/gamma(x[1]))
 
+def mom3_burr(x):
+	return gamma(1+3/x[0])*gamma(x[1]-3/x[0])*(1/gamma(x[1]))
+
+def momc_burr(x,k):
+	res=0
+	for i in range(k+1):
+		res=res+((fact(k)*((-1)**i)*(esp_weibull(x)**(k-i))*gamma(1+i/x[0])*gamma(x[1]-i/x[0]))/(fact(i)*fact(k-i)*gamma(x[1])))
+	return res
+
 def esp_hyperexpo(x):
 	return x[1]/(x[0]*(x[0]+x[1])) + x[0]/(x[1]*(x[0]+x[1]))
 
 def mom2_hyperexpo(x):
 	return (2*x[1]/(x[0]*x[0]*(x[0]+x[1])) + 2*x[0]/(x[1]*x[1]*(x[0]+x[1])))
+
+def mom3_hyperexpo(x):
+	return ((6*x[1])/((x[0]**3)*(a+b)) + (6*x[0])/((x[1]**3)*(a+b)))
+
+def momc_hyperexpo(x,k):
+	a,b=x
+	res=0
+	for i in range(0,k+1):
+		res=res+(((-1)**i)/fact(i))
+	c1=b/(a+b)
+	c2=a/(a+b)
+	return res*((c1*fact(k))/(a**k)+(c2*fact(k))/(b**k))
 
 def esp_lomax(x):
 	return (x[1]/(x[0]-1))
@@ -387,11 +442,29 @@ def esp_lomax(x):
 def mom2_lomax(x):
 	return (x[1]**x[1]*gamma(x[0]-2)*gamma(3))/(gamma(x[0]))
 
+def mom3_lomax(x):
+	return ((x[1]**3)*gamma(x[0]-3)*gamma(4))/(gamma(x[0]))
+
+def momc_lomax(x,k):
+	res=0
+	for i in range(k+1):
+		res=res+((fact(k)*((-1)**i)*(esp_lomax(x)**(k-i))*(b**i)*gamma(x[0]-i)*gamma(i+1))/(fact(i)*fact(k-i)*gamma(x[0])))
+	return res
+
 def esp_weibull(x):
 	return x[0]*gamma(1+1/x[1])
 
 def mom2_weibull(x):
 	return x[0]*x[0]*gamma(1+2/x[1])
+
+def mom3_weibull(x):
+	return x[0]*x[0]*x[0]*gamma(1+3/x[1])
+
+def momc_weibull(x,k):
+	res=0
+	for i in range(k+1):
+		res=res+((fact(k)*((-1)**i)*(esp_weibull(x)**(k-i))*(x[0]**i)*gamma(1+i/x[1]))/(fact(i)*fact(k-i)))
+	return res
 
 def esp_expoconvo(x):
 	if x[0]==x[1]:
@@ -403,9 +476,29 @@ def mom2_expoconvo(x):
 	if x[0]==x[1]:
 		return  6/(x[0]*x[0])
 	else:
-		return 2*(1/(x[1]**2) + 1/(x[0]*x[1]) + 1/(x[0]**2))
+		return ((2*x[1])/((x[0]**2)*(x[1]-x[0])) - (2*x[0])/((x[1]**2)*(x[1]-x[0])))
 
-#choisir la fonction logvs suivant la loi
+def mom3_expoconvo(x):
+	if x[0]==x[1]:
+		return 24/(x[0]**3)
+	else:
+		return ((6*x[1])/((x[0]**3)*(x[1]-x[0])) - (6*x[0])/((x[1]**3)*(x[1]-x[0])))
+
+def momc_expoconvo(x,k):
+	if (x[0]!=x[1]):
+		res=0
+		c1=x[1]/(x[1]-x[0])
+		c2=x[0]/(x[1]-x[0])
+		for i in range(k+1):
+			res=res+((fact(k)*((-1)**i)*(esp_expoconvo(x)**(k-i))*(fact(i)*c/(x[0]**i)-c2*fact(i)/(x[1]**i)))/(fact(i)*fact(k-i)))
+		return res
+	else:
+		res=0
+		for i in range(k+1):
+			res=res+((fact(k)*((-1)**i)*(esp_weibull(x)**(k-i))*fact(2+k-1))/(fact(i)*fact(k-i)*(x[0])**i))
+		return res
+
+### fonctions de choix de la logvs suivant la loi
 def log_vs(loi):
 	if loi=="hyperexpo":
 		return logvs_hyperexpo
@@ -449,9 +542,69 @@ def mom2(loi):
 	elif loi=="expo_convo":
 		return mom2_expoconvo
 
+def varc(x,loi):
+	m2=mom2(loi)
+	e=esp(loi)
+	return (m2(x)-(e(x)**2))
+
+def momc(loi):
+	if loi=="hyperexpo":
+		return momc_hyperexpo
+	elif loi=="lomax":
+		return momc_lomax
+	elif loi=="weibull":
+		return momc_weibull
+	elif loi=="expo_poly":
+		return momc_expopoly
+	elif loi=="burr":
+		return momc_burr
+	elif loi=="expo_convo":
+		return momc_expoconvo
+
+def mom3(loi):
+	if loi=="hyperexpo":
+		return mom3_hyperexpo
+	elif loi=="lomax":
+		return mom3_lomax
+	elif loi=="weibull":
+		return mom3_weibull
+	elif loi=="expo_poly":
+		return mom3_expopoly
+	elif loi=="burr":
+		return mom3_burr
+	elif loi=="expo_convo":
+		return mom3_expoconvo
+
+### Skewness et kurtosis et contrainte d'optimisation pour le modèle 2
+def skewnessT(x,loi):
+	momc_c=momc(loi)
+	esp_c=esp(loi)
+	return (momc_c(x,3)-3*esp_c(x)*varc(x,loi)-(esp_c(x))**3)/(varc(x,loi)**(3/2))
+
+def skewnessE(x,M):
+	n=np.size(M)
+	res2=0
+	res3=0
+	moy=np.mean(M)
+	for i in range(n):
+		res2=res2+(M[i]-moy)*(M[i]-moy)
+	for j in range(n):
+		res3=res3+(M[i]-moy)*(M[i]-moy)*(M[i]-moy)
+	return (res3/n)/((res2/n)**(3/2))
+
+
+# def kurtosis(x,loi):
+# 	momc_c=momc(loi)
+# 	esp_c=esp(loi)
+# 	return ((momc_c(x,4)-4*esp_c(x)*((varc(x,loi))**(3/2))*skewness(x,loi)-6*esp_c(x)*esp_c(x)*varc(x,loi)-(esp_c(x)**4))/(varc(x,loi)**2))
+
+
 warnings.filterwarnings("ignore")  # ignorer les warnings
 
-L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,8,args.loi),"param_b":do_operation(m,9,args.loi)} #dictionnaire des valeurs à calculer
+if (args.modele==1):
+	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,8,args.loi),"param_b":do_operation(m,9,args.loi)}
+elif (args.modele==2):
+	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,10,args.loi),"param_b":do_operation(m,11,args.loi)}
 
 res=json.dumps(L,default=convert) #appliquer convert si le nombre est un entier numpy
 print(res)
