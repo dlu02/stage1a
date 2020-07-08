@@ -45,7 +45,7 @@
 		<td>Pour $x\geqslant 0$, $F(x,a,b)=1-\exp\left( - \dfrac{x^b}{a^b} \right)$</td></tr>
 		<tr><td>Moments d'ordre $k$</td><td>$a^k \Gamma\left( 1+\dfrac{k}{b}\right)$ pour $b\geqslant 1$ </td></tr>
 		<tr><td>$\displaystyle E(X)$</td><td>$a\Gamma\left(1+\dfrac{1}{b}\right)$</td></tr>
-		<tr><td>$\displaystyle V(X)$</td><td>$a^2\left(\Gamma\left(1+\dfrac{2}{k}\right) - \Gamma\left(1+\dfrac{1}{k}\right)^2 \right)$ </td></tr>
+		<tr><td>$\displaystyle V(X)$</td><td>$a^2\left(\Gamma\left(1+\dfrac{2}{b}\right) - \Gamma\left(1+\dfrac{1}{b}\right)^2 \right)$ </td></tr>
 		<tr><td>Skewness</td><td>$\dfrac{a^3\Gamma(1+3/b)-3E(X)V(X)-E(X)^3}{V(X)^{3/2}}$</td></tr>
 		<tr><td>Kurtosis</td><td>$\gamma_{2}=\dfrac{M_4-4E(X)V(X)^{3/2}\gamma_1-6E(X)^2V(X)-E(X)^4}{V(X)^2}$</td></tr>
 
