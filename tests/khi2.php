@@ -33,7 +33,12 @@
 	<div class="page">
 		<h2 class="titre">Tests statistiques</h2>
 		<h3>Test du Khi-2</h3>
-		Le fichier TXT ou CSV doit contenir une seule sorte de données, écrites sur une seule ligne et séparées par un espace.
+		<p>Soit $\alpha=0.05$ la règle de décision. Soient $C_1,...,C_n$ $n$ classes qui répartissent les $N$ observations. Le but du test du Khi-2 est de mesurer l'écart entre une distribution empirique (observée) et une distribution théorique. Pour cela, on calcule une sorte de distance entre les deux distributions, qui fera office de statistique du test :
+		$$ T=\sum_{i=1}^n \dfrac{(n_i-Np_i)^2}{Np_i}$$
+		où $n_i$ est le nombre d'observations empirique de la classe $C_i$, $p_i$ est le nombre d'observations théorique de la classe $C_i$ et $N$ est le nombre d'observations. </p>
+		<p>Cette statistique $T$ suivant une loi du Khi-deux à $n-1$ degrés de libertés, on compare cette distance au quantile d'ordre $1-\alpha$ de la loi du $\chi^2$ à $n-1$ degrés de libertés.</p>
+		<h4>Implémentation</h4>
+		Le fichier TXT ou CSV doit contenir une seule sorte de données, écrites sur une seule ligne et séparées par un espace, ou sur une seule colonne.
 			<form method="POST" action="submit.php" enctype="multipart/form-data">
 				<table class="alternate">
 					<tr>
@@ -52,11 +57,18 @@
 							  <option value="expo_convo">Loi exponentielle convolution</option>
 			                </select></td>
 					</tr>
+					<tr>
+						<td>Sélectionner la méthode d'estimation des paramètres</td>
+						<td><select name="param" id="param">
+							<option value="">Choisir une méthode</option>
+							<option value=1>Méthode 1 (contrainte sur moment)</option>
+							<option value=2>Méthode 2 (contrainte sur skewness)</option>
+						</select> </td>
+					</tr>
 					<tr> <th colspan="2"><input type="submit" name="submit4" id="submit4" value="Envoyer"></th> </tr>
 				</table>
 			</form>
-		<p>NB 1 : pour l'instant, toutes les lois sauf la loi exponentielle polynomiale sont implémentées.</p>
-		<p>NB 2 : pour l'instant, l'estimation des paramètres est effectuée suivant le modèle 1 décrit dans la page <a href="../param/param1.php">Estimation des paramètres</a></p>
+		<p>NB : pour l'instant, toutes les lois sauf la loi exponentielle polynomiale sont implémentées.</p>
 	</div>
 </body>
 </html>

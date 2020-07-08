@@ -235,11 +235,12 @@ def do_operation(array,n,loi):
 	elif (n==9):
 		return temp[1]
 	elif (n==10):
-		global temp2
-		temp2=max_vs_m2(array,loi)
-		return temp2[0]
+		temp=max_vs_m2(array,loi)
+		return temp[0]
 	elif (n==11):
-		return temp2[1]
+		return temp[1]
+	elif (n==12):
+		return chi2(array,fdr(loi),temp[0],temp[1])
 	else:
 		return "Saisie invalide."
 
@@ -418,6 +419,9 @@ def momc_burr(x,k):
 		res=res+((fact(k)*((-1)**i)*(esp_weibull(x)**(k-i))*gamma(1+i/x[0])*gamma(x[1]-i/x[0]))/(fact(i)*fact(k-i)*gamma(x[1])))
 	return res
 
+def fdr_burr(x,a,b):
+	return 1-(1+x**a)**(-b)
+
 def esp_hyperexpo(x):
 	return x[1]/(x[0]*(x[0]+x[1])) + x[0]/(x[1]*(x[0]+x[1]))
 
@@ -436,6 +440,10 @@ def momc_hyperexpo(x,k):
 	c2=a/(a+b)
 	return res*((c1*fact(k))/(a**k)+(c2*fact(k))/(b**k))
 
+def fdr_hyperexpo(x,l1,l2):
+	c=(l1*l2)/(l1+l2)
+	return c*((1-np.exp(-l1*x))/l1 + (1-np.exp(-l2*x))/l2)
+
 def esp_lomax(x):
 	return (x[1]/(x[0]-1))
 
@@ -451,6 +459,9 @@ def momc_lomax(x,k):
 		res=res+((fact(k)*((-1)**i)*(esp_lomax(x)**(k-i))*(b**i)*gamma(x[0]-i)*gamma(i+1))/(fact(i)*fact(k-i)*gamma(x[0])))
 	return res
 
+def fdr_lomax(x,a,b):
+	return 1-(1+x/b)**(-a)
+
 def esp_weibull(x):
 	return x[0]*gamma(1+1/x[1])
 
@@ -465,6 +476,9 @@ def momc_weibull(x,k):
 	for i in range(k+1):
 		res=res+((fact(k)*((-1)**i)*(esp_weibull(x)**(k-i))*(x[0]**i)*gamma(1+i/x[1]))/(fact(i)*fact(k-i)))
 	return res
+
+def fdr_weibull(x,a,b):
+	return 1-np.exp(-(x/a)**b)
 
 def esp_expoconvo(x):
 	if x[0]==x[1]:
@@ -497,6 +511,12 @@ def momc_expoconvo(x,k):
 		for i in range(k+1):
 			res=res+((fact(k)*((-1)**i)*(esp_weibull(x)**(k-i))*fact(2+k-1))/(fact(i)*fact(k-i)*(x[0])**i))
 		return res
+
+def fdr_expoconvo(x,a,b):
+	if a==b:
+		return 1-np.exp(-a*x)*(a*x+1)
+	else:
+		return 1+(a/(b-a))*np.exp(-b*x)-(b/(b-a))*np.exp(-a*x)
 
 ### fonctions de choix de la logvs suivant la loi
 def log_vs(loi):
@@ -575,6 +595,20 @@ def mom3(loi):
 	elif loi=="expo_convo":
 		return mom3_expoconvo
 
+def fdr(loi):
+	if loi=="hyperexpo":
+		return fdr_hyperexpo
+	elif loi=="lomax":
+		return fdr_lomax
+	elif loi=="weibull":
+		return fdr_weibull
+	elif loi=="expo_poly":
+		return fdr_expopoly
+	elif loi=="burr":
+		return fdr_burr
+	elif loi=="expo_convo":
+		return fdr_expoconvo
+
 ### Skewness et kurtosis et contrainte d'optimisation pour le modèle 2
 def skewnessT(x,loi):
 	momc_c=momc(loi)
@@ -598,13 +632,79 @@ def skewnessE(x,M):
 # 	esp_c=esp(loi)
 # 	return ((momc_c(x,4)-4*esp_c(x)*((varc(x,loi))**(3/2))*skewness(x,loi)-6*esp_c(x)*esp_c(x)*varc(x,loi)-(esp_c(x)**4))/(varc(x,loi)**2))
 
+###Test Khi-2
+
+#liste des extrémités des classes
+def int_classe(f):
+	k=int(5*math.log10(np.size(f)))
+	data=np.array([x for x in f])
+	Ext=[min(data)+(max(data)-min(data))*i/(1.0*k) for i in range(k+1)]
+	return Ext
+
+#liste du nombre d'occurences par classe
+def tableau(f,fdr,a,b):
+	classes=int_classe(f)
+	E=np.array(f)
+	res=[]
+	for i in range(0,np.size(classes)-1):
+		if i==0:
+			res.append(np.size(E[np.where((E>=classes[i]) & (E<=classes[i+1]))]))
+		elif i==np.size(classes)-1:
+			res.append(np.size(E[np.where((E>classes[i]) & (E<=classes[i+1]))]))
+		else:
+			res.append(np.size(E[np.where((E>classes[i]) & (E<=classes[i+1]))]))
+	return res
+
+#liste des fréquences empiriques par classe
+def freq_emp(f,fdr,a,b):
+	nombre=tableau_regroupement(f,fdr,a,b)[1]
+	res=[]
+	for i in nombre:
+		res.append(i/len(f))
+	return res
+
+#liste des fréquences théoriques (H0 : loi de fonction de répartition fdr et de paramètres a et b)
+def freq_theo(f,fdr,a,b):
+	classes=tableau_regroupement(f,fdr,a,b)[0]
+	res=[]
+	for i in range(0,len(classes)-1):
+		res.append(abs(fdr(classes[i+1],a,b)-fdr(classes[i],a,b)))
+	return res
+
+#test du chi2 (ajustement à une loi de fonction de répartition fdr et de paramètres a et b à estimer) - variable continue
+def chi2(f,fdr,a,b):
+	f=np.array(f)
+	tab=[np.size(f)*i for i in freq_emp(f,fdr,a,b)]
+	theo=[np.size(f)*i for i in freq_theo(f,fdr,a,b)]
+	res=0
+	for i in range(0,len(tab)):
+		res=res+((tab[i]-theo[i])**2)/(theo[i])
+	return 1-(scipy.stats.chi2.cdf(res,len(tab)-2))
+
+
+#regroupe les éventuelles classes à trop faible fréquence
+def tableau_regroupement(f,fdr,a,b):
+	tab_res=[]
+	E=tableau(f,fdr,a,b)
+	classes=int_classe(f)
+	classes_res=[classes[0]]
+	acc=0
+	for i in range(1,len(classes)):
+		if (E[i-1]+acc)>=5:
+			classes_res.append(classes[i])
+			tab_res.append(E[i-1]+acc)
+			acc=0
+		else:
+			acc=acc+E[i-1]
+	return (classes_res,tab_res)
+
 
 warnings.filterwarnings("ignore")  # ignorer les warnings
 
 if (args.modele==1):
-	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,8,args.loi),"param_b":do_operation(m,9,args.loi)}
+	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,8,args.loi),"param_b":do_operation(m,9,args.loi),"chi2_pvalue":do_operation(m,12,args.loi)}
 elif (args.modele==2):
-	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,10,args.loi),"param_b":do_operation(m,11,args.loi)}
+	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,10,args.loi),"param_b":do_operation(m,11,args.loi),"chi2_pvalue":do_operation(m,12,args.loi)}
 
 res=json.dumps(L,default=convert) #appliquer convert si le nombre est un entier numpy
 print(res)

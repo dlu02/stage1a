@@ -21,6 +21,7 @@
 			    $file_tmp = $_FILES['fichier']['tmp_name'];
 			    $file_type = $_FILES['fichier']['type'];
 				$loi = $_POST['loi'];
+				$modele = $_POST['param'];
 			    $extension_fichier=strtolower(end(explode('.',$_FILES['fichier']['name'])));
 		    	$extensions= array("txt","dat","csv");
 			    if(in_array($extension_fichier,$extensions)=== false){
@@ -37,7 +38,7 @@
 				echo "Pas de fichier sélectionné. </div></body></html>";
 				exit();
 			}
-			$result = json_decode(exec("python donnees/stats_csv.py donnees/$nom_fichier $loi"), true);
+			$result = json_decode(exec("python donnees/stats_khi2.py donnees/$nom_fichier $loi $modele"), true);
 		?>
 			<table class="alternate">
 				<tr>
