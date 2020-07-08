@@ -42,7 +42,7 @@
 				et nous fixons $\alpha=0.05$ la règle de décision : si la $p$-value retournée par le test dépasse $\alpha$, alors nous ne pouvons pas rejeter l'hypothèse $(H_0)$ et dans le cas contraire, nous pouvons rejeter l'hypothèse $(H_0)$.
 				</p>
 			<h3><a href="khi2.php">Test du Khi-2</a></h3>
-			<h3>Test de Kolgomorov-Smirnov</h3>
+			<h3><a href="kolgomorov.php">Test de Kolgomorov-Smirnov</a></h3>
 	</div>
 </body>
 </html>

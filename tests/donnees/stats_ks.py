@@ -240,7 +240,7 @@ def do_operation(array,n,loi):
 	elif (n==11):
 		return temp[1]
 	elif (n==12):
-		return chi2(array,fdr(loi),temp[0],temp[1])
+		return testks(array,loi,temp[0],temp[1])
 	else:
 		return "Saisie invalide."
 
@@ -632,78 +632,32 @@ def skewnessE(x,M):
 # 	esp_c=esp(loi)
 # 	return ((momc_c(x,4)-4*esp_c(x)*((varc(x,loi))**(3/2))*skewness(x,loi)-6*esp_c(x)*esp_c(x)*varc(x,loi)-(esp_c(x)**4))/(varc(x,loi)**2))
 
-###Test Khi-2
-
-#liste des extrémités des classes
-def int_classe(f):
-	k=int(5*math.log10(np.size(f)))
-	data=np.array([x for x in f])
-	Ext=[min(data)+(max(data)-min(data))*i/(1.0*k) for i in range(k+1)]
-	return Ext
-
-#liste du nombre d'occurences par classe
-def tableau(f,fdr,a,b):
-	classes=int_classe(f)
-	E=np.array(f)
-	res=[]
-	for i in range(0,np.size(classes)-1):
-		if i==0:
-			res.append(np.size(E[np.where((E>=classes[i]) & (E<=classes[i+1]))]))
-		elif i==np.size(classes)-1:
-			res.append(np.size(E[np.where((E>classes[i]) & (E<=classes[i+1]))]))
-		else:
-			res.append(np.size(E[np.where((E>classes[i]) & (E<=classes[i+1]))]))
-	return res
-
-#liste des fréquences empiriques par classe
-def freq_emp(f,fdr,a,b):
-	nombre=tableau_regroupement(f,fdr,a,b)[1]
-	res=[]
-	for i in nombre:
-		res.append(i/len(f))
-	return res
-
-#liste des fréquences théoriques (H0 : loi de fonction de répartition fdr et de paramètres a et b)
-def freq_theo(f,fdr,a,b):
-	classes=tableau_regroupement(f,fdr,a,b)[0]
-	res=[]
-	for i in range(0,len(classes)-1):
-		res.append(abs(fdr(classes[i+1],a,b)-fdr(classes[i],a,b)))
-	return res
-
-#test du chi2 (ajustement à une loi de fonction de répartition fdr et de paramètres a et b à estimer) - variable continue
-def chi2(f,fdr,a,b):
-	f=np.array(f)
-	tab=[np.size(f)*i for i in freq_emp(f,fdr,a,b)]
-	theo=[np.size(f)*i for i in freq_theo(f,fdr,a,b)]
+### Test KS
+def testks(data,loi,p1,p2):
 	res=0
-	for i in range(0,len(tab)):
-		res=res+((tab[i]-theo[i])**2)/(theo[i])
-	return 1-(scipy.stats.chi2.cdf(res,len(tab)-2))
+	fdr_theo=fdr(loi)
+	for k in data:
+		b=abs(fdr_empirique(data,k)-fdr_theo(k,p1,p2))
+		if b>res:
+			res=b
+	pval=0
+	for k in range(1,3):
+		pval=pval+(((-1)**(k+1))*np.exp(-2*k*k*np.size(data)*res*res))
+	return 2*pval
 
+def fdr_empirique(data,x):
+	data=sorted(data)
+	n=len(data)
+	return sum([1 for i in range(n) if data[i]<=x])/(1.0*n)
 
-#regroupe les éventuelles classes à trop faible fréquence
-def tableau_regroupement(f,fdr,a,b):
-	tab_res=[]
-	E=tableau(f,fdr,a,b)
-	classes=int_classe(f)
-	classes_res=[classes[0]]
-	acc=0
-	for i in range(1,len(classes)):
-		if (E[i-1]+acc)>=5:
-			classes_res.append(classes[i])
-			tab_res.append(E[i-1]+acc)
-			acc=0
-		else:
-			acc=acc+E[i-1]
-	return (classes_res,tab_res)
+m4=scipy.stats.weibull_min.rvs(c=2,scale=5,size=60)
 
 warnings.filterwarnings("ignore")  # ignorer les warnings
 
 if (args.modele==1):
-	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,8,args.loi),"param_b":do_operation(m,9,args.loi),"chi2_pvalue":do_operation(m,12,args.loi)}
+	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,8,args.loi),"param_b":do_operation(m,9,args.loi),"ks_pvalue":do_operation(m,12,args.loi)}
 elif (args.modele==2):
-	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,10,args.loi),"param_b":do_operation(m,11,args.loi),"chi2_pvalue":do_operation(m,12,args.loi)}
+	L={"min":do_operation(m,0,args.loi),"max":do_operation(m,1,args.loi),"moy":do_operation(m,2,args.loi),"var":do_operation(m,3,args.loi),"ec":do_operation(m,4,args.loi),"skew":do_operation(m,5,args.loi),"kurt":do_operation(m,6,args.loi),"hist":do_operation(m,7,args.loi),"param_a":do_operation(m,10,args.loi),"param_b":do_operation(m,11,args.loi),"ks_pvalue":do_operation(m,12,args.loi)}
 
 res=json.dumps(L,default=convert) #appliquer convert si le nombre est un entier numpy
 print(res)
