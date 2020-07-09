@@ -10,8 +10,8 @@ args = parser.parse_args()
 
 
 f = open(args.nom_fichier, "w")
-for k in range(1,args.taille + 1):
-	a=random.randint(args.nombre_min,args.nombre_max)
+for k in range(1, args.taille + 1):
+	a = random.randint(args.nombre_min, args.nombre_max)
 	f.write(str(a))
 	f.write("\n")
 f.close()

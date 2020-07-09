@@ -158,90 +158,6 @@ def histo_Continue(data, k, nom=None):
 		plt.close()
 
 
-def do_operation(array, n, loi):
-	if loi == "expo_poly":
-		if (n == 0):
-			return round(np.amin(array), 5)
-		elif (n == 1):
-			return round(np.amax(array), 5)
-		elif (n == 2):
-			return round(np.mean(array), 5)
-		elif (n == 3):
-			return round(np.var(array), 5)
-		elif (n == 4):
-			return round(np.std(array), 5)
-		elif (n == 5):
-			return round(skewness(array), 5)
-		elif (n == 6):
-			return round(kurtosis(array), 5)
-		elif (n == 7):
-			if (discretes_continues(array) == "discrete"):
-				histo_discretes(array, nom="hist")
-				return "discrete"
-			if (discretes_continues(array) == "continue"):
-				classe = int(5 * math.log10(n))
-				histo_Continue(array, classe, nom="hist")
-				return "continue"
-			else:
-				return "Saisie invalide"
-		elif (n == 8):
-			global temp
-			temp = max_vs_m1_epp(array, args.taille)
-			res = []
-			for i in range(1, np.size(temp)):
-				res.append(temp[i])
-			return res
-		elif (n == 9):
-			return temp[0]
-		elif (n == 10):
-			temp = max_vs_m2_epp(array, args.taille)
-			res = []
-			for i in range(1, np.size(temp)):
-				res.append(temp[i])
-			return res
-		elif (n == 11):
-			return temp[0]
-		else:
-			return "Saisie invalide."
-	else:
-		if (n == 0):
-			return round(np.amin(array), 5)
-		elif (n == 1):
-			return round(np.amax(array), 5)
-		elif (n == 2):
-			return round(np.mean(array), 5)
-		elif (n == 3):
-			return round(np.var(array), 5)
-		elif (n == 4):
-			return round(np.std(array), 5)
-		elif (n == 5):
-			return round(skewness(array), 5)
-		elif (n == 6):
-			return round(kurtosis(array), 5)
-		elif (n == 7):
-			if (discretes_continues(array) == "discrete"):
-				histo_discretes(array, nom="hist")
-				return "discrete"
-			if (discretes_continues(array) == "continue"):
-				classe = int(5 * math.log10(n))
-				histo_Continue(array, classe, nom="hist")
-				return "continue"
-			else:
-				return "Saisie invalide"
-		elif (n == 8):
-			temp = max_vs_m1(array, loi)
-			return temp[0]
-		elif (n == 9):
-			return temp[1]
-		elif (n == 10):
-			temp = max_vs_m2(array, loi)
-			return temp[0]
-		elif (n == 11):
-			return temp[1]
-		else:
-			return "Saisie invalide."
-
-
 def Moment_r(data, r):
 	fonc_r = (lambda x: x**r)
 	S = np.sum(fonc_r(data))
@@ -767,6 +683,94 @@ def max_vs_m2_epp(M, m):
 			return R
 	ind = res.index(min(res))
 	return Rlist[ind]
+
+
+########
+# Script
+########
+
+def do_operation(array, n, loi):
+	if loi == "expo_poly":
+		if (n == 0):
+			return round(np.amin(array), 5)
+		elif (n == 1):
+			return round(np.amax(array), 5)
+		elif (n == 2):
+			return round(np.mean(array), 5)
+		elif (n == 3):
+			return round(np.var(array), 5)
+		elif (n == 4):
+			return round(np.std(array), 5)
+		elif (n == 5):
+			return round(skewness(array), 5)
+		elif (n == 6):
+			return round(kurtosis(array), 5)
+		elif (n == 7):
+			if (discretes_continues(array) == "discrete"):
+				histo_discretes(array, nom="hist")
+				return "discrete"
+			if (discretes_continues(array) == "continue"):
+				classe = int(5 * math.log10(n))
+				histo_Continue(array, classe, nom="hist")
+				return "continue"
+			else:
+				return "Saisie invalide"
+		elif (n == 8):
+			global temp
+			temp = max_vs_m1_epp(array, args.taille)
+			res = []
+			for i in range(1, np.size(temp)):
+				res.append(temp[i])
+			return res
+		elif (n == 9):
+			return temp[0]
+		elif (n == 10):
+			temp = max_vs_m2_epp(array, args.taille)
+			res = []
+			for i in range(1, np.size(temp)):
+				res.append(temp[i])
+			return res
+		elif (n == 11):
+			return temp[0]
+		else:
+			return "Saisie invalide."
+	else:
+		if (n == 0):
+			return round(np.amin(array), 5)
+		elif (n == 1):
+			return round(np.amax(array), 5)
+		elif (n == 2):
+			return round(np.mean(array), 5)
+		elif (n == 3):
+			return round(np.var(array), 5)
+		elif (n == 4):
+			return round(np.std(array), 5)
+		elif (n == 5):
+			return round(skewness(array), 5)
+		elif (n == 6):
+			return round(kurtosis(array), 5)
+		elif (n == 7):
+			if (discretes_continues(array) == "discrete"):
+				histo_discretes(array, nom="hist")
+				return "discrete"
+			if (discretes_continues(array) == "continue"):
+				classe = int(5 * math.log10(n))
+				histo_Continue(array, classe, nom="hist")
+				return "continue"
+			else:
+				return "Saisie invalide"
+		elif (n == 8):
+			temp = max_vs_m1(array, loi)
+			return temp[0]
+		elif (n == 9):
+			return temp[1]
+		elif (n == 10):
+			temp = max_vs_m2(array, loi)
+			return temp[0]
+		elif (n == 11):
+			return temp[1]
+		else:
+			return "Saisie invalide."
 
 
 warnings.filterwarnings("ignore")  # ignorer les warnings
