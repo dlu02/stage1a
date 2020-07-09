@@ -22,9 +22,13 @@
 			    $file_type = $_FILES['fichier']['type'];
 				$loi = $_POST['loi'];
 				$modele = $_POST['param'];
-				// $taille = $_POST['parametre_a'];
+				$taillea = $_POST['parametre_a'];
 			    $extension_fichier=strtolower(end(explode('.',$_FILES['fichier']['name'])));
 		    	$extensions= array("txt","dat","csv");
+				if ($loi=="expo_poly" && $taillea <=0){
+					echo "<h4> ERREUR : Le nombre de paramètres de a doit valoir au moins 1. </h4></div></body></html>";
+					exit();
+				}
 			    if(in_array($extension_fichier,$extensions)=== false){
 					echo $extension_fichier;
 					echo "Extension non autorisée. Veuillez importer un fichier TXT ou DAT ou CSV </div></body></html>";
@@ -39,7 +43,7 @@
 				echo "Pas de fichier sélectionné. </div></body></html>";
 				exit();
 			}
-			$result = json_decode(exec("python donnees/stats_khi2.py donnees/$nom_fichier $loi $modele"), true);
+			$result = json_decode(exec("python donnees/stats_khi2.py donnees/$nom_fichier $loi $modele $taillea"), true);
 		?>
 			<table class="alternate">
 				<tr>
@@ -85,7 +89,7 @@
 			<table class="alternate">
 				<tr>
 					<td>Paramètre $a$</td>
-					<td><?php echo $result['param_a'];?></td>
+					<td><?php echo print_r($result['param_a']);?></td>
 				</tr>
 				<tr>
 					<td>Paramètre $b$</td>

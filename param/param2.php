@@ -57,6 +57,10 @@
 							  <option value="expo_convo">Loi exponentielle convolution</option>
 			                </select></td>
 					</tr>
+					<tr>
+						<td>(Uniquement loi exponentiellle polynomiale) Taille N de la liste de paramètres $(a_1,...,a_N)$</td>
+						<td><input type="number" id="parametre_a" name="parametre_a" step="any" value="0"></td>
+					</tr>
 					<tr> <th colspan="2"><input type="submit" name="submit4" id="submit4" value="Envoyer"></th> </tr>
 				</table>
 			</form>

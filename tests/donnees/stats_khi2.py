@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("nom_fichier", type=str, help="nom du fichier")
 parser.add_argument("loi", type=str, help="loi")
 parser.add_argument("modele",type=int,help="modele")
-# parser.add_argument("taille",type=int,help="taille")
+parser.add_argument("taille",type=int,help="taille")
 args = parser.parse_args()
 
 m=np.loadtxt(args.nom_fichier)
@@ -205,45 +205,91 @@ def histo_Continue(data,k,nom=None):
 
 
 def do_operation(array,n,loi):
-	if (n==0):
-		return round(np.amin(array),5)
-	elif (n==1):
-		return round(np.amax(array),5)
-	elif (n==2):
-		return round(np.mean(array),5)
-	elif (n==3):
-		return round(np.var(array),5)
-	elif (n==4):
-		return round(np.std(array),5)
-	elif (n==5):
-		return round(skewness(array),5)
-	elif (n==6):
-		return round(kurtosis(array),5)
-	elif (n==7):
-		if (discretes_continues(array)=="discrete"):
-			histo_discretes(array,nom="hist")
-			return "discrete"
-		if (discretes_continues(array)=="continue"):
-			classe=int(5*math.log10(n))
-			histo_Continue(array,classe,nom="hist")
-			return "continue"
+	if loi=="expo_poly":
+		if (n==0):
+			return round(np.amin(array),5)
+		elif (n==1):
+			return round(np.amax(array),5)
+		elif (n==2):
+			return round(np.mean(array),5)
+		elif (n==3):
+			return round(np.var(array),5)
+		elif (n==4):
+			return round(np.std(array),5)
+		elif (n==5):
+			return round(skewness(array),5)
+		elif (n==6):
+			return round(kurtosis(array),5)
+		elif (n==7):
+			if (discretes_continues(array)=="discrete"):
+				histo_discretes(array,nom="hist")
+				return "discrete"
+			if (discretes_continues(array)=="continue"):
+				classe=int(5*math.log10(n))
+				histo_Continue(array,classe,nom="hist")
+				return "continue"
+			else:
+				return "Saisie invalide"
+		elif (n==8):
+			global temp
+			temp=max_vs_m1_epp(array,args.taille)
+			res=[]
+			for i in range(1,np.size(temp)):
+				res.append(temp[i])
+			return res
+		elif (n==9):
+			return temp[0]
+		elif (n==10):
+			temp=max_vs_m2_epp(array,args.taille)
+			res=[]
+			for i in range(1,np.size(temp)):
+				res.append(temp[i])
+			return res
+		elif (n==11):
+			return temp[0]
+		elif (n==12):
+			return chi2(array,fdr(loi),temp,temp[1])
 		else:
-			return "Saisie invalide"
-	elif (n==8):
-		global temp
-		temp=max_vs_m1(array,loi)
-		return temp[0]
-	elif (n==9):
-		return temp[1]
-	elif (n==10):
-		temp=max_vs_m2(array,loi)
-		return temp[0]
-	elif (n==11):
-		return temp[1]
-	elif (n==12):
-		return chi2(array,fdr(loi),temp[0],temp[1])
+			return "Saisie invalide."
 	else:
-		return "Saisie invalide."
+		if (n==0):
+			return round(np.amin(array),5)
+		elif (n==1):
+			return round(np.amax(array),5)
+		elif (n==2):
+			return round(np.mean(array),5)
+		elif (n==3):
+			return round(np.var(array),5)
+		elif (n==4):
+			return round(np.std(array),5)
+		elif (n==5):
+			return round(skewness(array),5)
+		elif (n==6):
+			return round(kurtosis(array),5)
+		elif (n==7):
+			if (discretes_continues(array)=="discrete"):
+				histo_discretes(array,nom="hist")
+				return "discrete"
+			if (discretes_continues(array)=="continue"):
+				classe=int(5*math.log10(n))
+				histo_Continue(array,classe,nom="hist")
+				return "continue"
+			else:
+				return "Saisie invalide"
+		elif (n==8):
+			temp=max_vs_m1(array,loi)
+			return temp[0]
+		elif (n==9):
+			return temp[1]
+		elif (n==10):
+			temp=max_vs_m2(array,loi)
+			return temp[0]
+		elif (n==11):
+			return temp[1]
+		elif (n==12):
+			return chi2(array,fdr(loi),temp[0],temp[1])
+		else:
+			return "Saisie invalide."
 
 
 def Moment_r(data,r):
@@ -528,15 +574,15 @@ def fact(n):
 
 def expo_poly(x,a,b):
 	res=0
-	for k in range(0,numpy.size(a)):
+	for k in range(0,np.size(a)):
 		res=res+a[k]*(x**k)
-	return cab(a,b)*res*numpy.exp(-b*x)
+	return cab(a,b)*res*np.exp(-b*x)
 
-def fdr_expopoly(x,a,b):
+def fdr_expopoly(x,y,z): ## y est le vecteur de paramètres (b,a1,...,am), z argument inutile
 	res=0
-	for k in range(0,numpy.size(a)):
-		res=res+a[k]*fact(k)/(b**(k+1))
-	return cab(a,b)*res*(1-numpy.exp(-b*x))
+	for k in range(1,np.size(y)):
+		res=res+y[k]*fact(k)/(y[0]**(k+1))
+	return cab(y)*res*(1-np.exp(-y[0]*x))
 
 def logvs_expopoly(x,M):
 	n=np.size(M)
@@ -769,7 +815,7 @@ def int_classe(f):
 	return Ext
 
 #liste du nombre d'occurences par classe
-def tableau(f,fdr,a,b):
+def tableau(f):
 	classes=int_classe(f)
 	E=np.array(f)
 	res=[]
@@ -783,8 +829,8 @@ def tableau(f,fdr,a,b):
 	return res
 
 #liste des fréquences empiriques par classe
-def freq_emp(f,fdr,a,b):
-	nombre=tableau_regroupement(f,fdr,a,b)[1]
+def freq_emp(f):
+	nombre=tableau_regroupement(f)[1]
 	res=[]
 	for i in nombre:
 		res.append(i/len(f))
@@ -792,7 +838,7 @@ def freq_emp(f,fdr,a,b):
 
 #liste des fréquences théoriques (H0 : loi de fonction de répartition fdr et de paramètres a et b)
 def freq_theo(f,fdr,a,b):
-	classes=tableau_regroupement(f,fdr,a,b)[0]
+	classes=tableau_regroupement(f)[0]
 	res=[]
 	for i in range(0,len(classes)-1):
 		res.append(abs(fdr(classes[i+1],a,b)-fdr(classes[i],a,b)))
@@ -801,7 +847,7 @@ def freq_theo(f,fdr,a,b):
 #test du chi2 (ajustement à une loi de fonction de répartition fdr et de paramètres a et b à estimer) - variable continue
 def chi2(f,fdr,a,b):
 	f=np.array(f)
-	tab=[np.size(f)*i for i in freq_emp(f,fdr,a,b)]
+	tab=[np.size(f)*i for i in freq_emp(f)]
 	theo=[np.size(f)*i for i in freq_theo(f,fdr,a,b)]
 	res=0
 	for i in range(0,len(tab)):
@@ -810,9 +856,9 @@ def chi2(f,fdr,a,b):
 
 
 #regroupe les éventuelles classes à trop faible fréquence
-def tableau_regroupement(f,fdr,a,b):
+def tableau_regroupement(f):
 	tab_res=[]
-	E=tableau(f,fdr,a,b)
+	E=tableau(f)
 	classes=int_classe(f)
 	classes_res=[classes[0]]
 	acc=0

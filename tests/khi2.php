@@ -65,14 +65,13 @@
 							<option value=2>Méthode 2 (contrainte sur skewness)</option>
 						</select> </td>
 					</tr>
-					<!-- <tr>
+					<tr>
 						<td>(Uniquement loi exponentiellle polynomiale) Taille N de la liste de paramètres $(a_1,...,a_N)$</td>
 						<td><input type="number" id="parametre_a" name="parametre_a" step="any" value="0"></td>
-					</tr> -->
+					</tr>
 					<tr> <th colspan="2"><input type="submit" name="submit4" id="submit4" value="Envoyer"></th> </tr>
 				</table>
 			</form>
-		<p>NB : pour l'instant, toutes les lois sauf la loi exponentielle polynomiale sont implémentées.</p>
 	</div>
 </body>
 </html>

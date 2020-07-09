@@ -21,9 +21,13 @@
 			    $file_tmp = $_FILES['fichier']['tmp_name'];
 			    $file_type = $_FILES['fichier']['type'];
 				$loi = $_POST['loi'];
-				$taille = $_POST['parametre_a'];
+				$taillea = $_POST['parametre_a'];
 			    $extension_fichier=strtolower(end(explode('.',$_FILES['fichier']['name'])));
 		    	$extensions= array("txt","dat","csv");
+				if ($loi=="expo_poly" && $taillea <=0){
+					echo "<h4> ERREUR : Le nombre de paramètres de a doit valoir au moins 1. </h4></div></body></html>";
+					exit();
+				}
 			    if(in_array($extension_fichier,$extensions)=== false){
 					echo $extension_fichier;
 					echo "Extension non autorisée. Veuillez importer un fichier TXT ou DAT ou CSV </div></body></html>";
@@ -38,7 +42,7 @@
 				echo "Pas de fichier sélectionné. </div></body></html>";
 				exit();
 			}
-			$result = json_decode(exec("python donnees/stats_csv.py donnees/$nom_fichier $loi 1 $taille"), true);
+			$result = json_decode(exec("python donnees/stats_csv.py donnees/$nom_fichier $loi 1 $taillea"), true);
 		?>
 			<table class="alternate">
 				<tr>
