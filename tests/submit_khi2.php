@@ -22,6 +22,7 @@
 			    $file_type = $_FILES['fichier']['type'];
 				$loi = $_POST['loi'];
 				$modele = $_POST['param'];
+				// $taille = $_POST['parametre_a'];
 			    $extension_fichier=strtolower(end(explode('.',$_FILES['fichier']['name'])));
 		    	$extensions= array("txt","dat","csv");
 			    if(in_array($extension_fichier,$extensions)=== false){

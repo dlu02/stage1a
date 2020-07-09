@@ -299,10 +299,10 @@ def norme(vect):
 ### scipy fsolve
 #contraintes
 def contrainte1(x,M,ep):
-	return -ep(x)+np.mean(M)
+	return 1e-6-abs(ep(x)-np.mean(M))
 
 def contrainte2(x,M,mom):
-	return -mom(x)+mom_emp2(M)
+	return 1e-6-abs(-mom(x)+mom_emp2(M))
 
 def contrainte3(x,loi,M):
 	mom3_c=mom3(loi)
@@ -318,15 +318,15 @@ def max_vs_m1(M,loi):
 	ls=log_vs(loi)
 	moy=esp(loi)
 	mom2_f=mom2(loi)
+	cons=[{'type':'ineq','fun':(lambda x: contrainte2(x,M,mom2_f))},{'type':'ineq','fun':(lambda x: contrainte1(x,M,moy))}]
 	res=[]
 	Rlist=[]
 	for k in range(0,5):
-		valeur_initiale=np.array([np.random.rand(),np.random.rand(),0,0])
-		R=scipy.optimize.fsolve(lambda x: eq1_bis(x,M,ls,moy,mom2_f),valeur_initiale,xtol=1e-2,maxfev=20)
-		R=np.array([R[0],R[1]])
+		valeur_initiale=np.array([np.random.rand(),np.random.rand()])
+		R=scipy.optimize.minimize(lambda x: ls(x,M),valeur_initiale,tol=1e-6,options={'maxiter':300},constraints=cons).x
 		res.append(norme(gradient((lambda y: ls(y,M)),R)))
 		Rlist.append(R)
-		if norme(gradient((lambda y: ls(y,M)),R))<1e-2:
+		if norme(gradient((lambda y: ls(y,M)),R))<1e-6:
 			return R
 	ind=res.index(min(res))
 	return Rlist[ind]
@@ -649,8 +649,6 @@ def fdr_empirique(data,x):
 	data=sorted(data)
 	n=len(data)
 	return sum([1 for i in range(n) if data[i]<=x])/(1.0*n)
-
-m4=scipy.stats.weibull_min.rvs(c=2,scale=5,size=60)
 
 warnings.filterwarnings("ignore")  # ignorer les warnings
 

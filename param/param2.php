@@ -61,7 +61,6 @@
 				</table>
 			</form>
 		<p>NB 1 : pour l'instant, toutes les lois sauf la loi exponentielle convolution sont implémentées</p>
-		<p>NB 2 : l'optimisation est effectuée en résolvant le système d'équations $\nabla \mathcal{L} = \mathbf{0}$ suivi des contraintes, via la fonction scipy.optimize.fsolve, avec vérification de la norme du gradient qui doit être inférieure à 0.01 (j'ai choisi la rapidité au détriment de la précision). Pour l'instant, le temps de calcul est d'environ 25s. L'optimisation de l'algorithme est en cours.</p>
 		<p>À des fins de test, voici un <a href="donnees/test_weibull_2_5.txt">exemple</a> de fichier txt contenant un échantillon de 500 réalisations de la loi de Weibull de paramètres 2 et 5 généré avec scipy.stats.</p>
 	</div>
 </body>

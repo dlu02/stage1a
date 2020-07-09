@@ -21,6 +21,7 @@
 			    $file_tmp = $_FILES['fichier']['tmp_name'];
 			    $file_type = $_FILES['fichier']['type'];
 				$loi = $_POST['loi'];
+				$taille = $_POST['parametre_a'];
 			    $extension_fichier=strtolower(end(explode('.',$_FILES['fichier']['name'])));
 		    	$extensions= array("txt","dat","csv");
 			    if(in_array($extension_fichier,$extensions)=== false){
@@ -37,7 +38,7 @@
 				echo "Pas de fichier sélectionné. </div></body></html>";
 				exit();
 			}
-			$result = json_decode(exec("python donnees/stats_csv.py donnees/$nom_fichier $loi 1"), true);
+			$result = json_decode(exec("python donnees/stats_csv.py donnees/$nom_fichier $loi 1 $taille"), true);
 		?>
 			<table class="alternate">
 				<tr>
@@ -83,11 +84,11 @@
 			<table class="alternate">
 				<tr>
 					<td>Paramètre $a$</td>
-					<td><?php echo $result['param_a'];?></td>
+					<td><?php print_r($result['param_a']);?></td>
 				</tr>
 				<tr>
 					<td>Paramètre $b$</td>
-					<td><?php echo $result['param_b'];?></td>
+					<td><?php print_r($result['param_b']);?></td>
 				</tr>
 			</table>
 	</div>

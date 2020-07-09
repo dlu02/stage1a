@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("nom_fichier", type=str, help="nom du fichier")
 parser.add_argument("loi", type=str, help="loi")
 parser.add_argument("modele",type=int,help="modele")
+parser.add_argument("taille",type=int,help="taille")
 args = parser.parse_args()
 
 m=np.loadtxt(args.nom_fichier)
@@ -204,44 +205,90 @@ def histo_Continue(data,k,nom=None):
 
 
 def do_operation(array,n,loi):
-	if (n==0):
-		return round(np.amin(array),5)
-	elif (n==1):
-		return round(np.amax(array),5)
-	elif (n==2):
-		return round(np.mean(array),5)
-	elif (n==3):
-		return round(np.var(array),5)
-	elif (n==4):
-		return round(np.std(array),5)
-	elif (n==5):
-		return round(skewness(array),5)
-	elif (n==6):
-		return round(kurtosis(array),5)
-	elif (n==7):
-		if (discretes_continues(array)=="discrete"):
-			histo_discretes(array,nom="hist")
-			return "discrete"
-		if (discretes_continues(array)=="continue"):
-			classe=int(5*math.log10(n))
-			histo_Continue(array,classe,nom="hist")
-			return "continue"
+	if loi=="expo_poly":
+		if (n==0):
+			return round(np.amin(array),5)
+		elif (n==1):
+			return round(np.amax(array),5)
+		elif (n==2):
+			return round(np.mean(array),5)
+		elif (n==3):
+			return round(np.var(array),5)
+		elif (n==4):
+			return round(np.std(array),5)
+		elif (n==5):
+			return round(skewness(array),5)
+		elif (n==6):
+			return round(kurtosis(array),5)
+		elif (n==7):
+			if (discretes_continues(array)=="discrete"):
+				histo_discretes(array,nom="hist")
+				return "discrete"
+			if (discretes_continues(array)=="continue"):
+				classe=int(5*math.log10(n))
+				histo_Continue(array,classe,nom="hist")
+				return "continue"
+			else:
+				return "Saisie invalide"
+		elif (n==8):
+			global temp
+			temp=max_vs_m1_epp(array,args.taille)
+			res=[]
+			for i in range(1,np.size(temp)):
+				res.append(temp[i])
+			return res
+		elif (n==9):
+			return temp[0]
+		elif (n==10):
+			global temp2
+			temp2=max_vs_m2_epp(array,args.taille)
+			res=[]
+			for i in range(1,np.size(temp2)):
+				res.append(temp2[i])
+			return res
+		elif (n==11):
+			return temp2[0]
 		else:
-			return "Saisie invalide"
-	elif (n==8):
-		global temp
-		temp=max_vs_m1(array,loi)
-		return temp[0]
-	elif (n==9):
-		return temp[1]
-	elif (n==10):
-		global temp2
-		temp2=max_vs_m2(array,loi)
-		return temp2[0]
-	elif (n==11):
-		return temp2[1]
+			return "Saisie invalide."
 	else:
-		return "Saisie invalide."
+		if (n==0):
+			return round(np.amin(array),5)
+		elif (n==1):
+			return round(np.amax(array),5)
+		elif (n==2):
+			return round(np.mean(array),5)
+		elif (n==3):
+			return round(np.var(array),5)
+		elif (n==4):
+			return round(np.std(array),5)
+		elif (n==5):
+			return round(skewness(array),5)
+		elif (n==6):
+			return round(kurtosis(array),5)
+		elif (n==7):
+			if (discretes_continues(array)=="discrete"):
+				histo_discretes(array,nom="hist")
+				return "discrete"
+			if (discretes_continues(array)=="continue"):
+				classe=int(5*math.log10(n))
+				histo_Continue(array,classe,nom="hist")
+				return "continue"
+			else:
+				return "Saisie invalide"
+		elif (n==8):
+			global temp3
+			temp3=max_vs_m1(array,loi)
+			return temp3[0]
+		elif (n==9):
+			return temp3[1]
+		elif (n==10):
+			global temp4
+			temp4=max_vs_m2(array,loi)
+			return temp4[0]
+		elif (n==11):
+			return temp4[1]
+		else:
+			return "Saisie invalide."
 
 
 def Moment_r(data,r):
@@ -298,10 +345,10 @@ def norme(vect):
 ### scipy fsolve
 #contraintes
 def contrainte1(x,M,ep):
-	return -ep(x)+np.mean(M)
+	return 1e-6-abs(ep(x)-np.mean(M))
 
 def contrainte2(x,M,mom):
-	return -mom(x)+mom_emp2(M)
+	return 1e-6-abs(-mom(x)+mom_emp2(M))
 
 def contrainte3(x,loi,M):
 	mom3_c=mom3(loi)
@@ -317,15 +364,15 @@ def max_vs_m1(M,loi):
 	ls=log_vs(loi)
 	moy=esp(loi)
 	mom2_f=mom2(loi)
+	cons=[{'type':'ineq','fun':(lambda x: contrainte2(x,M,mom2_f))},{'type':'ineq','fun':(lambda x: contrainte1(x,M,moy))}]
 	res=[]
 	Rlist=[]
 	for k in range(0,5):
-		valeur_initiale=np.array([np.random.rand(),np.random.rand(),0,0])
-		R=scipy.optimize.fsolve(lambda x: eq1_bis(x,M,ls,moy,mom2_f),valeur_initiale,xtol=1e-2,maxfev=20)
-		R=np.array([R[0],R[1]])
+		valeur_initiale=np.array([np.random.rand(),np.random.rand()])
+		R=scipy.optimize.minimize(lambda x: ls(x,M),valeur_initiale,tol=1e-6,options={'maxiter':300},constraints=cons).x
 		res.append(norme(gradient((lambda y: ls(y,M)),R)))
 		Rlist.append(R)
-		if norme(gradient((lambda y: ls(y,M)),R))<1e-2:
+		if norme(gradient((lambda y: ls(y,M)),R))<1e-6:
 			return R
 	ind=res.index(min(res))
 	return Rlist[ind]
@@ -598,6 +645,131 @@ def skewnessE(x,M):
 # 	esp_c=esp(loi)
 # 	return ((momc_c(x,4)-4*esp_c(x)*((varc(x,loi))**(3/2))*skewness(x,loi)-6*esp_c(x)*esp_c(x)*varc(x,loi)-(esp_c(x)**4))/(varc(x,loi)**2))
 
+## cas particulier exponentielle polynomiale
+def fact(n):
+	if n<2:
+		return 1
+	else:
+		return n*fact(n-1)
+
+def expo_poly(x,a,b):
+	res=0
+	for k in range(0,numpy.size(a)):
+		res=res+a[k]*(x**k)
+	return cab(a,b)*res*numpy.exp(-b*x)
+
+def fdr_expopoly(x,a,b):
+	res=0
+	for k in range(0,numpy.size(a)):
+		res=res+a[k]*fact(k)/(b**(k+1))
+	return cab(a,b)*res*(1-numpy.exp(-b*x))
+
+def logvs_expopoly(x,M):
+	n=np.size(M)
+	m=np.size(x)
+	res=0
+	for k in range (1,m):
+		res=res+(x[k]*fact(k)/(x[0]**(k+1)))
+	res2=0
+	res3=0
+	for i in range(n):
+		for k in range(1,m):
+			res2=res2+x[k]*(M[i])**k
+		res3=res3+np.log(res2)
+	res4=0
+	for i in range(n):
+		res4=res4+M[i]
+	return n*np.log(res)+res2-x[0]*res4
+
+def cab(x):  # coefficient C(a,b) x=(b,a1,...,am) de taille m+1
+	res=0
+	for k in range(1,np.size(x)):
+		res=res+((x[k]*fact(k))/(x[0]**(k+1)))
+	return 1/res
+
+def esp_expopoly(x):
+	cabval=cab(x)
+	res=0
+	for k in range(1,np.size(x)):
+		res=res+x[k]*fact(k+1)/(x[0]**(k+2))
+	return cabval*res
+
+def mom2_expopoly(x):
+	cabval=cab(x)
+	res=0
+	for k in range(1,np.size(x)):
+		res=res+x[k]*fact(k+2)/(x[0]**(k+3))
+	return cabval*res
+
+def mom3_expopoly(x):
+	cabval=cab(x)
+	res=0
+	for k in range(1,np.size(x)):
+		res=res+x[k]*fact(k+3)/(x[0]**(k+4))
+	return cabval*res
+
+def momi_expopoly(x,i):
+	cabval=cab(x)
+	res=0
+	for k in range(1,np.size(x)):
+		res=res+x[k]*fact(k+i)/(x[0]**(k+i+1))
+	return cabval*res
+
+
+def momc_expopoly(x,k):
+	res=0
+	esperance=esp_expopoly(x)
+	for i in range(0,k+1):
+		res=res+(binom(k,i)*(esperance**(k-i))*((-1)**i)*momi_expopoly(x,i))
+	return res
+
+def contrainte4(x):
+	if x[0]>0:
+		res=1
+	else:
+		res=0
+	for i in range(1,np.size(x)):
+		if x[i]>=0:
+			res=res+1
+	return res-(np.size(x))
+
+def max_vs_m1_epp(M,m):
+	ls=logvs_expopoly
+	moy=esp_expopoly
+	mom2_f=mom2_expopoly
+	cons=[{'type':'ineq','fun':(lambda x: contrainte2(x,M,mom2_f))},{'type':'ineq','fun':(lambda x: contrainte1(x,M,moy))},{'type':'eq','fun':(lambda x: contrainte4(x))}]
+	res=[]
+	Rlist=[]
+	for k in range(0,9):
+		valeur_initiale=[np.random.rand()]
+		for j in range(m):
+			valeur_initiale.append(np.random.rand())
+		valeur_initiale=np.array(valeur_initiale)
+		R=scipy.optimize.minimize(lambda x: ls(x,M),valeur_initiale,tol=1e-6,options={'maxiter':300},constraints=cons).x
+		res.append(norme(gradient((lambda y: ls(y,M)),R)))
+		Rlist.append(R)
+		if norme(gradient((lambda y: ls(y,M)),R))<1e-6:
+			return R
+	ind=res.index(min(res))
+	return Rlist[ind]
+
+def max_vs_m2_epp(M,m):
+	cons=[{'type':'ineq','fun':(lambda x: contrainte3(x,"expo_poly",M))},{'type':'eq','fun':(lambda x: contrainte4(x))}]
+	ls=logvs_expopoly
+	res=[]
+	Rlist=[]
+	for k in range(0,20):
+		valeur_initiale=[np.random.rand()]
+		for j in range(m):
+			valeur_initiale.append(np.random.rand())
+		valeur_initiale=np.array(valeur_initiale)
+		R=scipy.optimize.minimize(lambda x: ls(x,M),valeur_initiale,tol=1e-6,options={'maxiter':300},constraints=cons).x
+		res.append(norme(gradient((lambda y: ls(y,M)),R)))
+		Rlist.append(R)
+		if norme(gradient((lambda y: ls(y,M)),R))<1e-6:
+			return R
+	ind=res.index(min(res))
+	return Rlist[ind]
 
 warnings.filterwarnings("ignore")  # ignorer les warnings
 
