@@ -107,6 +107,15 @@
 					<td><?php echo $result['chi2_pvalue'];?></td>
 				</tr>
 			</table>
+            <h4 style="text-align:center; color: red;">
+                <?php if ($result['chi2_pvalue'] < 0.05){
+                    echo "Hypothèse rejetée. L'échantillon étudié ne suit pas la loi $loi.";
+                }
+                else {
+                    echo "Hypothèse non rejetée. L'échantillon étudié est susceptible de suivre la loi $loi.";
+                }
+                ?>
+            </h4>
 	</div>
 	</body>
 </html>
