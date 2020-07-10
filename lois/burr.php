@@ -31,7 +31,7 @@
 	</header>
 
 	<div class="page">
-		<h2 class="titre">Étude de lois</h2>
+		<h2 class="titre">Modèles de durée de vie</h2>
 		<h3>Loi de Burr <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
 		On note $\Gamma$ la fonction Gamma d'Euler définie sur $\mathbb{R}_+^*$ par :
 		$$\Gamma(x)= \displaystyle \int_0^{+\infty} t^{x-1}\mathrm{e}^{-t} \mathrm{d} t$$

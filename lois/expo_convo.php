@@ -31,7 +31,7 @@
 	</header>
 
 	<div class="page">
-		<h2 class="titre">Étude de lois</h2>
+		<h2 class="titre">Modèles de durée de vie</h2>
 		<h3>Loi exponentielle convolution <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
 		Par l'écriture de la densité de la loi exponentielle convolution, pour $x>0$ et $a,b > 0$ :
 		$$f(x,a,b)=\dfrac{ab}{b-a}(\mathrm{e}^{-ax}-\mathrm{e}^{-bx})= \dfrac{b}{b-a}a\mathrm{e}^{-ax}-\dfrac{a}{b-a}b\mathrm{e}^{-bx}$$

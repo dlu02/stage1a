@@ -1,98 +1,16 @@
+/* concerne la page sous le menu */
 .page{
 	max-width: 960px;
 	margin: auto;
 	background-color: #f2f2f2;
-	padding: .4em .4em .4em .4em;
+	padding: .6em .6em .6em .6em;
 	font-family: sans-serif;
-}
-
-.alternate{
-	width:50%;
-	border-collapse:collapse;
-	padding: 10px 10px 10px 20px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.alternate td{
-	padding: 10px 25px 20px ;
-	border:#ccccb3 1px solid;
-}
-
-.alternate tr:nth-child(2n) {
-	background-color:  #95a5a6;
-}
-
-.alternate tr:nth-child(2n):hover, .alternate tr:hover {
-	background-color:  #b3b6b7;
-}
-
-.alternate tr {
-	background-color: white;
-}
-
-.alternate th {
-    background-color: #333;
-	color: #ffffff;
-	padding: 10px 10px 10px ;
-}
-
-.menubar{
-	margin: auto;
-	font-family: sans-serif;
-	max-width: 960px;
-}
-
-.menubar ul{
-	list-style-type: none;
-	margin: auto;
-	padding: 0;
-	overflow: hidden;
-	font-size: 12px;
-	max-width: 960px;
-}
-
-.menubar li{
-	float: left;
-	border-right: 1px solid #bbb;
-}
-
-.menubar li a {
-	display: block;
-	color: black;
-	text-align: center;
-	padding: 10px 12px;
-	text-decoration: none;
-}
-
-.menubar li a:hover {
-	background-color: #c2d6d6;
-}
-
-.button_link {
-	background-color: #c2d6d6;
-	border: none;
-	color: black;
-	padding: 10px 20px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 12px;
-	margin: 2px 1px;
-	cursor: pointer;
-}
-
-.img_center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
 }
 
 .page ul {
-    counter-reset: li; /* Initialise le compteur */
-    list-style: none; /* Supprime la numérotation par défaut */
-    *list-style: decimal; /* Restitue la numérotation par défaut pour IE6/7 */
+    counter-reset: li;
+    list-style: none;
+    *list-style: decimal;
     font: 12px;
 	padding: 0;
     margin-bottom: 4em;
@@ -156,6 +74,7 @@
     border-radius: 2em;
 }
 
+/* titre de la page décrite ci-dessus */
 .titre{
         position: relative;
         display: block;
@@ -165,4 +84,128 @@
         background: #2a52a2;
         color: white;
         text-decoration: none;
+}
+
+/* ***** style tableau */
+.alternate{
+	width:50%;
+	border-collapse:collapse;
+	padding: 10px 10px 10px 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.alternate td{
+	padding: 10px 25px 20px ;
+	border:#ccccb3 1px solid;
+}
+
+.alternate tr:nth-child(2n) {
+	background-color:  #95a5a6;
+}
+
+.alternate tr:nth-child(2n):hover, .alternate tr:hover {
+	background-color:  #b3b6b7;
+}
+
+.alternate tr {
+	background-color: white;
+}
+
+.alternate th {
+    background-color: #333;
+	color: #ffffff;
+	padding: 10px 10px 10px ;
+}
+/* ****** */
+
+/* style menu */
+.menubar{
+	list-style-type: none;
+	margin: auto;
+	padding: 0;
+	overflow: visible;
+	font-size: 12px;
+	max-width: 960px;
+}
+
+.menubar li{
+	float: left;
+	border-right: 1px solid #bbb;
+}
+
+.menubar li a {
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 10px 12px;
+	text-decoration: none;
+}
+
+.menubar li a:hover {
+	background-color: #c2d6d6;
+}
+
+.menu_deroulant {
+	position: relative;
+	font: 12px;
+	padding: 0;
+}
+
+.contenu_menu {
+	display: none;
+	position: absolute;
+	background-color: #ffffff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	padding: 0;
+}
+
+.contenu_menu li {
+	text-decoration: none;
+	display: block;
+	color: black;
+	text-align: left;
+	text-decoration: none;
+	border-right: 0;
+	margin: auto;
+	min-width: 200px;
+}
+
+.contenu_menu li a {
+	display: block;
+	color: black;
+	text-align: left;
+	text-decoration: none;
+}
+
+.contenu_menu li:hover {background-color: #c2d6d6;}
+
+.menu_deroulant:hover .contenu_menu {display: block;}
+
+.menu_deroulant:hover .bouton_deroulant {
+	background-color: #c2d6d6;
+}
+/* ****** */
+
+/* style bouton lien */
+.button_link {
+	background-color: #c2d6d6;
+	border: none;
+	color: black;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	margin: 2px 1px;
+	cursor: pointer;
+}
+
+/* image centrée */
+.img_center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
 }

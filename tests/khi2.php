@@ -33,7 +33,7 @@
 	<div class="page">
 		<h2 class="titre">Tests statistiques</h2>
 		<h3>Test du Khi-2</h3>
-		<p>Soit $\alpha=0.05$ la règle de décision. Soient $C_1,...,C_n$ $n$ classes qui répartissent les $N$ observations. Le but du test du Khi-2 est de mesurer l'écart entre une distribution empirique (observée) et une distribution théorique. Pour cela, on calcule une sorte de distance entre les deux distributions, qui fera office de statistique du test :
+		<p>Soit $\alpha=0.05$ la règle de décision. Soient $C_1,...,C_n$ $n$ classes qui répartissent les $N$ observations. Le but du test du Khi-2 est de mesurer l'écart entre une distribution empirique (observée) et une distribution théorique. Pour cela, on calcule une sorte de distance entre les deux distributions, qui est en outre la statistique du test :
 		$$ T=\sum_{i=1}^n \dfrac{(n_i-Np_i)^2}{Np_i}$$
 		où $n_i$ est le nombre d'observations empirique de la classe $C_i$, $p_i$ est la probabilité d'observation théorique de la classe $C_i$ et $N$ est le nombre d'observations. </p>
 		<p>Cette statistique $T$ suivant une loi du Khi-deux à $n-1$ degrés de libertés, on compare cette distance au quantile d'ordre $1-\alpha$ de la loi du $\chi^2$ à $n-1$ degrés de libertés.</p>

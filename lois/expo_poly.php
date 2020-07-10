@@ -31,7 +31,7 @@
 	</header>
 
 	<div class="page">
-		<h2 class="titre">Étude de lois</h2>
+		<h2 class="titre">Modèles de durée de vie</h2>
 		<h3>Loi exponentielle polynomiale <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
 		<p> Pour déterminer $C(a,b)$, nous utilisons le fait que :
 			$$\int_{-\infty}^{+\infty} f(x,a,b) \mathrm{d} x = 1$$

@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="../css/style_page.css">
-  <title>Étude de lois</title>
+  <title>Modèles de durée de vie</title>
 </head>
 <body>
     <header>
         <?php include "../top.php"; ?>
     </header>
 	<div class="page">
-		<h2 class="titre">Étude de lois</h2>
+		<h2 class="titre">Modèles de durée de vie</h2>
 
 		<p>Pour modéliser des phénomènes de durée de vie, nous allons utiliser une modélisation par une loi usuelle. Nous décrivons ici les aspects théoriques de ces lois : leur caractéristique statistique (moyenne, variance, skewness, kurtosis, etc.) ainsi qu'une représentation de leur densité en fonction du ou des paramètres en jeu : </p>
 
