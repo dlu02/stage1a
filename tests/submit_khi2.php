@@ -12,7 +12,7 @@
 
 	<div class="page">
 		<h2 class="titre">Test d'adéquation du Khi-2</h2>
-		<h3>Résultats de l'analyse <a href=khi2.php class=button_link>Nouvelle analyse</a></h3>
+		<h3>Résultats de l'analyse descriptive <a href=khi2.php class=button_link>Nouvelle analyse</a></h3>
 
 		<?php
 			if(isset($_FILES['fichier'])){
@@ -43,7 +43,11 @@
 				echo "Pas de fichier sélectionné. </div></body></html>";
 				exit();
 			}
-			$result = json_decode(exec("python donnees/stats_khi2.py donnees/$nom_fichier $loi $modele $taillea"), true);
+			$result = json_decode(shell_exec("python donnees/stats_khi2.py donnees/$nom_fichier $loi $modele $taillea"), true);
+            if ($result['error'] == "error"){
+                echo "<h4> ERREUR : Données discrètes. Veuillez vérifier vos données. </h4></div></body></html>";
+                exit();
+            }
 		?>
 			<table class="alternate">
 				<tr>

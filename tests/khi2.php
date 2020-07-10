@@ -38,7 +38,7 @@
 		où $n_i$ est le nombre d'observations empirique de la classe $C_i$, $p_i$ est la probabilité d'observation théorique de la classe $C_i$ et $N$ est le nombre d'observations. </p>
 		<p>Cette statistique $T$ suivant une loi du Khi-deux à $n-1$ degrés de libertés, on compare cette distance au quantile d'ordre $1-\alpha$ de la loi du $\chi^2$ à $n-1$ degrés de libertés.</p>
 		<h4>Implémentation</h4>
-		Le fichier TXT ou CSV doit contenir une seule sorte de données, écrites sur une seule ligne et séparées par un espace, ou sur une seule colonne.
+		Le fichier TXT ou CSV ou DAT doit contenir une seule sorte de données écrites soit en lignes, soit en colonnes.
 			<form method="POST" action="submit_khi2.php" enctype="multipart/form-data">
 				<table class="alternate">
 					<tr>

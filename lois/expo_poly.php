@@ -58,7 +58,7 @@
 			<input id="loi" name="loi" type="hidden" value="4">
 			<table class="alternate">
 			<tr> <th colspan="2">Tracé de la densité</th> </tr>
-			<tr><td>Valeur de $a$ (syntaxe CSV, espace comme séparateur)</td><td><textarea name="parametre1" rows="1" cols="50"></textarea></tr>
+			<tr><td>Valeur de $a$ (syntaxe CSV, écriture en ligne)</td><td><textarea name="parametre1" rows="1" cols="50"></textarea></tr>
 			<tr><td>Valeur de $b$</td><td><input type="number" id="parametre2" name="parametre2" step="any"></td></tr>
 			<tr> <th colspan="2"><input type="submit" name="submit5" id="submit5" value="Tracé de la densité"></th> </tr>
 			</table>

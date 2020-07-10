@@ -25,7 +25,7 @@
 					<td><input type="number" id="size2" name="size2" min="1"></td>
 				  </tr>
 				  <tr>
-					<td>Données à étudier <br> (syntaxe CSV : espace comme séparateur)</td>
+					<td>Données à étudier <br> (syntaxe CSV, écriture en ligne)</td>
 					<td><textarea name="contenu2" rows="1" cols="50"></textarea></td>
 				  </tr>
 				  <tr> <th colspan="2"><input type="submit" name="submit4" id="submit4" value="Envoyer"></th> </tr>

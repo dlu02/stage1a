@@ -12,7 +12,7 @@
 
 	<div class="page">
 		<h2 class="titre">Test d'adéquation de Kolgomorov-Smirnov</h2>
-		<h3>Résultats de l'analyse <a href=kolgomorov.php class=button_link>Nouvelle analyse</a></h3>
+		<h3>Résultats de l'analyse descriptive <a href=kolgomorov.php class=button_link>Nouvelle analyse</a></h3>
 
 		<?php
 			if(isset($_FILES['fichier'])){
@@ -29,7 +29,7 @@
 					echo "<h4> ERREUR : Le nombre de paramètres de a doit valoir au moins 1. </h4></div></body></html>";
 					exit();
 				}
-			    if(in_array($extension_fichier,$extensions)=== false){
+			    if(in_array($extension_fichier,$extensions) === false){
 					echo $extension_fichier;
 					echo "Extension non autorisée. Veuillez importer un fichier TXT ou DAT ou CSV </div></body></html>";
 					exit();
@@ -44,6 +44,10 @@
 				exit();
 			}
 			$result = json_decode(exec("python donnees/stats_ks.py donnees/$nom_fichier $loi $modele $taillea"), true);
+            if ($result['error'] == "error"){
+                echo "<h4> ERREUR : Données discrètes. Veuillez vérifier vos données. </h4></div></body></html>";
+                exit();
+            }
 		?>
 			<table class="alternate">
 				<tr>
