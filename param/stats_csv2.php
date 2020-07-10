@@ -42,7 +42,16 @@
 				echo "Pas de fichier sélectionné. </div></body></html>";
 				exit();
 			}
+            $replace = exec("sed -i 's/\ /,/g' donnees/$nom_fichier"); // remplace les espaces de séparation par des virgules dans le fichier nom_fichier
 			$result = json_decode(exec("python donnees/stats_csv.py donnees/$nom_fichier $loi 2 $taillea"), true);
+            if ($result['error'] == "error"){
+                echo "<h4> ERREUR : Données discrètes. Veuillez vérifier vos données. </h4></div></body></html>";
+                exit();
+            }
+            if ($result['error_dim'] == "error"){
+                echo "<h4> ERREUR : Plusieurs variables présentes dans le fichier. Veuillez vérifier vos données. </h4></div></body></html>";
+                exit();
+            }
 		?>
 			<table class="alternate">
 				<tr>

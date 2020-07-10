@@ -14,8 +14,6 @@ parser.add_argument("modele", type=int, help="modele")
 parser.add_argument("taille", type=int, help="taille")
 args = parser.parse_args()
 
-m = np.loadtxt(args.nom_fichier)
-n = np.size(m)
 
 ###############################
 # Construction de l'histogramme
@@ -776,10 +774,21 @@ def do_operation(array, n, loi):
 warnings.filterwarnings("ignore")  # ignorer les warnings
 
 
-if (args.modele == 1):
-	L = {"min": do_operation(m, 0, args.loi), "max": do_operation(m, 1, args.loi), "moy": do_operation(m, 2, args.loi), "var": do_operation(m, 3, args.loi), "ec": do_operation(m, 4, args.loi), "skew": do_operation(m, 5, args.loi), "kurt": do_operation(m, 6, args.loi), "hist": do_operation(m, 7, args.loi), "param_a": do_operation(m, 8, args.loi), "param_b": do_operation(m, 9, args.loi)}
-elif (args.modele == 2):
-	L = {"min": do_operation(m, 0, args.loi), "max": do_operation(m, 1, args.loi), "moy": do_operation(m, 2, args.loi), "var": do_operation(m, 3, args.loi), "ec": do_operation(m, 4, args.loi), "skew": do_operation(m, 5, args.loi), "kurt": do_operation(m, 6, args.loi), "hist": do_operation(m, 7, args.loi), "param_a": do_operation(m, 10, args.loi), "param_b": do_operation(m, 11, args.loi)}
+####
+# script
+####
+m = np.loadtxt(args.nom_fichier, delimiter=',')
+n = len(m)
+dim = np.ndim(m)
+if (dim != 1):   # cas où le nombre de variables à étudier est supérieur à 1
+	L = {"error_dim": "error"}
+elif discretes_continues(m) == "discrete":
+	L = {"error": "error"}
+else:
+	if (args.modele == 1):
+		L = {"min": do_operation(m, 0, args.loi), "max": do_operation(m, 1, args.loi), "moy": do_operation(m, 2, args.loi), "var": do_operation(m, 3, args.loi), "ec": do_operation(m, 4, args.loi), "skew": do_operation(m, 5, args.loi), "kurt": do_operation(m, 6, args.loi), "hist": do_operation(m, 7, args.loi), "param_a": do_operation(m, 8, args.loi), "param_b": do_operation(m, 9, args.loi)}
+	elif (args.modele == 2):
+		L = {"min": do_operation(m, 0, args.loi), "max": do_operation(m, 1, args.loi), "moy": do_operation(m, 2, args.loi), "var": do_operation(m, 3, args.loi), "ec": do_operation(m, 4, args.loi), "skew": do_operation(m, 5, args.loi), "kurt": do_operation(m, 6, args.loi), "hist": do_operation(m, 7, args.loi), "param_a": do_operation(m, 10, args.loi), "param_b": do_operation(m, 11, args.loi)}
 
 res = json.dumps(L, default=convert)  # appliquer convert si le nombre est un entier numpy
 print(res)

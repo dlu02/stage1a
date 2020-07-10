@@ -14,9 +14,6 @@ parser.add_argument("modele", type=int, help="modele")
 parser.add_argument("taille", type=int, help="taille")
 args = parser.parse_args()
 
-m = np.loadtxt(args.nom_fichier)
-n = np.size(m)
-
 ###############################
 # Construction de l'histogramme
 ###############################
@@ -899,7 +896,13 @@ def do_operation(array, n, loi):
 ####
 # Script
 ####
-if discretes_continues(m) == "discrete":
+m = np.loadtxt(args.nom_fichier, delimiter=',')
+n = len(m)
+dim = np.ndim(m)
+
+if (dim != 1):   # cas où le nombre de variables à étudier est supérieur à 1
+	L = {"error_dim": "error"}
+elif discretes_continues(m) == "discrete":
 	L = {"error": "error"}
 else:
 	if (args.modele == 1):
