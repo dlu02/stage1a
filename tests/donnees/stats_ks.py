@@ -799,7 +799,11 @@ def do_operation(array, n, loi):
 		elif (n == 11):
 			return temp[0]
 		elif (n == 12):
-			return testks(array, loi, temp, temp[1])
+			a = testks(array, loi, temp[0], temp[1])
+			if (np.isfinite(a)):
+				return a
+			else:
+				return 0
 		else:
 			return "Saisie invalide."
 	else:
@@ -838,21 +842,19 @@ def do_operation(array, n, loi):
 		elif (n == 11):
 			return temp[1]
 		elif (n == 12):
-			return testks(array, loi, temp[0], temp[1])
+			a = testks(array, loi, temp[0], temp[1])
+			if (np.isfinite(a)):
+				return a
+			else:
+				return 0
 		else:
 			return "Saisie invalide."
 
 
-####
-# script
-####
-m = np.loadtxt(args.nom_fichier, delimiter=',')
-n = len(m)
-dim = np.ndim(m)
+m = np.loadtxt(args.nom_fichier)
+
 if discretes_continues(m) == "discrete":
 	L = {"error": "error"}
-elif (dim != 1):   # cas où le nombre de variables à étudier est supérieur à 1
-	L = {"error_dim": "error"}
 else:
 	if (args.modele == 1):
 		L = {"min": do_operation(m, 0, args.loi), "max": do_operation(m, 1, args.loi), "moy": do_operation(m, 2, args.loi), "var": do_operation(m, 3, args.loi), "ec": do_operation(m, 4, args.loi), "skew": do_operation(m, 5, args.loi), "kurt": do_operation(m, 6, args.loi), "hist": do_operation(m, 7, args.loi), "param_a": do_operation(m, 8, args.loi), "param_b": do_operation(m, 9, args.loi), "ks_pvalue": do_operation(m, 12, args.loi)}

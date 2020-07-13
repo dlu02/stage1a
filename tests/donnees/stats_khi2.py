@@ -849,7 +849,11 @@ def do_operation(array, n, loi):
 		elif (n == 11):
 			return temp[0]
 		elif (n == 12):
-			return chi2(array, fdr(loi), temp, temp[1])
+			a = chi2(array, fdr(loi), temp[0], temp[1])
+			if np.isfinite(a):
+				return a
+			else:
+				return 0
 		else:
 			return "Saisie invalide."
 	else:
@@ -888,21 +892,18 @@ def do_operation(array, n, loi):
 		elif (n == 11):
 			return temp[1]
 		elif (n == 12):
-			return chi2(array, fdr(loi), temp[0], temp[1])
+			a = chi2(array, fdr(loi), temp[0], temp[1])
+			if np.isfinite(a):
+				return a
+			else:
+				return 0
 		else:
 			return "Saisie invalide."
 
 
-####
-# Script
-####
 m = np.loadtxt(args.nom_fichier, delimiter=',')
-n = len(m)
-dim = np.ndim(m)
 
-if (dim != 1):   # cas où le nombre de variables à étudier est supérieur à 1
-	L = {"error_dim": "error"}
-elif discretes_continues(m) == "discrete":
+if discretes_continues(m) == "discrete":
 	L = {"error": "error"}
 else:
 	if (args.modele == 1):

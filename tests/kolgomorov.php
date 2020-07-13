@@ -39,7 +39,7 @@
 		$$P\left(\sqrt{n} D \leqslant \lambda \right) \underset{n\to +\infty}{\longrightarrow} 1+2\sum_{k=1}^{+\infty} (-1)^k \exp(-2k^2\lambda^2)$$
 		et cette convergence est très rapide (au bout de 3 ou 4 itérations). L'absence de conditions d'application montre que le test de Kolgomorov-Smirnov est un test <b>non paramétrique</b>.
 		<h4>Implémentation</h4>
-		Le fichier TXT ou CSV ou DAT doit contenir une seule sorte de données écrites soit en lignes, soit en colonnes.
+		Le fichier TXT ou CSV ou DAT doit contenir une seule sorte de données écrites soit en lignes, soit en colonnes. Si plusieurs sortes de données sont présentes, elles sont concaténées et regroupées en une seule sorte de données.
 			<form method="POST" action="submit_ks.php" enctype="multipart/form-data">
 				<table class="alternate">
 					<tr>
