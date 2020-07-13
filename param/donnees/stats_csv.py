@@ -248,7 +248,7 @@ def max_vs_m1(M, loi):
 	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte2(x, M, mom2_f))}, {'type': 'ineq', 'fun': (lambda x: contrainte1(x, M, moy))}]
 	res = []
 	Rlist = []
-	for k in range(0, 5):
+	for k in range(0, 20):
 		valeur_initiale = np.array([np.random.rand(), np.random.rand()])
 		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x
 		res.append(norme(gradient((lambda y: ls(y, M)), R)))
@@ -650,7 +650,7 @@ def max_vs_m1_epp(M, m):
 	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte2(x, M, mom2_f))}, {'type': 'ineq', 'fun': (lambda x: contrainte1(x, M, moy))}, {'type': 'eq', 'fun': (lambda x: contrainte4(x))}]
 	res = []
 	Rlist = []
-	for k in range(0, 9):
+	for k in range(0, 20):
 		valeur_initiale = [np.random.rand()]
 		for j in range(m):
 			valeur_initiale.append(np.random.rand())
@@ -777,12 +777,9 @@ warnings.filterwarnings("ignore")  # ignorer les warnings
 ####
 # script
 ####
-m = np.loadtxt(args.nom_fichier, delimiter=',')
-n = len(m)
-dim = np.ndim(m)
-if (dim != 1):   # cas où le nombre de variables à étudier est supérieur à 1
-	L = {"error_dim": "error"}
-elif discretes_continues(m) == "discrete":
+m = np.loadtxt(args.nom_fichier)
+
+if discretes_continues(m) == "discrete":
 	L = {"error": "error"}
 else:
 	if (args.modele == 1):
