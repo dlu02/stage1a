@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/style_page.css">
-	<title>Estimation de paramètres</title>
+	<title>Test de Kolgomorov-Smirnov</title>
 
 	<!-- Pour LaTeX -->
 	<script type="text/x-mathjax-config">

@@ -1,9 +1,11 @@
-<div>
-	<h1 style="text-align:center"> Modélisation statistique de durée de vie </h1>
-	<h3 style="text-align:center;font-size: 14px;">Stage 1A 2020</h3>
-	<p style="text-align:center; font-size: 12px;">Organisme d'accueil : CNAM département EPN06 Mathématiques et Statistiques <br>
+<div class="top">
+	<h1> Modélisation statistique de durée de vie </h1>
+	<h3>Stage 1A 2020</h3>
+	
+	<p>Organisme d'accueil : CNAM département EPN06 Mathématiques et Statistiques <br>
 	Tuteur de stage : Dariush GHORBANZADEH
 	</p>
+	<div style="clear: both;"></div>
 	<ul class="menubar">
 		<li><a href="/stage/index.php">Accueil</a></li>
 		<li class="menu_deroulant"><a href="/stage/passerelle.php" class="bouton_deroulant">Passerelle basique Python/PHP</a>
