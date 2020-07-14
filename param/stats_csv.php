@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="/stage/css/style_page.css">
-  <title>Résultats de l'analyse</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/stage/css/style_page.css">
+    <title>Résultats de l'analyse</title>
 </head>
 <body>
     <header>
