@@ -210,8 +210,8 @@ print(res)
 ######
 
 if np.size(m) != args.size2:
-    print("Erreur de saisie : la taille saisie ne correspond pas à la taille des données.")
+    L = {"error": "error"}
 else:
     L = {"min": do_operation(m, 0), "max": do_operation(m, 1), "moy": do_operation(m, 2), "var": do_operation(m, 3), "ec": do_operation(m, 4), "skew": do_operation(m, 5), "kurt": do_operation(m, 6), "hist": do_operation(m, 7)}  # dictionnaire des valeurs à calculer
-    res = json.dumps(L, default=convert)  # appliquer convert si le nombre est un entier numpy
-    print(res)
+res = json.dumps(L, default=convert)  # appliquer convert si le nombre est un entier numpy
+print(res)

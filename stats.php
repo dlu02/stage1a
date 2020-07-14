@@ -27,8 +27,12 @@
 				echo "<h3> ERREUR : un ou plusieurs champ(s) est/sont vide(s). </h3></div></body></html>";
 				exit();
 			}
-
+            $replace = exec("sed -i 's/ /\\n/g; s/,/\\n/g; s/\\t/\\n/g; s/;/\\n/g' $nom_fichier && sed -i '/^$/d' $nom_fichier"); // remplace les espaces de séparation, les tabulations, les virgules et les points virgules par une nouvelle ligne dans le fichier nom_fichier, puis supprime les lignes vides
 			$result = json_decode(exec("python stats.py ".$nom_fichier." ".$size2), true);
+            if ($result['error'] == "error"){
+                echo "<h3> ERREUR : taille de l'échantillon incorrecte.</h3></div></body></html>";
+				exit();
+            }
 		?>
 			<table class="alternate">
 				<tr>
