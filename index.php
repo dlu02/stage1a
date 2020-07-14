@@ -25,7 +25,7 @@
 			</p>
 		<h3>Objectif</h3>
 			<p>
-				L'objectif est, à partir de ce jeu de données, d'en faire une description statistique, puis ensuite, au moyen de tests statistiques, de trouver la ou les lois qui correspondent le plus à ces données, et ensuite de prévoir la durée de vie moyenne d'un appareil.
+				L'objectif est, à partir de ce jeu de données, d'en faire une description statistique, puis ensuite, au moyen de tests statistiques, de trouver la ou les lois qui correspondent le plus à ces données, et ensuite d'en déduire des prédictions sur la durée de vie de futurs appareils P à partir de ces lois.
 			</p>
 		<h3>Moyens techniques</h3>
 			<p>

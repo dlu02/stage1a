@@ -75,3 +75,6 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js/MathJax.js?config=TeX-MML-AM_CHTML">
 </script> -->
 <!-- Fin LaTeX -->
+
+<!-- import police Fira Sans depuis Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
