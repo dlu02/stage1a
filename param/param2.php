@@ -64,7 +64,6 @@
 					<tr> <th colspan="2"><input type="submit" name="submit4" id="submit4" value="Envoyer"></th> </tr>
 				</table>
 			</form>
-		<p>NB 1 : pour l'instant, toutes les lois sauf la loi exponentielle convolution sont implémentées</p>
 		<p>À des fins de test, voici un <a href="donnees/test_weibull_2_5.txt">exemple</a> de fichier txt contenant un échantillon de 500 réalisations de la loi de Weibull de paramètres 2 et 5 généré avec scipy.stats.</p>
 	</div>
 </body>

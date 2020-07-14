@@ -1,12 +1,12 @@
 <div class="top">
 	<h1> Modélisation statistique de durée de vie </h1>
 	<h3>Stage 1A 2020</h3>
-	
+
 	<p>Organisme d'accueil : CNAM département EPN06 Mathématiques et Statistiques <br>
 	Tuteur de stage : Dariush GHORBANZADEH
 	</p>
 	<div style="clear: both;"></div>
-	<ul class="menubar">
+	<ul class="menubar" id="menubar">
 		<li><a href="/stage/index.php">Accueil</a></li>
 		<li class="menu_deroulant"><a href="/stage/passerelle.php" class="bouton_deroulant">Passerelle basique Python/PHP</a>
 			<ul class="contenu_menu">
@@ -40,3 +40,38 @@
 	</ul>
 	<br> <br>
 </div>
+
+<!-- Script JS menu après scroll -->
+<script>
+	window.onscroll = function() {myFunction()};
+
+	var navbar = document.getElementById("menubar");
+	var sticky = navbar.offsetTop;
+
+	function myFunction() {
+	  if (window.pageYOffset >= sticky) {
+	    navbar.classList.add("sticky")
+	  } else {
+	    navbar.classList.remove("sticky");
+	  }
+	}
+</script>
+
+<!-- Pour LaTeX -->
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	  jax: ["input/TeX", "output/HTML-CSS"],
+	  extensions: ["tex2jax.js"],
+	  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+	  tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+	  TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+	  messageStyle: "none"
+	});
+</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- <script type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js/MathJax.js?config=TeX-MML-AM_CHTML">
+</script> -->
+<!-- Fin LaTeX -->

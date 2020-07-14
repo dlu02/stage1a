@@ -4,25 +4,6 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/style_page.css">
 	<title>Test de Kolgomorov-Smirnov</title>
-
-	<!-- Pour LaTeX -->
-	<script type="text/x-mathjax-config">
-	    MathJax.Hub.Config({
-	      jax: ["input/TeX", "output/HTML-CSS"],
-	      extensions: ["tex2jax.js"],
-	      "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
-	      tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
-	      TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
-	      messageStyle: "none"
-	    });
-	</script>
-	<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
-
-	<!-- <script type="text/javascript"
-	  async
-	  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js/MathJax.js?config=TeX-MML-AM_CHTML">
-	</script> -->
-	<!-- Fin LaTeX -->
 </head>
 
 <body>
@@ -38,8 +19,10 @@
 		où $F_n$ est la fonction de répartition empirique des données et $F$ est la fonction de répartition de la loi théorique. Le théorème de Kolgomorov permet d'assurer que sous l'hypothèse $(H_0)$, pour tout $\lambda > 0$ :
 		$$P\left(\sqrt{n} D \leqslant \lambda \right) \underset{n\to +\infty}{\longrightarrow} 1+2\sum_{k=1}^{+\infty} (-1)^k \exp(-2k^2\lambda^2)$$
 		et cette convergence est très rapide (au bout de 3 ou 4 itérations). L'absence de conditions d'application montre que le test de Kolgomorov-Smirnov est un test <b>non paramétrique</b>.
-		<h4>Implémentation</h4>
-		Le fichier TXT ou CSV ou DAT doit contenir une seule sorte de données écrites soit en lignes, soit en colonnes. Si plusieurs sortes de données sont présentes, elles sont concaténées et regroupées en une seule sorte de données.
+		<div class="formul">
+			<h4>Implémentation</h4>
+			<p>
+			Le fichier TXT ou CSV ou DAT doit contenir une seule sorte de données écrites soit en lignes, soit en colonnes. Si plusieurs sortes de données sont présentes, elles sont concaténées et regroupées en une seule sorte de données. </p>
 			<form method="POST" action="submit_ks.php" enctype="multipart/form-data">
 				<table class="alternate">
 					<tr>
@@ -49,14 +32,14 @@
 					<tr>
 						<td>Sélectionner la loi théorique</td>
 						<td><select name="loi" id="loi">
-				                <option value="">Choisir une loi</option>
-				                <option value="hyperexpo">Loi hyperexponentielle</option>
-				                <option value="lomax">Loi Lomax</option>
-				                <option value="weibull">Loi de Weibull</option>
-				                <option value="expo_poly">Loi exponentielle polynomiale</option>
+								<option value="">Choisir une loi</option>
+								<option value="hyperexpo">Loi hyperexponentielle</option>
+								<option value="lomax">Loi Lomax</option>
+								<option value="weibull">Loi de Weibull</option>
+								<option value="expo_poly">Loi exponentielle polynomiale</option>
 								<option value="burr">Loi de Burr</option>
 								<option value="expo_convo">Loi exponentielle convolution</option>
-			                </select>
+							</select>
 						</td>
 					</tr>
 					<tr>
@@ -75,6 +58,7 @@
 					<tr> <th colspan="2"><input type="submit" name="submit4" id="submit4" value="Envoyer"></th> </tr>
 				</table>
 			</form>
+		</div>
 	</div>
 </body>
 </html>

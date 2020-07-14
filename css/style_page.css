@@ -1,6 +1,5 @@
 /* fond de la page */
 body {
-	background-color: #f2f2f2;
 	margin: 0;
 	font-family: sans-serif;
 }
@@ -247,4 +246,40 @@ header {
 	margin-left: auto;
 	margin-right: auto;
 	width: 50%;
+}
+
+/* formulaires */
+.formul {
+	border-style: solid;
+	border-color: #c2d6d6;
+	border-width: 4px;
+	margin-top: 2em;
+	background-color: #f2f2f2;
+}
+
+.formul h4 {
+	position: absolute;
+	margin-top: -1.55em;
+}
+
+.formul p {
+	margin-top: 1.5em;
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+}
+
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #2a52a2;
+  color: white;
+  z-index: 3;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
 }

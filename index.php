@@ -26,7 +26,7 @@
 			</p>
 		<h3>Moyens techniques</h3>
 			<p>
-				La page est propulsée par un serveur web Arch Linux, sous PHP 7.4.8 et Python 3.8.3. Tous les calculs et les modélisations sont effectués à l'aide de Python via le langage PHP.
+				La page est propulsée par un serveur Arch Linux sous Apache 2.4.43, PHP 7.4.8 et Python 3.8.3. Tous les calculs et les modélisations sont effectués à l'aide de Python via le langage PHP.
 			</p>
 	</div>
 </body>
