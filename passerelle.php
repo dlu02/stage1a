@@ -11,6 +11,9 @@
     </header>
   <div class="page">
 	  	<h2 class="titre">Passerelle Python/PHP</h2>
+        <p class="update_time">
+            <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+        </p>
 		<h3>Générateur de nombres aléatoires</h3>
 		<div>
 		  <form method="POST" action="argparse.php" autocomplete="off" >
@@ -71,4 +74,7 @@
 		</div>
 	</div>
 </body>
+<footer>
+	<?php include 'bottom.php'; ?>
+</footer>
 </html>

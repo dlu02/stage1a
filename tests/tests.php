@@ -26,4 +26,7 @@
 			<h3><a href="kolgomorov.php">Test de Kolgomorov-Smirnov</a></h3>
 	</div>
 </body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
 </html>

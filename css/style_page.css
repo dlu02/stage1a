@@ -17,7 +17,6 @@ header {
 }
 .top h1 {
 	max-width: 960px;
-	margin: 8px;
 	float: left;
 	font-size: 24px;
 }
@@ -28,6 +27,7 @@ header {
 	float: right;
 	font-size: 16px;
 	text-align: right;
+	padding-top: 0.4em;
 }
 
 .top p {
@@ -36,6 +36,7 @@ header {
 	float: right;
 	font-size: 12px;
 	text-align: right;
+	padding-bottom: 0.4em;
 }
 
 /* concerne la page sous le menu */
@@ -259,17 +260,22 @@ header {
 
 .formul h4 {
 	position: absolute;
-	margin-top: -1.55em;
+	margin-top: -1.35em;
 }
 
 .formul p {
 	margin-top: 1.5em;
 	margin-left: 1.5em;
 	margin-right: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+.formul table {
+	margin-bottom: 1.5em;
 }
 
 
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+/* classe menu fixe lors du scrolling */
 .sticky {
   position: fixed;
   top: 0;
@@ -279,7 +285,35 @@ header {
   z-index: 3;
 }
 
-/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
 .sticky + .content {
   padding-top: 60px;
+}
+
+.bottom {
+	max-width: 960px;
+	margin: auto;
+}
+
+.bottom p {
+	float: left;
+	color: black;
+	font-size: 12px;
+}
+
+.bottom hr {
+	margin-top: 2em;
+	background-color: black;
+}
+
+.bottom_droite {
+	float: right;
+	padding-top: 0.7em;
+	padding-left: 2em;
+	padding-bottom: 1em;
+}
+
+.update_time {
+	text-align: right;
+	font-style: italic;
+	font-size: 12px;
 }

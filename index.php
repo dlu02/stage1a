@@ -13,6 +13,9 @@
 
 	<div class="page">
 		<h2 class="titre">Introduction</h2>
+			<p class="update_time">
+				<?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+			</p>
 			<p>
 				Il a toujours été important, notamment pour des appareils de production à très haute disponibilité, ou pour des questions de coût, de connaître la durée de vie d'un appareil. En fait, la problématique principale est de savoir s'il est possible de prévoir une prochaine panne de cet appareil.
 			</p>
@@ -30,4 +33,7 @@
 			</p>
 	</div>
 </body>
+<footer>
+	<?php include 'bottom.php'; ?>
+</footer>
 </html>

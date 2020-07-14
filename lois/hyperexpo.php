@@ -13,6 +13,9 @@
 
 	<div class="page">
 		<h2 class="titre">Modèles de durée de vie</h2>
+        <p class="update_time">
+            <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+        </p>
 		<h3>Loi hyperexponentielle <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
 		<table class="alternate">
 
@@ -41,4 +44,7 @@
 		</form>
 	</div>
 </body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
 </html>

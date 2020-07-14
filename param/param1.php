@@ -13,6 +13,9 @@
 
 	<div class="page">
 		<h2 class="titre">Estimation de paramètres par maximum de vraisemblance</h2>
+		<p class="update_time">
+			<?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+		</p>
 		<h3>Contraintes sur l'espérance et le moment d'ordre 2 empiriques</h3>
 		<p>
 			$$\max\limits_{\theta} \ell (x_1,...,x_n;\theta) \quad \text{s.c.} \quad \begin{cases} \displaystyle E(X)=\dfrac{1}{n}\sum_{i=1}^n x_i \\ \displaystyle E(X^2) = \dfrac{1}{n}\sum_{i=1}^n x_i^2 \end{cases}$$
@@ -48,4 +51,7 @@
 		<p>À des fins de test, voici un <a href="donnees/test_weibull_2_5.txt">exemple</a> de fichier txt contenant un échantillon de 500 réalisations de la loi de Weibull de paramètres 2 et 5 généré avec scipy.stats.</p>
 	</div>
 </body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
 </html>

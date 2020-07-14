@@ -11,7 +11,9 @@
     </header>
 	<div class="page">
 		<h2 class="titre">Modèles de durée de vie</h2>
-
+        <p class="update_time">
+            <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+        </p>
 		<p>Pour modéliser des phénomènes de durée de vie, nous allons utiliser une modélisation par une loi usuelle. Nous décrivons ici les aspects théoriques de ces lois : leur caractéristique statistique (moyenne, variance, skewness, kurtosis, etc.) ainsi qu'une représentation de leur densité en fonction du ou des paramètres en jeu : </p>
 
 		<ul>
@@ -25,3 +27,7 @@
 
 	</div>
 </body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
+</html>

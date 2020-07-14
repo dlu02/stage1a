@@ -13,6 +13,9 @@
 
 	<div class="page">
 		<h2 class="titre">Estimation de paramètres par maximum de vraisemblance</h2>
+		<p class="update_time">
+			<?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+		</p>
 		<h3>Contraintes sur le signe du skewness</h3>
 		<p>
 			$$\max\limits_{\theta} \ell (x_1,...,x_n;\theta) \qquad \text{s.c.} \quad E\left( \left( X-E(X) \right)^3 \right) \gamma_1 \geqslant 0$$
@@ -48,4 +51,7 @@
 		<p>À des fins de test, voici un <a href="donnees/test_weibull_2_5.txt">exemple</a> de fichier txt contenant un échantillon de 500 réalisations de la loi de Weibull de paramètres 2 et 5 généré avec scipy.stats.</p>
 	</div>
 </body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
 </html>

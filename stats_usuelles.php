@@ -123,4 +123,7 @@
 		<img src="hist.png" width=700px alt="Histogramme" class="img_center">
 	</div>
 </body>
+<footer>
+	<?php include 'bottom.php'; ?>
+</footer>
 </html>

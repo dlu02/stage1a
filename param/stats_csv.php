@@ -101,5 +101,8 @@
 				</tr>
 			</table>
 	</div>
-	</body>
+</body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
 </html>

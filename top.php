@@ -1,6 +1,6 @@
 <div class="top">
 	<h1> Modélisation statistique de durée de vie </h1>
-	<h3>Stage 1A 2020</h3>
+	<h3>Stage ENSIIE 1ère année 2020</h3>
 
 	<p>Organisme d'accueil : CNAM département EPN06 Mathématiques et Statistiques <br>
 	Tuteur de stage : Dariush GHORBANZADEH

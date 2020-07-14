@@ -13,6 +13,9 @@
 
 	<div class="page">
 		<h2 class="titre">Modèles de durée de vie</h2>
+        <p class="update_time">
+            <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+        </p>
 		<h3>Loi de Weibull <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
 		On note $\Gamma$ la fonction Gamma d'Euler définie sur $\mathbb{R}_+^*$ par :
 		$$\Gamma(x)= \displaystyle \int_0^{+\infty} t^{x-1}\mathrm{e}^{-t} \mathrm{d} t$$
@@ -42,7 +45,8 @@
 			</table>
 		</form>
 	</div>
-
-
 </body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
 </html>

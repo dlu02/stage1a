@@ -13,6 +13,9 @@
 
 	<div class="page">
 		<h2 class="titre">Tests statistiques</h2>
+		<p class="update_time">
+		    <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+		</p>
 		<h3>Test de Kolgomorov-Smirnov</h3>
 		Soit $\alpha=0.05$ la règle de décision. Soit $(X_1,...,X_n)$ un échantillon donné d'une variable aléatoire continue. Le but du test de Kolgomorov-Smirnov est de comparer la fonction de répartition empirique des données à la fonction de répartition théorique concernant la loi à vérifier : pour cela, on calcule également une sorte de distance entre ces fonctions de répartition, que l'on définit ci-dessous :
 		$$D=\max (F_n(x)-F(x))$$
@@ -61,4 +64,7 @@
 		</div>
 	</div>
 </body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
 </html>

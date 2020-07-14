@@ -118,5 +118,8 @@
                 ?>
             </h4>
 	</div>
-	</body>
+</body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
 </html>

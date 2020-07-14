@@ -11,7 +11,10 @@
     </header>
   <div class="page">
 	  <h2 class="titre">Statistiques descriptives</h2>
-    <h3>Étude descriptive de données saisies manuellement</h3>
+      <p class="update_time">
+          <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+      </p>
+      <h3>Étude descriptive de données saisies manuellement</h3>
 	  <div>
 		  <form method="POST" action="stats.php" autocomplete="off">
 			  <table class="alternate">
@@ -69,4 +72,7 @@
     </div>
   </div>
 </body>
+<footer>
+	<?php include 'bottom.php'; ?>
+</footer>
 </html>

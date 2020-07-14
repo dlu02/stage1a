@@ -13,6 +13,9 @@
 
 	<div class="page">
 		<h2 class="titre">Tests statistiques</h2>
+		<p class="update_time">
+			<?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
+		</p>
 		<h3>Test du Khi-2</h3>
 		<p>Soit $\alpha=0.05$ la règle de décision. Soient $C_1,...,C_n$ $n$ classes qui répartissent les $N$ observations. Le but du test du Khi-2 est de mesurer l'écart entre une distribution empirique (observée) et une distribution théorique. Pour cela, on calcule une sorte de distance entre les deux distributions, qui est en outre la statistique du test :
 		$$ T=\sum_{i=1}^n \dfrac{(n_i-Np_i)^2}{Np_i}$$
@@ -57,4 +60,7 @@
 		</div>
 	</div>
 </body>
+<footer>
+	<?php include '../bottom.php'; ?>
+</footer>
 </html>

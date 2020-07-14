@@ -31,4 +31,7 @@
 		<a href=passerelle.php class=button_link>Nouvelle recherche</a>
 	</div>
 </body>
+<footer>
+	<?php include 'bottom.php'; ?>
+</footer>
 </html>
