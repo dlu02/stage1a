@@ -797,6 +797,32 @@ def tableau_regroupement(f):
 	return (classes_res, tab_res)
 
 
+######
+# Test Khi-2 spécifique expo poly
+######
+
+# liste des fréquences théoriques (H0 : loi de fonction de répartition fdr et de paramètres a et b)
+def freq_theo_epp(f, a, b):
+	a.insert(0, b)
+	classes = tableau_regroupement(f)[0]
+	res = []
+	for i in range(0, len(classes)-1):
+		res.append(abs(fdr_expopoly(classes[i+1], a, b)-fdr_expopoly(classes[i], a, b)))
+	del a[0]
+	return res
+
+
+# test du chi2 cas expopoly (ajustement à une loi de fonction de répartition fdr_expopoly et de paramètres a et b à estimer) - variable continue
+def chi2_epp(f, a, b):
+	f = np.array(f)
+	tab = [np.size(f)*i for i in freq_emp(f)]
+	theo = [np.size(f)*i for i in freq_theo_epp(f, a, b)]
+	res = 0
+	for i in range(0, len(tab)):
+		res = res + ((tab[i]-theo[i])**2)/(theo[i])
+	return 1-(scipy.stats.chi2.cdf(res, len(tab)-2))
+
+
 #####
 # Script
 #####
@@ -832,24 +858,24 @@ def do_operation(array, n, loi):
 			else:
 				return "Saisie invalide"
 		elif (n == 8):
-			global temp
+			global temp, va
 			temp = max_vs_m1_epp(array, args.taille)
-			res = []
+			va = []
 			for i in range(1, np.size(temp)):
-				res.append(temp[i])
-			return res
+				va.append(temp[i])
+			return va
 		elif (n == 9):
 			return temp[0]
 		elif (n == 10):
 			temp = max_vs_m2_epp(array, args.taille)
-			res = []
+			va = []
 			for i in range(1, np.size(temp)):
-				res.append(temp[i])
-			return res
+				va.append(temp[i])
+			return va
 		elif (n == 11):
 			return temp[0]
 		elif (n == 12):
-			a = chi2(array, fdr(loi), temp[0], temp[1])
+			a = chi2_epp(array, va, temp[0])
 			if np.isfinite(a):
 				return a
 			else:

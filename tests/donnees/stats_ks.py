@@ -747,6 +747,22 @@ def fdr_empirique(data, x):
 	return sum([1 for i in range(n) if data[i] <= x])/(1.0*n)
 
 
+########
+# Test KS spécifique expopoly
+########
+
+def testks_epp(data, p1, p2):
+	res = 0
+	for k in data:
+		b = abs(fdr_empirique(data, k)-fdr_expopoly(k, p1, p2))
+		if b > res:
+			res = b
+	pval = 0
+	for k in range(1, 3):
+		pval = pval+(((-1)**(k+1))*np.exp(-2*k*k*np.size(data)*res*res))
+	return 2*pval
+
+
 #####
 # Script
 #####
@@ -782,24 +798,24 @@ def do_operation(array, n, loi):
 			else:
 				return "Saisie invalide"
 		elif (n == 8):
-			global temp
+			global temp, va
 			temp = max_vs_m1_epp(array, args.taille)
-			res = []
+			va = []
 			for i in range(1, np.size(temp)):
-				res.append(temp[i])
-			return res
+				va.append(temp[i])
+			return va
 		elif (n == 9):
 			return temp[0]
 		elif (n == 10):
 			temp = max_vs_m2_epp(array, args.taille)
-			res = []
+			va = []
 			for i in range(1, np.size(temp)):
-				res.append(temp[i])
-			return res
+				va.append(temp[i])
+			return va
 		elif (n == 11):
 			return temp[0]
 		elif (n == 12):
-			a = testks(array, loi, temp[0], temp[1])
+			a = testks_epp(array, va, temp[0])
 			if (np.isfinite(a)):
 				return a
 			else:
