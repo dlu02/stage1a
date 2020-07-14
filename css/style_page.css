@@ -7,7 +7,7 @@ body {
 /* Header de la page */
 header {
 	color: white;
-	background-color: #2a52a2;
+	background-color: #004080;
 	margin: 0;
 }
 
@@ -37,6 +37,27 @@ header {
 	font-size: 12px;
 	text-align: right;
 	padding-bottom: 0.4em;
+}
+
+/* titre de la page web */
+.titre_top {
+	max-width: 960px;
+	float: left;
+	font-size: 24px;
+}
+
+.titre_top a:link {
+	text-decoration: none;
+}
+
+.titre_top a:visited {
+	text-decoration: none;
+	color: white;
+}
+
+.titre_top a:active {
+	text-decoration: none;
+	color: white;
 }
 
 /* concerne la page sous le menu */
@@ -280,7 +301,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #2a52a2;
+  background-color: #004080;
   color: white;
   z-index: 3;
 }

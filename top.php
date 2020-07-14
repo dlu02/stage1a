@@ -1,5 +1,5 @@
 <div class="top">
-	<h1> Modélisation statistique de durée de vie </h1>
+	<h1 class="titre_top"><a href="/stage/index.php">Modélisation statistique de durée de vie</a></h1>
 	<h3>Stage ENSIIE 1ère année 2020</h3>
 
 	<p>Organisme d'accueil : CNAM département EPN06 Mathématiques et Statistiques <br>
