@@ -15,7 +15,7 @@
 		<h3>Résultats de l'analyse <a href=param2.php class=button_link>Nouvelle analyse</a></h3>
 
 		<?php
-			if(isset($_FILES['fichier'])){
+			if (isset($_FILES['fichier'])){
 			    $nom_fichier = $_FILES['fichier']['name'];
 			    $taille = $_FILES['fichier']['size'];
 			    $file_tmp = $_FILES['fichier']['tmp_name'];
@@ -24,15 +24,18 @@
 				$taillea = $_POST['parametre_a'];
 			    $extension_fichier=strtolower(end(explode('.',$_FILES['fichier']['name'])));
 		    	$extensions= array("txt","dat","csv");
-				if ($loi=="expo_poly" && $taillea <=0){
+                if (in_array($extension_fichier,$extensions)=== false){
+                    echo "<h4> ERREUR : Extension non autorisée ou fichier inexistant. Veuillez importer un fichier TXT ou DAT ou CSV. </h4> </div></body></html>";
+                    exit();
+                }
+                if (empty ($_POST["loi"])) {
+                    echo "<h4> ERREUR : Veuillez sélectionner une loi. </h4> </div> </body> </html>";
+                    exit();
+                }
+				if ($loi=="expo_poly" && $taillea < 1){
 					echo "<h4> ERREUR : Le nombre de paramètres de a doit valoir au moins 1. </h4></div></body></html>";
 					exit();
 				}
-			    if(in_array($extension_fichier,$extensions)=== false){
-					echo $extension_fichier;
-					echo "Extension non autorisée. Veuillez importer un fichier TXT ou DAT ou CSV </div></body></html>";
-					exit();
-			    }
 				else{
 					move_uploaded_file($file_tmp,"donnees/".$nom_fichier);
 					echo "Succès, fichier ".$nom_fichier." bien importé";
