@@ -18,8 +18,8 @@
 		</p>
 		<h3>Contraintes sur le signe du skewness</h3>
 		<p>
-			$$\max\limits_{\theta} \ell (x_1,...,x_n;\theta) \qquad \text{s.c.} \quad E\left( \left( X-E(X) \right)^3 \right) \gamma_1 \geqslant 0$$
-			Cette partie permet à partir d'un fichier CSV d'étudier les données statistiques et, à partir d'une loi choisie préalablement, d'estimer ses paramètres par maximum de vraisemblance et sous les contraintes ci-dessus.
+			$$\max\limits_{\theta} \mathcal{L} (x_1,...,x_n;\theta) \qquad \text{s.c.} \quad E\left( \left( X-E(X) \right)^3 \right) \gamma_1 \geqslant 0$$
+			Cette partie permet à partir d'un fichier CSV d'étudier les données statistiques et, à partir d'une loi choisie préalablement parmi les <a href="../lois/lois.php">modèles de durée de vie</a>, d'estimer ses paramètres par maximum de vraisemblance et sous les contraintes ci-dessus.
 		</p>
 		<div class="formul">
 			<h4>Implémentation</h4>

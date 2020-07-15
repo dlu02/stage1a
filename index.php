@@ -27,6 +27,14 @@
 			<p>
 				L'objectif est, à partir de ce jeu de données, d'en faire une description statistique, puis ensuite, au moyen de tests statistiques, de trouver la ou les lois qui correspondent le plus à ces données, et ensuite d'en déduire des prédictions sur la durée de vie de futurs appareils P à partir de ces lois.
 			</p>
+		<h3>Organisation du site</h3>
+			<p>Le site, qui est en quelque sorte l'illustration d'une bibliothèque Python, est divisé en 4 parties : <br>
+			- une passerelle Python/PHP basique montrant sur des fonctions basiques le dialogue entre Python et PHP, <br>
+			- une présentation théorique des modèles de durée de vie, avec un tracé de leurs densités, <br>
+			- une partie estimation des paramètres d'un échantillon suivant une loi donnée parmi les modèles de durée de vie, <br>
+			- une partie tests qui permet d'effectuer un test statistique sur un échantillon qui suivrait une loi parmi les modèles de durée de vie. <br>
+			Pour chaque partie, un fichier Python est exécuté suivant plusieurs arguments qui sont obtenus via un formulaire HTML.
+		 	</p>
 		<h3>Moyens techniques</h3>
 			<p>
 				La page est propulsée par un serveur Arch Linux sous Apache 2.4.43, PHP 7.4.8 et Python 3.8.3. Tous les calculs et les modélisations sont effectués à l'aide de Python via le langage PHP.

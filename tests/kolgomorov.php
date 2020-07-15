@@ -21,7 +21,7 @@
 		$$D=\max (F_n(x)-F(x))$$
 		où $F_n$ est la fonction de répartition empirique des données et $F$ est la fonction de répartition de la loi théorique. Le théorème de Kolgomorov permet d'assurer que sous l'hypothèse $(H_0)$, pour tout $\lambda > 0$ :
 		$$P\left(\sqrt{n} D \leqslant \lambda \right) \underset{n\to +\infty}{\longrightarrow} 1+2\sum_{k=1}^{+\infty} (-1)^k \exp(-2k^2\lambda^2)$$
-		et cette convergence est très rapide (au bout de 3 ou 4 itérations). L'absence de conditions d'application montre que le test de Kolgomorov-Smirnov est un test <b>non paramétrique</b>.
+		et cette convergence est très rapide (au bout de 3 ou 4 itérations). Ceci nous permet alors de déterminer la p-value du test. L'absence de conditions d'application montre que le test de Kolgomorov-Smirnov est un test <b>non paramétrique</b>.
 		<div class="formul">
 			<h4>Implémentation</h4>
 			<p>
