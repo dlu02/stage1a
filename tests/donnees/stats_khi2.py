@@ -862,7 +862,7 @@ def do_operation(array, n, loi):
 			temp = max_vs_m1_epp(array, args.taille)
 			va = []
 			for i in range(1, np.size(temp)):
-				va.append(temp[i])
+				va.append(round(temp[i], 5))
 			return va
 		elif (n == 9):
 			return temp[0]
@@ -870,14 +870,14 @@ def do_operation(array, n, loi):
 			temp = max_vs_m2_epp(array, args.taille)
 			va = []
 			for i in range(1, np.size(temp)):
-				va.append(temp[i])
+				va.append(round(temp[i], 5))
 			return va
 		elif (n == 11):
 			return temp[0]
 		elif (n == 12):
 			a = chi2_epp(array, va, temp[0])
 			if np.isfinite(a):
-				return a
+				return round(a, 5)
 			else:
 				return 0
 		else:
@@ -909,18 +909,18 @@ def do_operation(array, n, loi):
 				return "Saisie invalide"
 		elif (n == 8):
 			temp = max_vs_m1(array, loi)
-			return temp[0]
+			return round(temp[0], 5)
 		elif (n == 9):
-			return temp[1]
+			return round(temp[1], 5)
 		elif (n == 10):
 			temp = max_vs_m2(array, loi)
-			return temp[0]
+			return round(temp[0], 5)
 		elif (n == 11):
-			return temp[1]
+			return round(temp[1], 5)
 		elif (n == 12):
 			a = chi2(array, fdr(loi), temp[0], temp[1])
 			if np.isfinite(a):
-				return a
+				return round(a, 5)
 			else:
 				return 0
 		else:
