@@ -22,10 +22,9 @@
 			Nous obtenons ainsi :
 			$$\boxed{C(a,b)=\dfrac{1}{\displaystyle \sum_{k=1}^m a_k \dfrac{k!}{b^{k+1}}}}$$
 		</p>
+
 		<table class="alternate">
-
 		<tr> <th colspan="2">Propriétés de la loi exponentielle polynomiale</th> </tr>
-
 		<tr><td>Densité</td><td>$\displaystyle f(x,a,b)= C(a,b) \left(\sum_{k=1}^m a_kx^k \right) \mathrm{e}^{-bx} \mathbb{1}_{]0,+\infty[}(x)$</td></tr>
 		<tr><td>Domaines des paramètres</td><td>$\begin{cases} m\in \mathbb{N}^* \\ a=(a_1,...,a_m) \\ \forall 1 \leqslant k \leqslant m, a_k \geqslant 0 \\ b>0 \end{cases}$ </td></tr>
 		<tr><td>Fonction de répartition</td>
@@ -40,6 +39,7 @@
 		<form method="POST" id="densite" action="submit.php" autocomplete="off">
 			<input id="nom" name="nom" type="hidden" value="Loi exponentielle polynomiale ">
 			<input id="loi" name="loi" type="hidden" value="4">
+            
 			<table class="alternate">
 			<tr> <th colspan="2">Tracé de la densité</th> </tr>
 			<tr><td>Valeur de $a$ (syntaxe CSV, écriture en ligne)</td><td><textarea name="parametre1" rows="1" cols="50"></textarea></tr>

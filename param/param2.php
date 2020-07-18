@@ -23,7 +23,7 @@
 		</p>
 		<div class="formul">
 			<h4>Implémentation</h4>
-			<p>		Le fichier TXT ou CSV ou DAT doit contenir une seule sorte de données écrites soit en lignes, soit en colonnes. Si plusieurs sortes de données sont présentes, elles sont concaténées et regroupées en une seule sorte de données.</p>
+			<p>Le fichier TXT ou CSV ou DAT doit contenir une seule sorte de données écrites soit en lignes, soit en colonnes. Si plusieurs sortes de données sont présentes, elles sont concaténées et regroupées en une seule sorte de données.</p>
 			<form method="POST" action="stats_csv2.php" enctype="multipart/form-data">
 				<table class="alternate">
 					<tr>

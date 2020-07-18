@@ -65,7 +65,7 @@
 			  exit();
 		  }
 
-		  $result = json_decode(exec("python lois.py ".$choix." ".$param1." ".$param2." ".$taille), true);
+		  $result = json_decode(exec("python lois.py $choix $param1 $param2 $taille"), true);
 
 		  function print_loi($choix){
 		    switch ($choix){
@@ -83,7 +83,7 @@
 		        break;
 		    }
 		  }
-		  $loi=print_loi($choix);
+		  $loi = print_loi($choix);
 		  echo "Rappel : vous avez choisi de générer un échantillon de taille ".$taille." suivant une ".$loi." de paramètres ".$param1." et ".$param2;
 		?>
 

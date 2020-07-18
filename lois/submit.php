@@ -42,7 +42,7 @@
 				$a= $_POST['parametre1'];
 				$b= $_POST['parametre2'];
 				file_put_contents("temp.txt",$a);
-				$cmd = "python expopoly.py temp.txt ".$b;
+				$cmd = "python expopoly.py temp.txt $b";
 				exec($cmd);
 				echo "<h3>Graphique généré : <a href=densite.png class=button_link>Zoom de l'image</a></h3>
 				<img src=densite.png width=700px alt=Densite class=img_center>";
@@ -51,7 +51,7 @@
 				$a= $_POST['parametre1'];
 				$b= $_POST['parametre2'];
 				$loi= $_POST['loi'];
-				$cmd = "python densite_v2.py ".$a." ".$b." ".$loi;
+				$cmd = "python densite_v2.py $a $b $loi";
 				exec($cmd);
 				echo "<h3>Graphique généré : <a href=densite.png class=button_link>Zoom de l'image</a></h3>
 				<img src=densite.png width=700px alt=Densite class=img_center>";

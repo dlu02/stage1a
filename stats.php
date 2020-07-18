@@ -17,7 +17,7 @@
 			if (!(empty ($_POST["nom_fichier4"])) AND !(empty ($_POST["contenu2"])) AND !(empty ($_POST["size2"]))) {
 				$nom_fichier = $_POST["nom_fichier4"];
 				$contenu = $_POST["contenu2"];
-				$nom_fichier=$nom_fichier.".txt";
+				$nom_fichier = $nom_fichier.".txt";
 				$size2 = $_POST["size2"];
 				file_put_contents($nom_fichier,$contenu);
 				echo "Succès : vos données saisies ont été écrites dans le fichier $nom_fichier".", que vous pouvez ouvrir : ";
@@ -28,7 +28,7 @@
 				exit();
 			}
             $replace = exec("sed -i 's/ /\\n/g; s/,/\\n/g; s/\\t/\\n/g; s/;/\\n/g' $nom_fichier && sed -i '/^$/d' $nom_fichier"); // remplace les espaces de séparation, les tabulations, les virgules et les points virgules par une nouvelle ligne dans le fichier nom_fichier, puis supprime les lignes vides
-			$result = json_decode(exec("python stats.py ".$nom_fichier." ".$size2), true);
+			$result = json_decode(exec("python stats.py $nom_fichier $size2"), true);
             if ($result['error'] == "error"){
                 echo "<h3> ERREUR : taille de l'échantillon incorrecte.</h3></div></body></html>";
 				exit();

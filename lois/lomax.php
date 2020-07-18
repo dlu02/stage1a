@@ -19,10 +19,9 @@
 		<h3>Loi Lomax <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
 		On note $\Gamma$ la fonction Gamma d'Euler définie sur $\mathbb{R}_+^*$ par :
 		$$\Gamma(x)= \displaystyle \int_0^{+\infty} t^{x-1}\mathrm{e}^{-t} \mathrm{d} t$$
+
 		<table class="alternate">
-
 		<tr> <th colspan="2">Propriétés de la loi Lomax</th> </tr>
-
 		<tr><td>Densité</td><td>$f(x,a,b)= \dfrac{ab^a}{(b+x)^{a+1}} \mathbb{1}_{]0,+\infty[}(x)$</td></tr>
 		<tr><td>Domaines des paramètres</td><td>$ a >0 \,$  ,  $ b >0 $</td></tr>
 		<tr><td>Fonction de répartition</td>
@@ -37,6 +36,7 @@
 		<form method="POST" id="densite" action="submit.php" autocomplete="off">
 			<input id="nom" name="nom" type="hidden" value="Loi Lomax">
 			<input id="loi" name="loi" type="hidden" value="1">
+            
 			<table class="alternate">
 			<tr> <th colspan="2">Tracé de la densité</th> </tr>
 			<tr><td>Valeur de $a$</td><td><input type="number" id="parametre1" name="parametre1" step="any" min=0></td></tr>
