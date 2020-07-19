@@ -56,6 +56,7 @@
                 echo "<h4> ERREUR : Données discrètes. Veuillez vérifier vos données. </h4></div></body></html>";
                 exit();
             }
+            $histogr = "../images/".strval($result['hist']).".png";
 		?>
 			<table class="alternate">
 				<tr>
@@ -89,8 +90,9 @@
 				  <td><?php echo $result['kurt']; ?></td>
 				</tr>
 			</table>
-			<h3>Histogramme généré : <a href=hist.png class=button_link>Zoom de l'image</a></h3>
-			<img src="hist.png" width=700px alt="Histogramme" class="img_center">
+			<h3>Histogramme généré : <a href=<?php echo $histogr; ?> class=button_link>Zoom de l'image</a></h3>
+            <img src=<?php echo $histogr; ?> width=700px alt='Histogramme' class=img_center>
+            <p>Vous pouvez retrouver l'histogramme ci-dessous dans la partie Recherche avec le code ci contre : <?php echo $result['hist']; ?> </p>
 			<h3>Estimation des paramètres</h3>
 			<?php
 				if ($loi==""){

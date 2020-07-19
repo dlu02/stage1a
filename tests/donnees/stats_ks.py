@@ -99,7 +99,7 @@ def histo_discretes(data, nom=None):
 	if nom is None:
 		plt.show()
 	else:
-		plt.savefig("hist.png", dpi=400)
+		plt.savefig(nom, dpi=400)
 		plt.close()
 
 
@@ -151,7 +151,7 @@ def histo_Continue(data, k, nom=None):
 	if nom is None:
 		plt.show()
 	else:
-		plt.savefig("hist.png", dpi=400)
+		plt.savefig(nom, dpi=400)
 		plt.close()
 
 
@@ -789,12 +789,16 @@ def do_operation(array, n, loi):
 			return round(kurtosis(array), 5)
 		elif (n == 7):
 			if (discretes_continues(array) == "discrete"):
-				histo_discretes(array, nom="hist")
-				return "discrete"
+				nb_rand = 2*np.random.randint(1, 4999999)+1
+				file = "../images/" + str(nb_rand) + ".png"  # le fichier est enregistré dans le dossier images situé dans le dossier parent à ~ (~ est le dossier où est exécuté le script)
+				histo_discretes(array, nom=file)
+				return nb_rand
 			if (discretes_continues(array) == "continue"):
 				classe = int(5*math.log10(n))
-				histo_Continue(array, classe, nom="hist")
-				return "continue"
+				nb_rand = 2*np.random.randint(1, 4999999)+1
+				file = "../images/" + str(nb_rand) + ".png"  # le fichier est enregistré dans le dossier images situé dans le dossier parent à ~ (~ est le dossier où est exécuté le script)
+				histo_Continue(array, classe, nom=file)
+				return nb_rand
 			else:
 				return "Saisie invalide"
 		elif (n == 8):
@@ -839,12 +843,16 @@ def do_operation(array, n, loi):
 			return round(kurtosis(array), 5)
 		elif (n == 7):
 			if (discretes_continues(array) == "discrete"):
-				histo_discretes(array, nom="hist")
-				return "discrete"
+				nb_rand = 2*np.random.randint(1, 4999999)+1
+				file = "../images/" + str(nb_rand) + ".png"  # le fichier est enregistré dans le dossier images situé dans le dossier parent à ~ (~ est le dossier où est exécuté le script)
+				histo_discretes(array, nom=file)
+				return nb_rand
 			if (discretes_continues(array) == "continue"):
 				classe = int(5*math.log10(n))
-				histo_Continue(array, classe, nom="hist")
-				return "continue"
+				nb_rand = 2*np.random.randint(1, 4999999)+1
+				file = "../images/" + str(nb_rand) + ".png"  # le fichier est enregistré dans le dossier images situé dans le dossier parent à ~ (~ est le dossier où est exécuté le script)
+				histo_Continue(array, classe, nom=file)
+				return nb_rand
 			else:
 				return "Saisie invalide"
 		elif (n == 8):
