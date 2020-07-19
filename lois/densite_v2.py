@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy
 import random
 import argparse
+import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument("a", type=float, help="a")
@@ -13,15 +14,15 @@ args = parser.parse_args()
 # fonction de sélection de l'opération à effectuer
 def do_operation():
     if (args.loi == 0):
-        trace_densite(hyperexpo, fdr_hyperexpo, args.a, args.b)
+        return trace_densite(hyperexpo, fdr_hyperexpo, args.a, args.b)
     elif (args.loi == 1):
-        trace_densite(lomax, fdr_lomax, args.a, args.b)
+        return trace_densite(lomax, fdr_lomax, args.a, args.b)
     elif (args.loi == 2):
-        trace_densite(weibull, fdr_weibull, args.a, args.b)
+        return trace_densite(weibull, fdr_weibull, args.a, args.b)
     elif (args.loi == 3):
-        trace_densite(burr, fdr_burr, args.a, args.b)
+        return trace_densite(burr, fdr_burr, args.a, args.b)
     elif (args.loi == 4):
-        trace_densite(expo_convo, fdr_expoconvo, args.a, args.b)
+        return trace_densite(expo_convo, fdr_expoconvo, args.a, args.b)
 
 
 # def densite_1param(a,f,x_max):
@@ -97,6 +98,8 @@ def Axes_simple1(axe):
 
 
 def trace_densite(f, fdr_loi, a, b):
+    nb_rand = numpy.random.randint(1, 9999999)
+    file = "../images/d" + str(nb_rand) + ".png"  # le fichier est enregistré dans le dossier images situé dans le dossier parent à ~ (~ est le dossier où est exécuté le script)
     fig, ax = plt.subplots(figsize=(10, 7))
     Axes_simple1(ax)
     # détermination de la borne sup de l'intervalle
@@ -104,8 +107,9 @@ def trace_densite(f, fdr_loi, a, b):
     plt.plot(densite_2param(a, b, f, m7)[0], densite_2param(a, b, f, m7)[1], color=[random.random(), random.random(), random.random()], lw=3)
     plt.xlabel('$x$', fontsize=15)
     plt.ylabel('$f(x)$', fontsize=17)
-    plt.savefig("densite.png", dpi=400)
+    plt.savefig(file, dpi=400)
     plt.close()
+    return nb_rand
 
 
 ####
@@ -159,5 +163,12 @@ def fdr_expoconvo(x, a, b):
         return 1 + (a/(b-a))*numpy.exp(-b*x) - (b/(b-a))*numpy.exp(-a*x)
 
 
+def convert(n):  # pour convertir les entiers numpy en flottants usuels pour que le parse JSON fonctionne et envoie bien le tableau à PHP
+    if isinstance(n, numpy.int64):
+        return float(n)
+
+
 # exécution du script
-do_operation()
+L = {"hist": do_operation()}
+res = json.dumps(L, default=convert)  # appliquer convert si le nombre est un entier numpy
+print(res)

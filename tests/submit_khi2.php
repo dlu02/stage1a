@@ -90,9 +90,9 @@
 				  <td><?php echo $result['kurt']; ?></td>
 				</tr>
 			</table>
-			<h3>Histogramme généré : <a href=<?php echo $histogr; ?> class=button_link>Zoom de l'image</a></h3>
+			<h3>Histogramme généré n°<?php echo $result['hist']; ?> : <a href=<?php echo $histogr; ?> class=button_link>Zoom de l'image</a></h3>
             <img src=<?php echo $histogr; ?> width=700px alt='Histogramme' class=img_center>
-            <p>Vous pouvez retrouver l'histogramme ci-dessous dans la partie Recherche avec le code ci contre : <?php echo $result['hist']; ?> </p>
+            <p>Vous pouvez retrouver l'histogramme ci-dessus dans la partie Recherche avec le code ci-dessus.</p>
 			<h3>Estimation des paramètres</h3>
 			<?php
 				if ($loi==""){

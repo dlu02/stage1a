@@ -42,19 +42,24 @@
 				$a= $_POST['parametre1'];
 				$b= $_POST['parametre2'];
 				file_put_contents("temp.txt",$a);
+                $replace = exec("sed -i 's/ /\\n/g; s/,/\\n/g; s/\\t/\\n/g; s/;/\\n/g' temp.txt && sed -i '/^$/d' temp.txt");
 				$cmd = "python expopoly.py temp.txt $b";
-				exec($cmd);
-				echo "<h3>Graphique généré : <a href=densite.png class=button_link>Zoom de l'image</a></h3>
-				<img src=densite.png width=700px alt=Densite class=img_center>";
+                $result = json_decode(shell_exec($cmd), true);
+                $histogr = "../images/d".strval($result['hist']).".png";
+                $filename = "d".strval($result['hist']);
+				echo "<h3>Graphique généré n°$filename : <a href=".$histogr." class=button_link>Zoom de l'image</a></h3>
+				<img src=".$histogr." width=700px alt=Densite class=img_center>";
 			}
 			else if (!(empty ($_POST["parametre1"])) AND !(empty ($_POST["parametre2"]))){
 				$a= $_POST['parametre1'];
 				$b= $_POST['parametre2'];
 				$loi= $_POST['loi'];
 				$cmd = "python densite_v2.py $a $b $loi";
-				exec($cmd);
-				echo "<h3>Graphique généré : <a href=densite.png class=button_link>Zoom de l'image</a></h3>
-				<img src=densite.png width=700px alt=Densite class=img_center>";
+                $result = json_decode(shell_exec($cmd), true);
+                $histogr = "../images/d".strval($result['hist']).".png";
+                $filename = "d".strval($result['hist']);
+				echo "<h3>Graphique généré n°$filename : <a href=".$histogr." class=button_link>Zoom de l'image</a></h3>
+				<img src=".$histogr." width=700px alt=Densite class=img_center>";
 			}
 			else {
 				echo "<h3> ERREUR : un ou plusieurs champ(s) est/sont vide(s). </h3></div></body></html>";

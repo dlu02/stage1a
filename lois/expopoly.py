@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy
 import random
 import argparse
+import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument("nom_fichier", type=str, help="nom du fichier")
@@ -39,6 +40,8 @@ def Axes_simple1(axe):
 
 
 def trace_densite(f, fdr_loi, a, b):
+    nb_rand = numpy.random.randint(1, 9999999)
+    file = "../images/d" + str(nb_rand) + ".png"  # le fichier est enregistré dans le dossier images situé dans le dossier parent à ~ (~ est le dossier où est exécuté le script)
     fig, ax = plt.subplots(figsize=(10, 7))
     Axes_simple1(ax)
     # détermination de la borne sup de l'intervalle
@@ -47,8 +50,9 @@ def trace_densite(f, fdr_loi, a, b):
     plt.plot(densite_2param(a, b, f, m7)[0], densite_2param(a, b, f, m7)[1], color=[random.random(), random.random(), random.random()], lw=3)
     plt.xlabel('$x$', fontsize=15)
     plt.ylabel('$f(x)$', fontsize=17)
-    plt.savefig("densite.png", dpi=400)
+    plt.savefig(file, dpi=400)
     plt.close()
+    return nb_rand
 
 
 ######
@@ -96,10 +100,17 @@ def fdr_expopoly2(x, a, b):
     return cab2(a, b)*a*(1-numpy.exp(-b*x))/(b*b)
 
 
+def convert(n):  # pour convertir les entiers numpy en flottants usuels pour que le parse JSON fonctionne et envoie bien le tableau à PHP
+    if isinstance(n, numpy.int64):
+        return float(n)
+
+
 ######
 # Script
 ######
 if (numpy.size(m) == 1):
-    trace_densite(expo_poly2, fdr_expopoly2, m, args.b)
+    L = {"hist": trace_densite(expo_poly2, fdr_expopoly2, m, args.b)}
 else:
-    trace_densite(expo_poly, fdr_expopoly, m, args.b)
+    L = {"hist": trace_densite(expo_poly, fdr_expopoly, m, args.b)}
+res = json.dumps(L, default=convert)  # appliquer convert si le nombre est un entier numpy
+print(res)

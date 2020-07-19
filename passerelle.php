@@ -60,7 +60,7 @@
 
 			</form>
 		</div>
-		<h3>Recherche d'un fichier dans l'arborescence</h3>
+		<!-- <h3>Recherche d'un fichier dans l'arborescence</h3>
 		<div>
 			<form method="POST" action="search.php" autocomplete="off">
 				<table class="alternate">
@@ -71,7 +71,7 @@
 					<tr> <th colspan="2"><input type="submit" name="submit3" id="submit3" value="Rechercher"></th> </tr>
 				</table>
 			</form>
-		</div>
+		</div> -->
 	</div>
 </body>
 <footer>
