@@ -248,7 +248,7 @@ def max_vs_m1(M, loi):
 	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte2(x, M, mom2_f))}, {'type': 'ineq', 'fun': (lambda x: contrainte1(x, M, moy))}]
 	res = []
 	Rlist = []
-	for k in range(0, 20):
+	for k in range(0, 10):
 		valeur_initiale = np.array([np.random.rand(), np.random.rand()])
 		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x
 		res.append(norme(gradient((lambda y: ls(y, M)), R)))
@@ -264,7 +264,7 @@ def max_vs_m2(M, loi):
 	ls = log_vs(loi)
 	res = []
 	Rlist = []
-	for k in range(0, 20):
+	for k in range(0, 10):
 		valeur_initiale = np.array([np.random.rand(), np.random.rand()])
 		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x
 		res.append(norme(gradient((lambda y: ls(y, M)), R)))
@@ -650,7 +650,7 @@ def max_vs_m1_epp(M, m):
 	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte2(x, M, mom2_f))}, {'type': 'ineq', 'fun': (lambda x: contrainte1(x, M, moy))}, {'type': 'eq', 'fun': (lambda x: contrainte4(x))}]
 	res = []
 	Rlist = []
-	for k in range(0, 20):
+	for k in range(0, 10):
 		valeur_initiale = [np.random.rand()]
 		for j in range(m):
 			valeur_initiale.append(np.random.rand())
@@ -669,7 +669,7 @@ def max_vs_m2_epp(M, m):
 	ls = logvs_expopoly
 	res = []
 	Rlist = []
-	for k in range(0, 20):
+	for k in range(0, 10):
 		valeur_initiale = [np.random.rand()]
 		for j in range(m):
 			valeur_initiale.append(np.random.rand())
