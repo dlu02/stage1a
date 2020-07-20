@@ -17,10 +17,27 @@
             <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
         </p>
 		<h3>Loi de Burr <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
-		On note $\Gamma$ la fonction Gamma d'Euler définie sur $\mathbb{R}_+^*$ par :
-		$$\Gamma(x)= \displaystyle \int_0^{+\infty} t^{x-1}\mathrm{e}^{-t} \mathrm{d} t$$
+        <div style="float: left;">
+            <b>Densité :</b>
+            $$f(x,a,b)= \dfrac{abx^{a-1}}{(1+x^a)^{b+1}} \mathbb{1}_{]0,+\infty[}(x)$$
+            où $\Gamma$ est la fonction Gamma d'Euler définie sur $\mathbb{R}_+^*$ par :
+    		$$\Gamma(x)= \displaystyle \int_0^{+\infty} t^{x-1}\mathrm{e}^{-t} \mathrm{d} t$$
+        </div>
+        <form method="POST" id="densite" action="submit.php" autocomplete="off">
+            <input id="nom" name="nom" type="hidden" value="Loi de Burr ">
+            <input id="loi" name="loi" type="hidden" value="3">
+            <table class="alternate">
+            <tr> <th colspan="2">Tracé de la densité</th> </tr>
+            <tr><td>Valeur de $a$</td><td><input type="number" id="parametre1" name="parametre1" step="any" min=0></td></tr>
+            <tr><td>Valeur de $b$</td><td><input type="number" id="parametre2" name="parametre2" step="any" min=0></td></tr>
+            <tr> <th colspan="2"><input type="submit" name="submit5" id="submit5" value="Tracé de la densité"></th> </tr>
+            </table>
+        </form>
+        <div style="clear: both;"></div>
+        <p style="float: left;"><b>Aperçu de la densité :</b> </p>
+        <div style="clear: both;"></div>
+        <img class="img_center" src="images/burr.png" alt="Densité de Burr">
 		<table class="alternate">
-
 		<tr> <th colspan="2">Propriétés de la loi de Burr</th> </tr>
 
 		<tr><td>Densité</td><td>$f(x,a,b)= \dfrac{abx^{a-1}}{(1+x^a)^{b+1}} \mathbb{1}_{]0,+\infty[}(x)$</td></tr>
@@ -32,18 +49,7 @@
 		<tr><td>$\displaystyle V(X)$</td><td>$\dfrac{1}{\Gamma(b)} \left( \Gamma\left(b-\dfrac{2}{a}\right) \Gamma\left(1+\dfrac{2}{a}\right) - \dfrac{\left( \Gamma\left(b-\dfrac{1}{a}\right) \Gamma\left(1+\dfrac{1}{a}\right) \right)^2}{\Gamma(b)} \right)$</td></tr>
 		<tr><td>Skewness</td><td>$\gamma_{1}=\dfrac{M_3-3E(X)V(X)-E(X)^3}{V(X)^{3/2}}$</td></tr>
 		<tr><td>Kurtosis</td><td>$\gamma_{2}=\dfrac{M_4-4E(X)V(X)^{3/2}\gamma_1-6E(X)^2V(X)-E(X)^4}{V(X)^2}$</td></tr>
-		</table>
-
-		<form method="POST" id="densite" action="submit.php" autocomplete="off">
-			<input id="nom" name="nom" type="hidden" value="Loi de Burr ">
-			<input id="loi" name="loi" type="hidden" value="3">
-			<table class="alternate">
-			<tr> <th colspan="2">Tracé de la densité</th> </tr>
-			<tr><td>Valeur de $a$</td><td><input type="number" id="parametre1" name="parametre1" step="any" min=0></td></tr>
-			<tr><td>Valeur de $b$</td><td><input type="number" id="parametre2" name="parametre2" step="any" min=0></td></tr>
-			<tr> <th colspan="2"><input type="submit" name="submit5" id="submit5" value="Tracé de la densité"></th> </tr>
-			</table>
-		</form>
+        </table>
 	</div>
 </body>
 <footer>

@@ -24,7 +24,6 @@ header {
 .top h3 {
 	max-width: 960px;
 	margin: auto;
-	float: right;
 	font-size: 16px;
 	text-align: right;
 	padding-top: 0.4em;
@@ -48,6 +47,7 @@ header {
 
 .titre_top a:link {
 	text-decoration: none;
+	color: white;
 }
 
 .titre_top a:visited {
@@ -136,42 +136,47 @@ header {
 
 /* titre de la page décrite ci-dessus */
 .titre{
-        position: relative;
-        display: block;
-        color: black;
-		text-align: center;
+    position: relative;
+    display: block;
+    color: black;
+	text-align: center;
 }
 
 /* ***** style tableau */
 .alternate{
-	width:50%;
-	border-collapse:collapse;
-	padding: 10px 10px 10px 20px;
+	width: 50%;
+	border-collapse: collapse;
+	padding: 10px 10px 10px 10px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 .alternate td{
-	padding: 10px 25px 20px ;
-	border:#ccccb3 1px solid;
+	padding: 10px 10px 10px 10px ;
+	border: #ccccb3 1px solid;
+	font-size: 14px;
 }
 
 .alternate tr:nth-child(2n) {
 	background-color:  #95a5a6;
+	font-size: 14px;
 }
 
 .alternate tr:nth-child(2n):hover, .alternate tr:hover {
 	background-color:  #b3b6b7;
+	font-size: 14px;
 }
 
 .alternate tr {
 	background-color: white;
+	font-size: 14px;
 }
 
 .alternate th {
     background-color: #333;
 	color: #ffffff;
 	padding: 10px 10px 10px ;
+	font-size: 14px;
 }
 /* ****** */
 

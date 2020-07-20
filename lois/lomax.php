@@ -17,9 +17,27 @@
             <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
         </p>
 		<h3>Loi Lomax <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
-		On note $\Gamma$ la fonction Gamma d'Euler définie sur $\mathbb{R}_+^*$ par :
-		$$\Gamma(x)= \displaystyle \int_0^{+\infty} t^{x-1}\mathrm{e}^{-t} \mathrm{d} t$$
+        <div style="float: left;">
+            <b>Densité :</b>
+            $$f(x,a,b)= \dfrac{ab^a}{(b+x)^{a+1}} \mathbb{1}_{]0,+\infty[}(x)$$
+            où $\Gamma$ est la fonction Gamma d'Euler définie sur $\mathbb{R}_+^*$ par :
+            $$\Gamma(x)= \displaystyle \int_0^{+\infty} t^{x-1}\mathrm{e}^{-t} \mathrm{d} t$$
+        </div>
+        <form method="POST" id="densite" action="submit.php" autocomplete="off">
+            <input id="nom" name="nom" type="hidden" value="Loi Lomax">
+            <input id="loi" name="loi" type="hidden" value="1">
 
+            <table class="alternate">
+            <tr> <th colspan="2">Tracé de la densité</th> </tr>
+            <tr><td>Valeur de $a$</td><td><input type="number" id="parametre1" name="parametre1" step="any" min=0></td></tr>
+            <tr><td>Valeur de $b$</td><td><input type="number" id="parametre2" name="parametre2" step="any" min=0></td></tr>
+            <tr> <th colspan="2"><input type="submit" name="submit5" id="submit5" value="Tracé de la densité"></th> </tr>
+            </table>
+        </form>
+        <div style="clear: both;"></div>
+        <p style="float: left;"> <b>Aperçu de la densité :</b> </p>
+        <div style="clear: both;"></div>
+        <img class="img_center" src="images/lomax.png" alt="Densité de Lomax">
 		<table class="alternate">
 		<tr> <th colspan="2">Propriétés de la loi Lomax</th> </tr>
 		<tr><td>Densité</td><td>$f(x,a,b)= \dfrac{ab^a}{(b+x)^{a+1}} \mathbb{1}_{]0,+\infty[}(x)$</td></tr>
@@ -32,18 +50,6 @@
 		<tr><td>Skewness</td><td>$\dfrac{2(1+a)}{a-3}\sqrt{\dfrac{a-2}{a}}$ pour $a>3$</td></tr>
 		<tr><td>Kurtosis</td><td>$\dfrac{6(a^3+a^2-6a-2)}{a(a-3)(a-4)}$ pour $a>4$</td></tr>
 		</table>
-
-		<form method="POST" id="densite" action="submit.php" autocomplete="off">
-			<input id="nom" name="nom" type="hidden" value="Loi Lomax">
-			<input id="loi" name="loi" type="hidden" value="1">
-            
-			<table class="alternate">
-			<tr> <th colspan="2">Tracé de la densité</th> </tr>
-			<tr><td>Valeur de $a$</td><td><input type="number" id="parametre1" name="parametre1" step="any" min=0></td></tr>
-			<tr><td>Valeur de $b$</td><td><input type="number" id="parametre2" name="parametre2" step="any" min=0></td></tr>
-			<tr> <th colspan="2"><input type="submit" name="submit5" id="submit5" value="Tracé de la densité"></th> </tr>
-			</table>
-		</form>
 	</div>
 </body>
 <footer>

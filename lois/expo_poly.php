@@ -17,11 +17,29 @@
             <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
         </p>
 		<h3>Loi exponentielle polynomiale <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
-		<p> Pour déterminer $C(a,b)$, nous utilisons le fait que :
-			$$\int_{-\infty}^{+\infty} f(x,a,b) \mathrm{d} x = 1$$
-			Nous obtenons ainsi :
-			$$\boxed{C(a,b)=\dfrac{1}{\displaystyle \sum_{k=1}^m a_k \dfrac{k!}{b^{k+1}}}}$$
-		</p>
+        <div style="float: left;">
+            <b>Densité :</b>
+            $$f(x,a,b)= C(a,b) \left(\sum_{k=1}^m a_kx^k \right) \mathrm{e}^{-bx} \mathbb{1}_{]0,+\infty[}(x)$$
+            Pour déterminer $C(a,b)$, nous utilisons le fait que :
+    		$$\int_{-\infty}^{+\infty} f(x,a,b) \mathrm{d} x = 1$$
+    		Nous obtenons ainsi :
+    		$$\boxed{C(a,b)=\dfrac{1}{\displaystyle \sum_{k=1}^m a_k \dfrac{k!}{b^{k+1}}}}$$
+        </div>
+        <form method="POST" id="densite" action="submit.php" autocomplete="off">
+			<input id="nom" name="nom" type="hidden" value="Loi exponentielle polynomiale ">
+			<input id="loi" name="loi" type="hidden" value="4">
+
+			<table class="alternate">
+			<tr> <th colspan="2">Tracé de la densité</th> </tr>
+			<tr><td>Valeur de $a$ (syntaxe CSV, écriture en ligne)</td><td><textarea name="parametre1" rows="1" cols="50"></textarea></tr>
+			<tr><td>Valeur de $b$</td><td><input type="number" id="parametre2" name="parametre2" step="any"></td></tr>
+			<tr> <th colspan="2"><input type="submit" name="submit5" id="submit5" value="Tracé de la densité"></th> </tr>
+			</table>
+		</form>
+        <div style="clear: both;"></div>
+        <p style="float: left;"><b>Aperçu de la densité :</b> </p>
+        <div style="clear: both;"></div>
+        <img class="img_center" src="images/expo_poly.png" alt="Densité exponentielle polynomiale">
 
 		<table class="alternate">
 		<tr> <th colspan="2">Propriétés de la loi exponentielle polynomiale</th> </tr>
@@ -35,18 +53,6 @@
 		<tr><td>Skewness</td><td>$\gamma_{1}=\dfrac{M_3-3E(X)V(X)-E(X)^3}{V(X)^{3/2}}$</td></tr>
 		<tr><td>Kurtosis</td><td>$\gamma_{2}=\dfrac{M_4-4E(X)V(X)^{3/2}\gamma_1-6E(X)^2V(X)-E(X)^4}{V(X)^2}$</td></tr>
 		</table>
-
-		<form method="POST" id="densite" action="submit.php" autocomplete="off">
-			<input id="nom" name="nom" type="hidden" value="Loi exponentielle polynomiale ">
-			<input id="loi" name="loi" type="hidden" value="4">
-            
-			<table class="alternate">
-			<tr> <th colspan="2">Tracé de la densité</th> </tr>
-			<tr><td>Valeur de $a$ (syntaxe CSV, écriture en ligne)</td><td><textarea name="parametre1" rows="1" cols="50"></textarea></tr>
-			<tr><td>Valeur de $b$</td><td><input type="number" id="parametre2" name="parametre2" step="any"></td></tr>
-			<tr> <th colspan="2"><input type="submit" name="submit5" id="submit5" value="Tracé de la densité"></th> </tr>
-			</table>
-		</form>
 	</div>
 </body>
 <footer>

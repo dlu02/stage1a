@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style_page.css">
-    <title>Loi hyperexponentielle</title>
+    <title>Loi exponentielle convolution</title>
 </head>
 
 <body>
@@ -17,13 +17,33 @@
             <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
         </p>
 		<h3>Loi exponentielle convolution <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
-		Par l'écriture de la densité de la loi exponentielle convolution, pour $x>0$ et $a,b > 0$ :
-		$$f(x,a,b)=\dfrac{ab}{b-a}(\mathrm{e}^{-ax}-\mathrm{e}^{-bx})= \dfrac{b}{b-a}a\mathrm{e}^{-ax}-\dfrac{a}{b-a}b\mathrm{e}^{-bx}$$
-		nous constatons que
-		<p>- dans le cas où $a\neq b$, il s'agit d'un mélange de deux variables iid exponentielles de paramètres différents a et b qui sont donc indépendantes (nous avons en fait fait l'opération de convolution de deux variables)</p>
-		<p>- dans le cas où $a=b$, nous retombons sur la somme de deux variables iid exponentielles de même paramètre $a=b$, et on montre que cette somme suit une loi de Gamma de paramètres 2 et $a=b$.</p>
+        <div style="float: left;">
+            <b>Densité :</b>
+            $$f(x,a,b)= \dfrac{b}{b-a}a\mathrm{e}^{-ax}-\dfrac{a}{b-a}b\mathrm{e}^{-bx} \mathbb{1}_{]0,+\infty[}(x)$$
+        </div>
+        <form method="POST" id="densite" action="submit.php" autocomplete="off">
+            <input id="nom" name="nom" type="hidden" value="Loi exponentielle convolution ">
+            <input id="loi" name="loi" type="hidden" value="4">
 
-		<table class="alternate">
+            <table class="alternate" style="float: right;">
+                <tr><th colspan="2">Tracé de la densité</th></tr>
+                <tr><td>Valeur de $a$</td><td><input type="number" id="parametre1" name="parametre1" step="any" min=0></td></tr>
+                <tr><td>Valeur de $b$</td><td><input type="number" id="parametre2" name="parametre2" step="any" min=0></td></tr>
+                <tr> <th colspan="2"><input type="submit" name="submit5" id="submit5" value="Tracé de la densité"></th> </tr>
+            </table>
+        </form>
+        <div style="clear: both;"></div>
+        <p style="float: left;"><b>Aperçu de la densité :</b> </p>
+        <div style="clear: both;"></div>
+        <img style="width: 50%; float: left;" src="images/expoconvo.png" alt="Densité de l'exponentielle convolution">
+		<p>Par l'écriture de la densité de la loi exponentielle convolution, pour $x>0$ et $a,b > 0$ :
+		$$f(x,a,b)=\dfrac{b}{b-a}a\mathrm{e}^{-ax}-\dfrac{a}{b-a}b\mathrm{e}^{-bx}$$
+		nous constatons que : <br>
+		- dans le cas où $a\neq b$, il s'agit d'un mélange de deux variables iid exponentielles de paramètres différents a et b qui sont donc indépendantes (nous avons en fait fait l'opération de convolution de deux variables) <br>
+		- dans le cas où $a=b$, nous retombons sur la somme de deux variables iid exponentielles de même paramètre $a=b$, et on montre que cette somme suit une loi de Gamma de paramètres 2 et $a=b$. </p>
+        <div style="clear: both;"></div>
+
+		<table class="alternate" style="float: left;">
 		<tr> <th colspan="2">Propriétés de la loi exponentielle convolution (cas où $a\neq b$)</th> </tr>
 		<tr><td>Densité</td><td>$ \displaystyle  f(x,a,b)= \dfrac{b}{b-a}a\mathrm{e}^{-ax}-\dfrac{a}{b-a}b\mathrm{e}^{-bx} \mathbb{1}_{]0,+\infty[}(x)$</td></tr>
 		<tr><td>Domaines des paramètres</td><td>$a>0,b>0,a\neq b$</td></tr>
@@ -36,9 +56,9 @@
 		<tr><td>Kurtosis</td><td>$\displaystyle \gamma_{2}=\dfrac{6\left( \dfrac{1}{a^4}+\dfrac{1}{b^4} \right)}{\left(\dfrac{1}{a^2}+\dfrac{1}{b^2} \right)^2}$</td></tr>
 		</table>
 
-		<table class="alternate">
-		<tr> <th colspan="2">Propriétés de la loi exponentielle convolution (cas où $a=b$) <br> ou loi Gamma $\Gamma(2,a)$</th> </tr>
-		<tr><td>Densité</td><td>$ \displaystyle  f(x,a)= \dfrac{a^2x}{\Gamma(2)} \mathrm{e}^{-ax} \mathbb{1}_{]0,+\infty[}(x)=a^2x \mathrm{e}^{-ax}\mathbb{1}_{]0,+\infty[}(x)$ (car $\Gamma(2)=(2-1)!=1$)</td></tr>
+		<table class="alternate" style="float: left;">
+		<tr> <th colspan="2">Propriétés de la loi exponentielle convolution (cas où $a=b$)</th> </tr>
+		<tr><td>Densité</td><td>$ \displaystyle  f(x,a)=a^2x \mathrm{e}^{-ax}\mathbb{1}_{]0,+\infty[}(x)$ (car $\Gamma(2)=(2-1)!=1$)</td></tr>
 		<tr><td>Domaines des paramètres</td><td>$a=b>0$</td></tr>
 		<tr><td>Fonction de répartition</td>
 		<td>Pour $x>0$, $\displaystyle F(x,a)=1-\mathrm{e}^{-ax}(ax+1)$</td></tr>
@@ -48,18 +68,8 @@
 		<tr><td>Skewness</td><td>$\displaystyle \gamma_{1}=\dfrac{2}{\sqrt{2}}$</td></tr>
 		<tr><td>Kurtosis</td><td>$\gamma_2=6$</td></tr>
 		</table>
+        <div style="clear: both;"></div>
 
-		<form method="POST" id="densite" action="submit.php" autocomplete="off">
-			<input id="nom" name="nom" type="hidden" value="Loi exponentielle convolution ">
-			<input id="loi" name="loi" type="hidden" value="4">
-
-			<table class="alternate">
-				<tr><th colspan="2">Tracé de la densité</th></tr>
-				<tr><td>Valeur de $a$</td><td><input type="number" id="parametre1" name="parametre1" step="any" min=0></td></tr>
-				<tr><td>Valeur de $b$</td><td><input type="number" id="parametre2" name="parametre2" step="any" min=0></td></tr>
-				<tr> <th colspan="2"><input type="submit" name="submit5" id="submit5" value="Tracé de la densité"></th> </tr>
-			</table>
-		</form>
 	</div>
 </body>
 <footer>
