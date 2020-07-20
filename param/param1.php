@@ -52,8 +52,8 @@
 		</div>
 		<p>À des fins de test, voici un <a href="donnees/test_weibull_2_5.txt">exemple</a> de fichier txt contenant un échantillon de 500 réalisations de la loi de Weibull de paramètres 2 et 5 généré avec scipy.stats.</p>
 	</div>
+	<footer>
+		<?php include '../bottom.php'; ?>
+	</footer>
 </body>
-<footer>
-	<?php include '../bottom.php'; ?>
-</footer>
 </html>

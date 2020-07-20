@@ -35,8 +35,8 @@
 			<h3><a href="khi2.php">Test du Khi-2</a></h3>
 			<h3><a href="kolgomorov.php">Test de Kolgomorov-Smirnov</a></h3>
 	</div>
+	<footer>
+		<?php include '../bottom.php'; ?>
+	</footer>
 </body>
-<footer>
-	<?php include '../bottom.php'; ?>
-</footer>
 </html>

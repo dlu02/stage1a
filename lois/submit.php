@@ -67,8 +67,8 @@
 			}
 		?>
 	</div>
+    <footer>
+    	<?php include '../bottom.php'; ?>
+    </footer>
 </body>
-<footer>
-	<?php include '../bottom.php'; ?>
-</footer>
 </html>

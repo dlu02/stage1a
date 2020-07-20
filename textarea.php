@@ -28,8 +28,8 @@
 		<br>
 		<a href=passerelle.php class=button_link>Nouveau fichier</a>
 	</div>
+    <footer>
+    	<?php include 'bottom.php'; ?>
+    </footer>
 </body>
-<footer>
-	<?php include 'bottom.php'; ?>
-</footer>
 </html>

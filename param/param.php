@@ -33,8 +33,8 @@
 			<h3><a href="param2.php">Maximum de vraisemblance sous contrainte de signe du skewness $(\gamma_1)$</a></h3>
 			$$\max\limits_{a,b} \mathcal{L} (x_1,...,x_n;a,b) \qquad \text{s.c.} \quad E\left( \left( X-E(X) \right)^3 \right) \gamma_1 \geqslant 0$$
 	</div>
+	<footer>
+		<?php include '../bottom.php'; ?>
+	</footer>
 </body>
-<footer>
-	<?php include '../bottom.php'; ?>
-</footer>
 </html>

@@ -32,8 +32,8 @@
 		<br>
 		<a href=recherche_image_ask.php class=button_link>Nouvelle recherche</a>
 	</div>
+    <footer>
+    	<?php include 'bottom.php'; ?>
+    </footer>
 </body>
-<footer>
-	<?php include 'bottom.php'; ?>
-</footer>
 </html>

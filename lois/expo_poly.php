@@ -54,8 +54,8 @@
 		<tr><td>Kurtosis</td><td>$\gamma_{2}=\dfrac{M_4-4E(X)V(X)^{3/2}\gamma_1-6E(X)^2V(X)-E(X)^4}{V(X)^2}$</td></tr>
 		</table>
 	</div>
+    <footer>
+    	<?php include '../bottom.php'; ?>
+    </footer>
 </body>
-<footer>
-	<?php include '../bottom.php'; ?>
-</footer>
 </html>

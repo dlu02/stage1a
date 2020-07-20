@@ -9,7 +9,7 @@
     <header>
         <?php include "top.php"; ?>
     </header>
-  <div class="page">
+    <div class="page">
 	  	<h2 class="titre">Recherche d'un histogramme ou d'une densité</h2>
         <p class="update_time">
             <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
@@ -27,8 +27,8 @@
 			</form>
 		</div>
 	</div>
+    <footer>
+    	<?php include 'bottom.php'; ?>
+    </footer>
 </body>
-<footer>
-	<?php include 'bottom.php'; ?>
-</footer>
 </html>

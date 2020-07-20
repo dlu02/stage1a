@@ -51,8 +51,8 @@
 		<tr><td>Kurtosis</td><td>$\dfrac{6(a^3+a^2-6a-2)}{a(a-3)(a-4)}$ pour $a>4$</td></tr>
 		</table>
 	</div>
+    <footer>
+    	<?php include '../bottom.php'; ?>
+    </footer>
 </body>
-<footer>
-	<?php include '../bottom.php'; ?>
-</footer>
 </html>

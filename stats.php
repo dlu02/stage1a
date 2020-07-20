@@ -69,8 +69,8 @@
 			<h3>Histogramme généré : <a href=hist.png class=button_link>Zoom de l'image</a></h3>
 			<img src="hist.png" width=700px alt="Histogramme" class="img_center">
 	</div>
-	</body>
     <footer>
     	<?php include 'bottom.php'; ?>
     </footer>
+	</body>
 </html>
