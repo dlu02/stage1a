@@ -368,3 +368,30 @@ header {
 	margin-right: 1.5em;
 	margin-bottom: 1.5em;
 }
+
+/* densités */
+.densite {
+	border-style: solid;
+	border-color: #c2d6d6;
+	border-width: 4px;
+	margin-top: 2em;
+	margin-bottom: 30px;
+	background-color: #f2f2f2;
+}
+
+.densite h4 {
+	position: absolute;
+	margin-top: -1.35em;
+}
+
+.densite p {
+	margin-top: 1.5em;
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+.densite table {
+	margin-top: 4.3em;
+	margin-bottom: 4.3em;
+}
