@@ -3,7 +3,7 @@
 ## Introduction :
 Pour plus de facilité, et pour voir le résultat, vous pouvez accéder à la page web hébergée par moi-même directement à l'adresse : http://dlu02.freeboxos.fr/stage.
 
-**NB : les liens de l'en-tête sont configurés dans le cas où le contenu de ce git est situé dans ``~/stage` où `~` est le répertoire racine du serveur web. Si vous clonez le git, n'oubliez pas d'adapter les chemins absolus présents dans le fichier `top.php` à votre configuration !**
+**NB : les liens de l'en-tête sont configurés dans le cas où le contenu de ce git est situé dans `~/stage` où `~` est le répertoire racine du serveur web. Si vous clonez le git, n'oubliez pas d'adapter les chemins absolus présents dans le fichier `top.php` à votre configuration !**
 
 ## Présentation globale :
 - La page d'accueil est le fichier `index.php`.
