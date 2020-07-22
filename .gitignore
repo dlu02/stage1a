@@ -4,3 +4,4 @@ hist.png
 *.dat
 *.csv
 images/
+__pycache__/

@@ -43,7 +43,7 @@
 				$b= $_POST['parametre2'];
 				file_put_contents("temp.txt",$a);
                 $replace = exec("sed -i 's/ /\\n/g; s/,/\\n/g; s/\\t/\\n/g; s/;/\\n/g' temp.txt && sed -i '/^$/d' temp.txt");
-				$cmd = "python expopoly.py temp.txt $b";
+				$cmd = "python ../scripts/densite_expopoly.py temp.txt $b";
                 $result = json_decode(shell_exec($cmd), true);
                 $histogr = "../images/d".strval($result['hist']).".png";
                 $filename = "d".strval($result['hist']);
@@ -54,7 +54,7 @@
 				$a= $_POST['parametre1'];
 				$b= $_POST['parametre2'];
 				$loi= $_POST['loi'];
-				$cmd = "python densite_v2.py $a $b $loi";
+				$cmd = "python ../scripts/densite.py $a $b $loi";
                 $result = json_decode(shell_exec($cmd), true);
                 $histogr = "../images/d".strval($result['hist']).".png";
                 $filename = "d".strval($result['hist']);
