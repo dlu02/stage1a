@@ -10,9 +10,13 @@
         <?php include "../top.php"; ?>
     </header>
 
+    <?php
+    $test2 = $_POST['test2'];
+    $test = $_POST['test']; ?>
+
 	<div class="page">
-		<h2 class="titre">Test d'adéquation du Khi-2</h2>
-		<h3>Résultats de l'analyse descriptive <a href=khi2.php class=button_link>Nouvelle analyse</a></h3>
+		<h2 class="titre">Test d'adéquation <?php echo $test;?> </h2>
+		<h3>Résultats de l'analyse descriptive <a href=tests.php class=button_link>Nouvelle analyse</a></h3>
 
 		<?php
 			if (isset($_FILES['fichier'])){
@@ -51,7 +55,7 @@
 				exit();
 			}
             $replace = exec("sed -i 's/ /\\n/g; s/,/\\n/g; s/\\t/\\n/g; s/;/\\n/g' donnees/$nom_fichier && sed -i '/^$/d' donnees/$nom_fichier"); // remplace les espaces de séparation, les tabulations, les virgules et les points virgules par une nouvelle ligne dans le fichier nom_fichier, puis supprime les lignes vides
-			$result = json_decode(shell_exec("python donnees/stats_khi2.py donnees/$nom_fichier $loi $modele $taillea"), true);
+			$result = json_decode(shell_exec("python ../scripts/tests.py donnees/$nom_fichier $loi $modele $taillea $test2"), true);
             if ($result['error'] == "error"){
                 echo "<h4> ERREUR : Données discrètes. Veuillez vérifier vos données. </h4></div></body></html>";
                 exit();
@@ -114,11 +118,11 @@
 			<table class="alternate">
 				<tr>
 					<td>p-value</td>
-					<td><?php echo $result['chi2_pvalue'];?></td>
+					<td><?php echo $result['test_pvalue'];?></td>
 				</tr>
 			</table>
             <h4 style="text-align:center; color: red;">
-                <?php if ($result['chi2_pvalue'] < 0.05){
+                <?php if ($result['test_pvalue'] < 0.05){
                     echo "Hypothèse rejetée. L'échantillon étudié ne suit pas la loi $loi.";
                 }
                 else {

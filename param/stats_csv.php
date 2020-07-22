@@ -46,7 +46,7 @@
 				exit();
 			}
             $replace = exec("sed -i 's/ /\\n/g; s/,/\\n/g; s/\\t/\\n/g; s/;/\\n/g' donnees/$nom_fichier && sed -i '/^$/d' donnees/$nom_fichier"); // remplace les espaces de séparation, les tabulations, les virgules et les points virgules par une nouvelle ligne dans le fichier nom_fichier, puis supprime les lignes vides
-			$result = json_decode(exec("python donnees/stats_csv.py donnees/$nom_fichier $loi 1 $taillea"), true);
+			$result = json_decode(exec("python ../scripts/estimation.py donnees/$nom_fichier $loi 1 $taillea"), true);
             if ($result['error'] == "error"){
                 echo "<h4> ERREUR : Données discrètes. Veuillez vérifier vos données. </h4></div></body></html>";
                 exit();

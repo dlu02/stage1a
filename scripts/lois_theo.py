@@ -334,3 +334,101 @@ def expo_poly2(x, a, b):
 
 def fdr_expopoly2(x, a, b):
 	return cab2(a, b)*a*(1-np.exp(-b*x))/(b*b)
+
+
+# fonctions de choix de la logvs suivant la loi
+def log_vs(loi):
+	if loi == "hyperexpo":
+		return logvs_hyperexpo
+	elif loi == "lomax":
+		return logvs_lomax
+	elif loi == "weibull":
+		return logvs_weibull
+	elif loi == "expo_poly":
+		return logvs_expopoly
+	elif loi == "burr":
+		return logvs_burr
+	elif loi == "expo_convo":
+		return logvs_expoconvo
+
+
+# choisir le moment 1 et 2 suivant la loi
+def esp(loi):
+	if loi == "hyperexpo":
+		return esp_hyperexpo
+	elif loi == "lomax":
+		return esp_lomax
+	elif loi == "weibull":
+		return esp_weibull
+	elif loi == "expo_poly":
+		return esp_expopoly
+	elif loi == "burr":
+		return esp_burr
+	elif loi == "expo_convo":
+		return esp_expoconvo
+
+
+def mom2(loi):
+	if loi == "hyperexpo":
+		return mom2_hyperexpo
+	elif loi == "lomax":
+		return mom2_lomax
+	elif loi == "weibull":
+		return mom2_weibull
+	elif loi == "expo_poly":
+		return mom2_expopoly
+	elif loi == "burr":
+		return mom2_burr
+	elif loi == "expo_convo":
+		return mom2_expoconvo
+
+
+def varc(x, loi):
+	m2 = mom2(loi)
+	e = esp(loi)
+	return (m2(x) - (e(x)**2))
+
+
+def momc(loi):
+	if loi == "hyperexpo":
+		return momc_hyperexpo
+	elif loi == "lomax":
+		return momc_lomax
+	elif loi == "weibull":
+		return momc_weibull
+	elif loi == "expo_poly":
+		return momc_expopoly
+	elif loi == "burr":
+		return momc_burr
+	elif loi == "expo_convo":
+		return momc_expoconvo
+
+
+def mom3(loi):
+	if loi == "hyperexpo":
+		return mom3_hyperexpo
+	elif loi == "lomax":
+		return mom3_lomax
+	elif loi == "weibull":
+		return mom3_weibull
+	elif loi == "expo_poly":
+		return mom3_expopoly
+	elif loi == "burr":
+		return mom3_burr
+	elif loi == "expo_convo":
+		return mom3_expoconvo
+
+
+def fdr(loi):
+	if loi == "hyperexpo":
+		return fdr_hyperexpo
+	elif loi == "lomax":
+		return fdr_lomax
+	elif loi == "weibull":
+		return fdr_weibull
+	elif loi == "expo_poly":
+		return fdr_expopoly
+	elif loi == "burr":
+		return fdr_burr
+	elif loi == "expo_convo":
+		return fdr_expoconvo

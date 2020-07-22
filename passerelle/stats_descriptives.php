@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="css/style_page.css">
+  <link rel="stylesheet" type="text/css" href="../css/style_page.css">
   <title>Statistiques descriptives</title>
 </head>
 <body>
     <header>
-        <?php include "top.php"; ?>
+        <?php include "../top.php"; ?>
     </header>
   <div class="page">
 	  <h2 class="titre">Statistiques descriptives</h2>
@@ -16,7 +16,7 @@
       </p>
       <h3>Étude descriptive de données saisies manuellement</h3>
 	  <div>
-		  <form method="POST" action="stats.php" autocomplete="off">
+		  <form method="POST" action="stats_manuelles.php" autocomplete="off">
 			  <table class="alternate">
 				  <tr>
 					<td>Nom du fichier où enregistrer les données</td>
@@ -72,7 +72,7 @@
     </div>
   </div>
   <footer>
-  	<?php include 'bottom.php'; ?>
+  	<?php include '../bottom.php'; ?>
   </footer>
 </body>
 </html>

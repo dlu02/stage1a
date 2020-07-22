@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="css/style_page.css">
+  <link rel="stylesheet" type="text/css" href="../css/style_page.css">
   <title>Résultats de l'analyse</title>
 </head>
 <body>
     <header>
-        <?php include "top.php"; ?>
+        <?php include "../top.php"; ?>
     </header>
 
 	<div class="page">
@@ -65,7 +65,7 @@
 			  exit();
 		  }
 
-		  $result = json_decode(exec("python lois.py $choix $param1 $param2 $taille"), true);
+		  $result = json_decode(exec("python ../scripts/stats_usuelles.py $choix $param1 $param2 $taille"), true);
 
 		  function print_loi($choix){
 		    switch ($choix){
@@ -119,11 +119,12 @@
 			  <td><?php echo $result['kurt']; ?></td>
 			</tr>
 		</table>
-		<h3>Histogramme généré : <a href=hist.png class=button_link>Zoom de l'image</a></h2>
-		<img src="hist.png" width=700px alt="Histogramme" class="img_center">
+        <?php $hist_loc = "../images/u".$result['hist'].".png";?>
+		<h3>Histogramme généré n°u<?php echo $result['hist']; ?> : <a href=<?php echo $hist_loc; ?> class=button_link>Zoom de l'image</a></h2>
+		<img src=<?php echo $hist_loc; ?> width=700px alt="Histogramme" class="img_center">
 	</div>
     <footer>
-    	<?php include 'bottom.php'; ?>
+    	<?php include '../bottom.php'; ?>
     </footer>
 </body>
 </html>

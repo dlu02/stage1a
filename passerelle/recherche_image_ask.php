@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="css/style_page.css">
+  <link rel="stylesheet" type="text/css" href="../css/style_page.css">
   <title>Recherche d'un histogramme</title>
 </head>
 <body>
     <header>
-        <?php include "top.php"; ?>
+        <?php include "../top.php"; ?>
     </header>
     <div class="page">
 	  	<h2 class="titre">Recherche d'un histogramme ou d'une densité</h2>
@@ -28,7 +28,7 @@
 		</div>
 	</div>
     <footer>
-    	<?php include 'bottom.php'; ?>
+    	<?php include '../bottom.php'; ?>
     </footer>
 </body>
 </html>

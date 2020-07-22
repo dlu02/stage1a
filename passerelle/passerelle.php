@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="css/style_page.css">
+  <link rel="stylesheet" type="text/css" href="../css/style_page.css">
   <title>Passerelle Python/PHP</title>
 </head>
 <body>
     <header>
-        <?php include "top.php"; ?>
+        <?php include "../top.php"; ?>
     </header>
   <div class="page">
 	  	<h2 class="titre">Passerelle Python/PHP</h2>
@@ -16,7 +16,7 @@
         </p>
 		<h3>Générateur de nombres aléatoires</h3>
 		<div>
-		  <form method="POST" action="argparse.php" autocomplete="off" >
+		  <form method="POST" action="gen_aleat.php" autocomplete="off" >
 			<table class="alternate">
 				<tr>
 				  <td>minimum</td>
@@ -74,7 +74,7 @@
 		</div> -->
 	</div>
     <footer>
-    	<?php include 'bottom.php'; ?>
+    	<?php include '../bottom.php'; ?>
     </footer>
 </body>
 </html>

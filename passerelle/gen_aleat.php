@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="css/style_page.css">
+  <link rel="stylesheet" type="text/css" href="../css/style_page.css">
   <title>Générateur de nombres aléatoires</title>
 </head>
 <body>
     <header>
-        <?php include "top.php"; ?>
+        <?php include "../top.php"; ?>
     </header>
 
 	<div class="page">
@@ -18,8 +18,8 @@
 			$max = $_POST["nombre_max"];
 			$taille = $_POST["taille"];
 			$fichier = $_POST ["fichier"];
-			$fichier = $fichier.".txt";
-			$cmd = "python script.py ".$min." ".$max." ".$taille." ".$fichier;
+			$fichier = "donnees/".$fichier.".txt";
+			$cmd = "python ../scripts/gen_aleat.py ".$min." ".$max." ".$taille." ".$fichier;
 			$sortie = shell_exec($cmd);
 			echo "L'échantillon a bien été créé.";
 			echo "<br> <a href=$fichier class=button_link>Ouvrir le fichier créé</a>";
@@ -34,7 +34,7 @@
 
 	</div>
     <footer>
-    	<?php include 'bottom.php'; ?>
+    	<?php include '../bottom.php'; ?>
     </footer>
 </body>
 </html>

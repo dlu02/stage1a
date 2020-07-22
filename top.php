@@ -8,13 +8,13 @@
 	<div style="clear: both;"></div>
 	<ul class="menubar" id="menubar">
 		<li><a href="/stage/index.php">Accueil</a></li>
-		<li class="menu_deroulant"><a href="/stage/passerelle.php" class="bouton_deroulant">Passerelle basique Python/PHP</a>
+		<li class="menu_deroulant"><a href="/stage/passerelle/passerelle.php" class="bouton_deroulant">Passerelle basique Python/PHP</a>
 			<ul class="contenu_menu">
-				<li><a href="/stage/passerelle.php">Fonctions basiques Python/PHP</a></li>
-				<li><a href="/stage/stats_descriptives.php">Statistiques descriptives</a></li>
+				<li><a href="/stage/passerelle/passerelle.php">Fonctions basiques Python/PHP</a></li>
+				<li><a href="/stage/passerelle/stats_descriptives.php">Statistiques descriptives</a></li>
 			</ul>
 		</li>
-		<li> <a href="/stage/recherche_image_ask.php">Recherche histogramme/densité</a></li>
+		<li> <a href="/stage/passerelle/recherche_image_ask.php">Recherche histogramme/densité</a></li>
 		<li class="menu_deroulant"><a href="/stage/lois/lois.php" class="bouton_deroulant">Modèles de durée de vie</a>
 			<ul class="contenu_menu">
 				<li><a href="/stage/lois/hyperexpo.php">Loi hyperexponentielle</a> </li>

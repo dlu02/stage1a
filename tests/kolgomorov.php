@@ -26,7 +26,7 @@
 			<h4>Implémentation</h4>
 			<p>
 			Le fichier TXT ou CSV ou DAT doit contenir une seule sorte de données écrites soit en lignes, soit en colonnes. Si plusieurs sortes de données sont présentes, elles sont concaténées et regroupées en une seule sorte de données. </p>
-			<form method="POST" action="submit_ks.php" enctype="multipart/form-data">
+			<form method="POST" action="submit.php" enctype="multipart/form-data">
 				<table class="alternate">
 					<tr>
 					  <td>Choisir un fichier</td>
@@ -60,6 +60,8 @@
 					</tr>
 					<tr> <th colspan="2"><input type="submit" name="submit4" id="submit4" value="Envoyer"></th> </tr>
 				</table>
+				<input id="test" name="test" type="hidden" value=" de Kolgomorov-Smirnov">
+				<input id="test2" name="test2" type="hidden" value="2">
 			</form>
 		</div>
 	</div>
