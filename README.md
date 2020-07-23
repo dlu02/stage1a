@@ -19,9 +19,9 @@ Pour plus de facilité, et pour voir le résultat, vous pouvez accéder à la pa
   - `stats_manuelles.py` contient le script d'étude descriptive des données saisies dans la passerelle
   - `stats_usuelles.py` contient le script d'étude descriptive de données générées à partir de lois usuelles
   - `tests.py` contient le script implémentant les tests du Khi-2 et de Kolgomorov-Smirnov
-  - Le CSS du site est dans le répertoire `css`,
-  - Toutes les images générées par le site sont localisées dans le dossier `images`
-  - Tous les répertoires contiennent le code source des pages web pour chaque partie, et chaque fichier envoyé au site est téléchargé sur le serveur dans le dossier donnees contenu dans le répertoire lié à chaque partie.
+- Le CSS du site est dans le répertoire `css`,
+- Toutes les images générées par le site sont localisées dans le dossier `images`
+- Tous les répertoires contiennent le code source des pages web pour chaque partie, et chaque fichier envoyé au site est téléchargé sur le serveur dans le dossier `donnees` contenu dans le répertoire lié à chaque partie.
 
 - L'en-tête du site est contenu dans `top.php` et est inclus via PHP dans chaque page du site, et de même pour le pied de page du site, contenu dans `bottom.php`
 
