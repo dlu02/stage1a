@@ -35,6 +35,8 @@
 			- une partie tests qui permet d'effectuer un test statistique sur un échantillon qui suivrait une loi parmi les modèles de durée de vie. </p>
 			<p> Une partie recherche d'histogrammes ou de densités à partir de leurs numéros est également disponible pour retrouver à posteriori les fichiers générés. </p>
 			<p> Pour chaque partie, un script Python est exécuté suivant plusieurs arguments qui sont obtenus via un formulaire HTML. </p>
+
+			<p>Chaque page de résultat de test est enregistrée sur le serveur et se voit attribuer un numéro, qui permet à postériori de pouvoir la retrouver soit via le lien renvoyé, soit dans la partie Recherche, muni du numéro.</p>
 		<h3>Moyens techniques</h3>
 			<p>
 				La page est propulsée par un serveur Arch Linux sous Apache 2.4.43, PHP 7.4.8 et Python 3.8.3. Tous les calculs et les modélisations sont effectués à l'aide de Python via le langage PHP.

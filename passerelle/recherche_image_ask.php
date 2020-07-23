@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="../css/style_page.css">
-  <title>Recherche d'un histogramme</title>
+  <title>Recherche</title>
 </head>
 <body>
     <header>
         <?php include "../top.php"; ?>
     </header>
     <div class="page">
-	  	<h2 class="titre">Recherche d'un histogramme ou d'une densité</h2>
+	  	<h2 class="titre">Recherche d'un résultat, d'un histogramme ou d'une densité</h2>
         <p class="update_time">
             <?php echo "Dernière mise à jour : ". date("d/m/Y H:i:s.",filemtime(__FILE__)); ?>
         </p>
@@ -26,6 +26,18 @@
 				</table>
 			</form>
 		</div>
+        <h3>Recherche d'un résultat à partir de son numéro</h3>
+        <div>
+            <form method="POST" action="recherche_resultat.php" autocomplete="off">
+                <table class="alternate">
+                    <tr>
+                      <td>Saisir le numéro du fichier</td>
+                      <td><input type="text" id="nom_fichier" name="nom_fichier"></td>
+                    </tr>
+                    <tr> <th colspan="2"><input type="submit" name="submit" id="submit" value="Rechercher"></th> </tr>
+                </table>
+            </form>
+        </div>
 	</div>
     <footer>
     	<?php include '../bottom.php'; ?>

@@ -87,7 +87,7 @@
 				</tr>
 			</table>
             <h3>Histogramme généré n°<?php echo $nom_hist; ?> : <a href=<?php echo $histogr; ?> class=button_link>Zoom de l'image</a></h3>
-            <img src=<?php echo $histogr; ?> width=700px alt='Histogramme' class=img_center>
+            <img src=<?php echo $histogr; ?> width=700 alt='Histogramme' class=img_center>
             <p>Vous pouvez retrouver l'histogramme ci-dessous dans la partie Recherche avec le code ci-dessus.</p>
 			<h3>Estimation des paramètres</h3>
 			<?php

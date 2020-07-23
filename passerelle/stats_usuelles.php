@@ -121,7 +121,7 @@
 		</table>
         <?php $hist_loc = "../images/u".$result['hist'].".png";?>
 		<h3>Histogramme généré n°u<?php echo $result['hist']; ?> : <a href=<?php echo $hist_loc; ?> class=button_link>Zoom de l'image</a></h2>
-		<img src=<?php echo $hist_loc; ?> width=700px alt="Histogramme" class="img_center">
+		<img src=<?php echo $hist_loc; ?> width=700 alt="Histogramme" class="img_center">
 	</div>
     <footer>
     	<?php include '../bottom.php'; ?>

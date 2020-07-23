@@ -1,4 +1,13 @@
-<div class="top">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../css/style_page.css">
+  <title>Résultats de l'analyse</title>
+</head>
+<body>
+    <header>
+        <div class="top">
 	<h1 class="titre_top"><a href="/stage/index.php">Modélisation statistique de durée de vie</a></h1>
 	<h3>Stage ENSIIE 1ère année 2020</h3>
 
@@ -14,6 +23,7 @@
 				<li><a href="/stage/passerelle/stats_descriptives.php">Statistiques descriptives</a></li>
 			</ul>
 		</li>
+		<li> <a href="/stage/passerelle/recherche_image_ask.php">Recherche histogramme/densité</a></li>
 		<li class="menu_deroulant"><a href="/stage/lois/lois.php" class="bouton_deroulant">Modèles de durée de vie</a>
 			<ul class="contenu_menu">
 				<li><a href="/stage/lois/hyperexpo.php">Loi hyperexponentielle</a> </li>
@@ -36,7 +46,6 @@
 				<li><a href="/stage/tests/kolgomorov.php">Test de Kolgomorov-Smirnov</a> </li>
 			</ul>
 		</li>
-		<li> <a href="/stage/passerelle/recherche_image_ask.php">Recherche résultats et images générées</a></li>
 		<!-- <li><a href="/stage/etude_fichier.php">Étude d'un fichier</a></li> -->
 	</ul>
 	<br> <br>
@@ -79,3 +88,82 @@
 
 <!-- import police Fira Sans depuis Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    </header>
+
+    
+	<div class="page">
+		<h2 class="titre">Test d'adéquation  de Kolgomorov-Smirnov </h2>
+		<h3>Résultats de l'analyse descriptive <a href=tests.php class=button_link>Nouvelle analyse</a></h3>
+
+		Succès, fichier test_weibull_2_5.txt bien importé			<table class="alternate">
+				<tr>
+				  <td>minimum</td>
+				  <td>0.13522</td>
+				</tr>
+
+				<tr>
+				  <td>maximum</td>
+				  <td>12.45571</td>
+				</tr>
+
+				<tr>
+				  <td>moyenne</td>
+				  <td>4.48875</td>
+				</tr>
+				<tr>
+				  <td>variance</td>
+				  <td>5.25907</td>
+				</tr>
+				<tr>
+				  <td>écart-type</td>
+				  <td>2.29327</td>
+				</tr>
+				<tr>
+				  <td>skewness</td>
+				  <td>0.55764</td>
+				</tr>
+				<tr>
+				  <td>kurtosis</td>
+				  <td>0.06515</td>
+				</tr>
+			</table>
+			<h3>Histogramme généré n°1779380 : <a href=../images/1779380.png class=button_link>Zoom de l'image</a></h3>
+            <img src=../images/1779380.png width=700 alt='Histogramme' class=img_center>
+            <p>Vous pouvez retrouver l'histogramme ci-dessus dans la partie Recherche avec le code ci-dessus.</p>
+			<h3>Estimation des paramètres</h3>
+						<table class="alternate">
+				<tr>
+					<td>Paramètre $a$</td>
+					<td>5.062691</td>
+				</tr>
+				<tr>
+					<td>Paramètre $b$</td>
+					<td>2.04346</td>
+				</tr>
+			</table>
+			<h3>Résultat du test du Khi-2</h3>
+			<table class="alternate">
+				<tr>
+					<td>p-value</td>
+					<td>0.94302</td>
+				</tr>
+			</table>
+            <h4 style="text-align:center; color: red;">
+                Hypothèse non rejetée. L'échantillon étudié est susceptible de suivre la loi weibull.            </h4>
+			<div class="densite">
+				<p> Cette page a été sauvegardée. Vous pouvez la retrouver à posteriori dans la partie recherche, muni du numéro d'histogramme ci-dessus, qui est : 1779380, ou avec le lien ci-contre : <a href= ../save/1779380.html class="button_link">Lien vers cette page</a> </p>
+			</div>
+	</div>
+    <footer>
+    	<div class="bottom">
+	<hr>
+	<p>&copy; 2020 <a href="http://dlu02.freeboxos.fr">Damien LU</a> <br> Stage ENSIIE 1ère année réalisé entre le 08 juin 2020 et le 07 août 2020 au CNAM Paris 3e en télétravail.</p>
+	<a href="https://gitlab.com/dlu02/stage2020" class="bottom_droite"><img src="/stage/logo_gitlab.png" alt="Lien vers Gitlab" height="30"></a>
+	<a href="https://www.ensiie.fr/" class="bottom_droite"><img src="/stage/logo_ensiie.png" alt="Lien vers ENSIIE" height="30"></a>
+	<a href="http://cnam.fr" class="bottom_droite"><img src="/stage/logo_cnam.png" alt="Lien vers ENSIIE" height="20"></a>
+	<div style="clear: both;"></div>
+</div>
+    </footer>
+</body>
+</html>
+

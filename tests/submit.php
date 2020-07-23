@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -95,7 +96,7 @@
 				</tr>
 			</table>
 			<h3>Histogramme généré n°<?php echo $result['hist']; ?> : <a href=<?php echo $histogr; ?> class=button_link>Zoom de l'image</a></h3>
-            <img src=<?php echo $histogr; ?> width=700px alt='Histogramme' class=img_center>
+            <img src=<?php echo $histogr; ?> width=700 alt='Histogramme' class=img_center>
             <p>Vous pouvez retrouver l'histogramme ci-dessus dans la partie Recherche avec le code ci-dessus.</p>
 			<h3>Estimation des paramètres</h3>
 			<?php
@@ -130,9 +131,16 @@
                 }
                 ?>
             </h4>
+			<div class="densite">
+				<p> Cette page a été sauvegardée. Vous pouvez la retrouver à posteriori dans la partie recherche, muni du numéro d'histogramme ci-dessus, qui est : <?php echo $result['hist'];?>, ou avec le lien ci-contre : <a href= <?php echo "../save/".$result['hist'].".html"; ?> class="button_link">Lien vers cette page</a> </p>
+			</div>
 	</div>
     <footer>
     	<?php include '../bottom.php'; ?>
     </footer>
 </body>
 </html>
+
+<?php
+$dir = '../save/'.$result['hist'].'.html';
+file_put_contents($dir, ob_get_contents()); ?>

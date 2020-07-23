@@ -59,7 +59,7 @@
                 $histogr = "../images/d".strval($result['hist']).".png";
                 $filename = "d".strval($result['hist']);
 				echo "<h3>Graphique généré n°$filename : <a href=".$histogr." class=button_link>Zoom de l'image</a></h3>
-				<img src=".$histogr." width=700px alt=Densite class=img_center>";
+				<img src=".$histogr." width=700 alt=Densite class=img_center>";
 			}
 			else {
 				echo "<h3> ERREUR : un ou plusieurs champ(s) est/sont vide(s). </h3></div></body></html>";
