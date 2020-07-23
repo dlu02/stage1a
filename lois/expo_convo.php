@@ -19,10 +19,8 @@
 		<h3>Loi exponentielle convolution <a href=lois.php class=button_link>Choisir une autre loi</a></h3>
         <div class="definition">
             <h4>Densité</h4>
-            <p>$$f(x,a,b)= \dfrac{b}{b-a}a\mathrm{e}^{-ax}-\dfrac{a}{b-a}b\mathrm{e}^{-bx} \mathbb{1}_{]0,+\infty[}(x)$$
-            Nous constatons que : <br>
-    		- dans le cas où $a\neq b$, il s'agit d'un mélange de deux variables iid exponentielles de paramètres différents a et b qui sont donc indépendantes (nous avons en fait fait l'opération de convolution de deux variables) <br>
-    		- dans le cas où $a=b$, nous retombons sur la somme de deux variables iid exponentielles de même paramètre $a=b$, et on montre que cette somme suit une loi de Gamma de paramètres 2 et $a=b$. </p>
+            <p>$$f(x,a,b)= \dfrac{ab}{b-a}\left(\mathrm{e}^{-ax}-\mathrm{e}^{-bx}\right) \mathbb{1}_{]0,+\infty[}(x)$$
+            Nous constatons que cette loi est obtenue par la somme de deux variables aléatoires indépendantes suivant des lois exponentielles de paramètres $a$ et $b$. En particulier, lorsque $a=b$, nous obtenons une loi de Gamma de paramètres 2 et $a$. </p>
         </div>
 
         <div class="densite">
