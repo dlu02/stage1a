@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../css/style_page.css">
+  <title>Résultats de l'analyse</title>
+</head>
+<body>
+    <header>
+        <div class="top">
+	<h1 class="titre_top"><a href="/stage/index.php">Modélisation statistique de durée de vie</a></h1>
+	<h3>Stage ENSIIE 1ère année 2020</h3>
+
+	<p>Organisme d'accueil : CNAM département EPN06 Mathématiques et Statistiques <br>
+	Tuteur de stage : Dariush GHORBANZADEH
+	</p>
+	<div style="clear: both;"></div>
+	<ul class="menubar" id="menubar">
+		<li><a href="/stage/index.php">Accueil</a></li>
+		<li class="menu_deroulant"><a href="/stage/passerelle/passerelle.php" class="bouton_deroulant">Passerelle basique Python/PHP</a>
+			<ul class="contenu_menu">
+				<li><a href="/stage/passerelle/passerelle.php">Fonctions basiques Python/PHP</a></li>
+				<li><a href="/stage/passerelle/stats_descriptives.php">Statistiques descriptives</a></li>
+			</ul>
+		</li>
+		<li class="menu_deroulant"><a href="/stage/lois/lois.php" class="bouton_deroulant">Modèles de durée de vie</a>
+			<ul class="contenu_menu">
+				<li><a href="/stage/lois/hyperexpo.php">Loi hyperexponentielle</a> </li>
+				<li><a href="/stage/lois/lomax.php">Loi Lomax</a> </li>
+				<li><a href="/stage/lois/weibull.php">Loi de Weibull</a> </li>
+				<li><a href="/stage/lois/expo_poly.php">Loi exponentielle polynomiale</a> </li>
+				<li><a href="/stage/lois/burr.php">Loi de Burr</a> </li>
+				<li><a href="/stage/lois/expo_convo.php">Loi exponentielle convolution</a> </li>
+			</ul>
+		</li>
+		<li class="menu_deroulant"><a href="/stage/param/param.php" class="bouton_deroulant">Estimation de paramètres</a>
+			<ul class="contenu_menu">
+				<li><a href="/stage/param/param1.php">Contrainte sur les moments</a> </li>
+				<li><a href="/stage/param/param2.php">Contrainte sur le skewness</a> </li>
+			</ul>
+		</li>
+		<li class="menu_deroulant"><a href="/stage/tests/tests.php" class="bouton_deroulant">Tests statistiques</a>
+			<ul class="contenu_menu">
+				<li><a href="/stage/tests/khi2.php">Test du Khi-2</a> </li>
+				<li><a href="/stage/tests/kolgomorov.php">Test de Kolgomorov-Smirnov</a> </li>
+			</ul>
+		</li>
+		<li> <a href="/stage/passerelle/recherche_image_ask.php">Recherche résultats et images générées</a></li>
+		<!-- <li><a href="/stage/etude_fichier.php">Étude d'un fichier</a></li> -->
+	</ul>
+	<br> <br>
+</div>
+
+<!-- Script JS menu après scroll -->
+<script>
+	window.onscroll = function() {myFunction()};
+
+	var navbar = document.getElementById("menubar");
+	var sticky = navbar.offsetTop;
+
+	function myFunction() {
+	  if (window.pageYOffset >= sticky) {
+	    navbar.classList.add("sticky")
+	  } else {
+	    navbar.classList.remove("sticky");
+	  }
+	}
+</script>
+
+<!-- Pour LaTeX -->
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	  jax: ["input/TeX", "output/HTML-CSS"],
+	  extensions: ["tex2jax.js"],
+	  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+	  tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+	  TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+	  messageStyle: "none"
+	});
+</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- <script type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js/MathJax.js?config=TeX-MML-AM_CHTML">
+</script> -->
+<!-- Fin LaTeX -->
+
+<!-- import police Fira Sans depuis Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    </header>
+
+    
+	<div class="page">
+		<h2 class="titre">Test d'adéquation  du Khi-2 </h2>
+		<h3>Résultats de l'analyse descriptive <a href=tests.php class=button_link>Nouvelle analyse</a></h3>
+
+		Succès, fichier weibull4.dat bien importé			<table class="alternate">
+				<tr>
+				  <td>minimum</td>
+				  <td>3</td>
+				</tr>
+
+				<tr>
+				  <td>maximum</td>
+				  <td>5312</td>
+				</tr>
+
+				<tr>
+				  <td>moyenne</td>
+				  <td>1172.85</td>
+				</tr>
+				<tr>
+				  <td>variance</td>
+				  <td>1268793.41083</td>
+				</tr>
+				<tr>
+				  <td>écart-type</td>
+				  <td>1126.4073</td>
+				</tr>
+				<tr>
+				  <td>skewness</td>
+				  <td>1.41065</td>
+				</tr>
+				<tr>
+				  <td>kurtosis</td>
+				  <td>1.91132</td>
+				</tr>
+			</table>
+			<h3>Histogramme généré n°6937146 : <a href=../images/6937146.png class=button_link>Zoom de l'image</a></h3>
+            <img src=../images/6937146.png width=700 alt='Histogramme' class=img_center>
+            <p>Vous pouvez retrouver l'histogramme ci-dessus dans la partie Recherche avec le code ci-dessus.</p>
+			<h3>Estimation des paramètres</h3>
+						<table class="alternate">
+				<tr>
+					<td>Paramètre $a$</td>
+					<td>Array
+(
+    [0] => 0.16103
+    [1] => 0.71716
+    [2] => 0.89204
+)
+1</td>
+				</tr>
+				<tr>
+					<td>Paramètre $b$</td>
+					<td>0.86130824367696</td>
+				</tr>
+			</table>
+			<h3>Résultat du test du Khi-2</h3>
+			<table class="alternate">
+				<tr>
+					<td>p-value</td>
+					<td>0</td>
+				</tr>
+			</table>
+            <h4 style="text-align:center; color: red;">
+                Hypothèse rejetée. L'échantillon étudié ne suit pas la loi expo_poly.            </h4>
+			<div class="densite">
+				<p> Cette page a été sauvegardée. Vous pouvez la retrouver à posteriori dans la partie recherche, muni du numéro d'histogramme ci-dessus, qui est : 6937146, ou avec le lien ci-contre : <a href= ../save/6937146.html class="button_link">Lien vers cette page</a> </p>
+			</div>
+	</div>
+    <footer>
+    	<div class="bottom">
+	<hr>
+	<p>&copy; 2020 <a href="http://dlu02.freeboxos.fr">Damien LU</a> <br> Stage ENSIIE 1ère année réalisé entre le 08 juin 2020 et le 07 août 2020 au CNAM Paris 3e en télétravail.</p>
+	<a href="https://gitlab.com/dlu02/stage2020" class="bottom_droite"><img src="/stage/logo_gitlab.png" alt="Lien vers Gitlab" height="30"></a>
+	<a href="https://www.ensiie.fr/" class="bottom_droite"><img src="/stage/logo_ensiie.png" alt="Lien vers ENSIIE" height="30"></a>
+	<a href="http://cnam.fr" class="bottom_droite"><img src="/stage/logo_cnam.png" alt="Lien vers ENSIIE" height="20"></a>
+	<div style="clear: both;"></div>
+</div>
+    </footer>
+</body>
+</html>
+

@@ -28,6 +28,37 @@ def gradient(fonction, point):
 	return res
 
 
+# matrice hessienne
+def derivee_seconde_differentes(fonction, x0, i, j, h=1e-06):  # cas de dérivées partielles secondes sur deux variables différentes
+	a = np.zeros(np.size(x0))
+	a[i] = 1
+	b = np.zeros(np.size(x0))
+	b[j] = 1
+	return (fonction(x0+h*a+h*b)-fonction(x0+h*a-h*b)-fonction(x0-h*a+h*b)+fonction(x0-h*a-h*b))/(4*h*h)
+
+
+def derivee_seconde_identique(fonction, x0, i, h=1e-06):  # cas de dérivée partielle seconde sur deux variables identiques
+	a = np.zeros(np.size(x0))
+	a[i] = 1
+	return (fonction(x0+h*a)-2*fonction(x0)+fonction(x0-h*a))/(h*h)
+
+
+# fonction test2 : test2(x,y,z)=3x^2+4yz^2+5z^2
+def test2(a):  # attention : a est un np.array (autrement dit un vecteur)
+	return 3*a[0]*a[0]+4*a[1]*a[2]*a[2]+5*a[2]*a[2]
+
+
+def hessienne(fonction, x0, h=1e-06):
+	res = np.zeros((np.size(x0), np.size(x0)))
+	for i in range(0, np.size(x0)):
+		for j in range(0, np.size(x0)):
+			if (i == j):
+				res[i][i] = derivee_seconde_identique(fonction, x0, i, h=1e-06)
+			else:
+				res[i][j] = derivee_seconde_differentes(fonction, x0, i, j, h=1e-06)
+	return res
+
+
 # fonction de calcul de la norme du gradient
 def norme(vect):
 	return np.dot(vect, vect)
@@ -55,37 +86,47 @@ def eq1_bis(x, M, logvs, esp, mom2):
 	return [gradient((lambda y: logvs(y, M)), x)[0], gradient((lambda y: logvs(y, M)), x)[1], contrainte1(x, M, esp), contrainte2(x, M, mom2)]
 
 
+# maximum de vraisemblance modèle 1
 def max_vs_m1(M, loi):
 	ls = log_vs(loi)
 	moy = esp(loi)
 	mom2_f = mom2(loi)
-	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte2(x, M, mom2_f))}, {'type': 'ineq', 'fun': (lambda x: contrainte1(x, M, moy))}]
+	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte2(x, M, mom2_f))}, {'type': 'ineq', 'fun': (lambda x: contrainte1(x, M, moy))}]  # dictionnaire des contraintes
 	res = []
 	Rlist = []
 	for k in range(0, 10):
-		valeur_initiale = np.array([np.random.rand(), np.random.rand()])
-		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x
-		res.append(norme(gradient((lambda y: ls(y, M)), R)))
+		valeur_initiale = np.array([np.random.rand(), np.random.rand()])  # valeur initiale random
+		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x  # solution déterminée
+		res.append(norme(gradient((lambda y: ls(y, M)), R)))  # calcul de la norme de la solution
 		Rlist.append(R)
 		if norme(gradient((lambda y: ls(y, M)), R)) < 1e-6:
-			return R
-	ind = res.index(min(res))
+			M = np.array(hessienne((lambda y: ls(y, M)), R, h=1e-6))  # calcul de la matrice hessienne
+			det = np.linalg.det(M)  # calcul du déterminant de la matrice hessienne
+			tr = np.trace(M)  # calcul de la trace de la matrice hessienne
+			if (det > 0 and tr > 0):  # si le déterminant et la trace sont > 0, les valeurs propres sont > 0, donc la matrice hessienne est déf positive
+				return R
+	ind = res.index(min(res))  # sinon, prendre la solution avec le gradient minimal
 	return Rlist[ind]
 
 
+# maximum de vraisemblance modèle 2
 def max_vs_m2(M, loi):
-	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte3(x, loi, M))}]
+	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte3(x, loi, M))}]  # dictionnaire des contraintes
 	ls = log_vs(loi)
 	res = []
 	Rlist = []
 	for k in range(0, 10):
-		valeur_initiale = np.array([np.random.rand(), np.random.rand()])
-		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x
-		res.append(norme(gradient((lambda y: ls(y, M)), R)))
+		valeur_initiale = np.array([np.random.rand(), np.random.rand()])  # valeur initiale random
+		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x  # solution déterminée
+		res.append(norme(gradient((lambda y: ls(y, M)), R)))  # calcul de la norme de la solution
 		Rlist.append(R)
 		if norme(gradient((lambda y: ls(y, M)), R)) < 1e-6:
-			return R
-	ind = res.index(min(res))
+			M = np.array(hessienne((lambda y: ls(y, M)), R, h=1e-6))  # calcul de la matrice hessienne
+			det = np.linalg.det(M)  # calcul du déterminant de la matrice hessienne
+			tr = np.trace(M)  # calcul de la trace de la matrice hessienne
+			if (det > 0 and tr > 0):  # si le déterminant et la trace sont > 0, les valeurs propres sont > 0, donc la matrice hessienne est déf positive
+				return R
+	ind = res.index(min(res))  # sinon, prendre la solution avec le gradient minimal
 	return Rlist[ind]
 
 
@@ -120,32 +161,38 @@ def contrainte4(x):
 
 ####
 # Cas particulier exponentielle polynomiale
-###
+####
 
 
+# maximum de vraisemblance modèle 1
 def max_vs_m1_epp(M, m):
 	ls = logvs_expopoly
 	moy = esp_expopoly
 	mom2_f = mom2_expopoly
-	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte2(x, M, mom2_f))}, {'type': 'ineq', 'fun': (lambda x: contrainte1(x, M, moy))}, {'type': 'eq', 'fun': (lambda x: contrainte4(x))}]
+	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte2(x, M, mom2_f))}, {'type': 'ineq', 'fun': (lambda x: contrainte1(x, M, moy))}, {'type': 'eq', 'fun': (lambda x: contrainte4(x))}]  # dictionnaire des contraintes
 	res = []
 	Rlist = []
 	for k in range(0, 10):
 		valeur_initiale = [np.random.rand()]
 		for j in range(m):
 			valeur_initiale.append(np.random.rand())
-		valeur_initiale = np.array(valeur_initiale)
-		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x
-		res.append(norme(gradient((lambda y: ls(y, M)), R)))
+		valeur_initiale = np.array(valeur_initiale)  # valeur initiale random
+		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x  # solution déterminée
+		res.append(norme(gradient((lambda y: ls(y, M)), R)))  # calcul de la norme de la solution
 		Rlist.append(R)
 		if norme(gradient((lambda y: ls(y, M)), R)) < 1e-6:
-			return R
-	ind = res.index(min(res))
+			M = np.array(hessienne((lambda y: ls(y, M)), R, h=1e-6))  # calcul de la matrice hessienne
+			det = np.linalg.det(M)  # calcul du déterminant de la matrice hessienne
+			tr = np.trace(M)  # calcul de la trace de la matrice hessienne
+			if (det > 0 and tr > 0):  # si le déterminant et la trace sont > 0, les valeurs propres sont > 0, donc la matrice hessienne est déf positive
+				return R
+	ind = res.index(min(res))  # sinon, prendre la solution avec le gradient minimal
 	return Rlist[ind]
 
 
+# maximum de vraisemblance modèle 2
 def max_vs_m2_epp(M, m):
-	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte3(x, "expo_poly", M))}, {'type': 'eq', 'fun': (lambda x: contrainte4(x))}]
+	cons = [{'type': 'ineq', 'fun': (lambda x: contrainte3(x, "expo_poly", M))}, {'type': 'eq', 'fun': (lambda x: contrainte4(x))}]  # dictionnaire des contraintes
 	ls = logvs_expopoly
 	res = []
 	Rlist = []
@@ -153,11 +200,15 @@ def max_vs_m2_epp(M, m):
 		valeur_initiale = [np.random.rand()]
 		for j in range(m):
 			valeur_initiale.append(np.random.rand())
-		valeur_initiale = np.array(valeur_initiale)
-		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x
-		res.append(norme(gradient((lambda y: ls(y, M)), R)))
+		valeur_initiale = np.array(valeur_initiale)  # valeur initiale random
+		R = scipy.optimize.minimize((lambda x: ls(x, M)), valeur_initiale, tol=1e-6, options={'maxiter': 300}, constraints=cons).x  # solution déterminée
+		res.append(norme(gradient((lambda y: ls(y, M)), R)))  # calcul de la norme de la solution
 		Rlist.append(R)
 		if norme(gradient((lambda y: ls(y, M)), R)) < 1e-6:
-			return R
-	ind = res.index(min(res))
+			M = np.array(hessienne((lambda y: ls(y, M)), R, h=1e-6))  # calcul de la matrice hessienne
+			det = np.linalg.det(M)  # calcul du déterminant de la matrice hessienne
+			tr = np.trace(M)  # calcul de la trace de la matrice hessienne
+			if (det > 0 and tr > 0):  # si le déterminant et la trace sont > 0, les valeurs propres sont > 0, donc la matrice hessienne est déf positive
+				return R
+	ind = res.index(min(res))  # sinon, prendre la solution avec le gradient minimal
 	return Rlist[ind]
