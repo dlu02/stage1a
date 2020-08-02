@@ -25,6 +25,7 @@ Pour plus de facilité, et pour voir le résultat, vous pouvez accéder à la pa
 
 - L'en-tête du site est contenu dans `top.php` et est inclus via PHP dans chaque page du site, et de même pour le pied de page du site, contenu dans `bottom.php`
 
+- Enfin, le rapport du stage se trouve ici : [a relative link](rapport_stage2020.pdf) 
 Bonne lecture !
 
 Damien Lu
