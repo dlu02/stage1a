@@ -39,7 +39,7 @@
 			<p>Chaque page de résultat de test est enregistrée sur le serveur et se voit attribuer un numéro, qui permet à postériori de pouvoir la retrouver soit via le lien renvoyé, soit dans la partie Recherche, muni du numéro.</p>
 		<h3>Moyens techniques</h3>
 			<p>
-				La page est propulsée par un serveur Debian 10 sous Nginx 1.14.2, PHP 7.3 et Python 3.7. Tous les calculs et les modélisations sont effectués à l'aide de Python via le langage PHP.
+				La page est propulsée par un serveur Arch Linux sous Nginx, PHP 8 et Python 3.9. Tous les calculs et les modélisations sont effectués à l'aide de Python via le langage PHP.
 			</p>
 	</div>
 	<footer>
